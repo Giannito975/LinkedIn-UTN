@@ -21,8 +21,6 @@ namespace Model;
       
         public function setFirstName($firstName){
                 $this->firstName = $firstName;
-
-                return $this;
         }
 
         
@@ -33,8 +31,6 @@ namespace Model;
         
         public function setLastName($lastName) {
                 $this->lastName = $lastName;
-
-                return $this;
         }
 
         public function getDni(){
@@ -44,8 +40,6 @@ namespace Model;
        
         public function setDni($dni){
                 $this->dni = $dni;
-
-                return $this;
         }
 
        
@@ -56,8 +50,6 @@ namespace Model;
         
         public function setId($id){
                 $this->id = $id;
-
-                return $this;
         }
     }
 
