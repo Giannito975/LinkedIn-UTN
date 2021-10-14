@@ -7,6 +7,7 @@ namespace Model;
         private $lastName; //String
         private $dni; //string
         private $id; //string
+        private $role; //integer: 0 = admin, 1 = student, 2 = empresa.
 
         //Averiguar cómo hacemos para pasarle por parámetro el id de User, siendo clase padre de Student, que también tiene su propio id.
         public function __construct($firstName, $lastName, $dni, $id, $userName, $password, $email){
