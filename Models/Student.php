@@ -6,6 +6,12 @@ namespace Model;
         private $firstName; //String
         private $lastName; //String
         private $dni; //string
+        private $fileNumber; //string
+        private $gender; //genero
+        private $birthDate; //atributo tipo Date (revisar)
+        private $email;
+        private $phoneNumber;
+        private $isActive; //boolean
         private $id; //string
         private $role; //integer: 0 = admin, 1 = student, 2 = empresa.
 
@@ -51,6 +57,17 @@ namespace Model;
         
         public function setId($id){
                 $this->id = $id;
+        }
+
+        
+
+       
+        public function getFileNumber() {
+                return $this->fileNumber;
+        }
+
+        public function setFileNumber($fileNumber) {
+                $this->fileNumber = $fileNumber;
         }
     }
 
