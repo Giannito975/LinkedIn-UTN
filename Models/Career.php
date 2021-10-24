@@ -8,6 +8,11 @@ namespace Models;
         private $name;
         private $title; //título que se entrega una vez completada
         private $status;
+
+        public function __construct()
+        {
+                
+        }
         
         
         public function getId(){
