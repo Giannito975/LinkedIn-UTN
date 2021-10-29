@@ -4,18 +4,18 @@ namespace Models;
 
     abstract class User {
 
-        private $userName;
+        private $active;
         private $password;
         private $email;
 
-        public function getUserName()
+        public function getActive()
         {
-                return $this->userName;
+                return $this->active;
         }
 
     
-        public function setUserName($userName){
-                $this->userName = $userName;
+        public function setActive($active){
+                $this->active = $active;
 
                 return $this;
         }
