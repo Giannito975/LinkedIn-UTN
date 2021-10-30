@@ -1,6 +1,8 @@
+<body class="background">
+
 <?php
-    require_once('nav.php');
     require_once('header.php');
+    require_once('student-nav.php');
 ?>
 <form action="">
     <div class="mb-3">
@@ -14,3 +16,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+</body>

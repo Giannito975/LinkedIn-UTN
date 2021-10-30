@@ -1,0 +1,11 @@
+.background{
+    background-image: url("../img/fachada-utn.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+ul{
+    align-items: center;
+}
