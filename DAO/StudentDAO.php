@@ -9,13 +9,14 @@
     class StudentDAO implements IDao
     {
         private $connection;
+        private $studentList = array();
         private $tableName = "students";
 
         public function Add($student)
         {
             try
             {
-                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber)";
+                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active)";
     
                 $parameters['idStudent']=$student->getIdStudent(); //se le ingresa el id porque en este caso NO es auto_increment (ojo los demas DAO)
                 $parameters['career']=$student->getIdCareer();
@@ -26,6 +27,7 @@
                 $parameters['gender']=$student->getGender();
                 $parameters['birthdate']=$student->getBirthDate();
                 $parameters['phoneNumber']=$student->getPhoneNumber();
+                $parameters['active']=$student->getActive();
     
                 $this->connection =Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
@@ -49,12 +51,15 @@
             $json = file_get_contents('https://utn-students-api.herokuapp.com/api/Student', false, $context);
 
             $arrayToDecode = ($json) ? json_decode($json, true) : array();
-
-            //var_dump($arrayToDecode);
     
             foreach($arrayToDecode as $valuesArray)
             {
                 var_dump($valuesArray);
+                if($valuesArray['active'] == true){
+                    $valuesArray['active'] = 1;
+                }else{
+                    $valuesArray['active'] = 0;
+                }
                 $student = new Student(
                     $valuesArray['studentId'], 
                     $valuesArray['careerId'], 
@@ -64,10 +69,9 @@
                     $valuesArray['fileNumber'], 
                     $valuesArray["gender"],
                     $valuesArray["birthDate"],
-                    $valuesArray["phoneNumber"]);
+                    $valuesArray["phoneNumber"],
+                    $valuesArray["active"]);
                     
-                    var_dump($student);
-
                 $this->Add($student);
             }
             
@@ -75,28 +79,33 @@
 
         public function GetAll()
         {
-            try
-            {
-                $studentList = array();
-
-                $query = "CALL Student_GetAll()";//Se guarda la accion que se hara en la BDD
-
+            try {
+                $query= "SELECT * FROM ".$this->tableName;
+    
                 $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());
+    
+                foreach($result as $row){
+                    $student = new Student(
+                    $row['id_student'], 
+                    $row['id_career'], 
+                    $row['first_name'], 
+                    $row["last_name"],
+                    $row['dni'], 
+                    $row['file_number'], 
+                    $row["gender"],
+                    $row["birthdate"],
+                    $row["phone_number"],
+                    $row["active"]
+                    );
 
-                $result = $this->connection->Execute($query, array(), QueryType::StoredProcedure);//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
-
-                foreach($result as $row)
-                {
-                    $student = new student();
-                    $student->setId($row["id_student"]);
-                    $student->setFirstName($row["student_firstname"]);
-                    $student->setLastName($row["student_lastname"]);
-
-                    array_push($studentList, $student);
+                    array_push($this->studentList, $student);
                 }
-                return $studentList;
-            }   
-            catch(Exception $ex)
+                
+                return $this->studentList;
+            }
+            catch (\PDOException $ex)
             {
                 throw $ex;
             }

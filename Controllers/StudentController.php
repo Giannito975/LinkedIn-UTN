@@ -13,17 +13,18 @@
             $this->studentDAO = new StudentDAO();
         }
 
-        /*public function ShowAddView()
+        public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");
         }
 
         public function ShowListView()
         {
+            //$studentList = $this->studentDAO->retrieveStudentsJson();
             $studentList = $this->studentDAO->GetAll();
 
-            require_once(VIEWS_PATH."student-list.php");
-        }*/
+            require_once(VIEWS_PATH."home.php");
+        }
 
         public function Add($recordId, $firstName, $lastName)
         {
