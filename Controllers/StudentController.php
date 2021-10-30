@@ -13,7 +13,7 @@
             $this->studentDAO = new StudentDAO();
         }
 
-        public function ShowAddView()
+        /*public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");
         }
@@ -23,7 +23,7 @@
             $studentList = $this->studentDAO->GetAll();
 
             require_once(VIEWS_PATH."student-list.php");
-        }
+        }*/
 
         public function Add($recordId, $firstName, $lastName)
         {
