@@ -13,6 +13,11 @@
             $this->studentDAO = new StudentDAO();
         }
 
+        //hablar con dante san sobre si es provisional o no
+        public function ShowProfileView(){
+            require_once(VIEWS_PATH."student-profile.php");
+        }
+
         public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");
