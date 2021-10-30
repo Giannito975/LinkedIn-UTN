@@ -22,6 +22,7 @@
         {
             //$studentList = $this->studentDAO->retrieveStudentsJson();
             //$studentList = $this->studentDAO->GetAll();
+            //$studentList = $this->studentDAO->GetByEmail("dhasely4@blinklist.com");
 
             require_once(VIEWS_PATH."home.php");
         }
@@ -66,13 +67,17 @@
         }
 
         public function GetByEmail($email){
-            $studentArray = $this->GetAllActive();
-            foreach($studentArray as $student){
+            try{
+                $student = $this->studentDAO->GetByEmail($email);
                 if($student->getEmail() == $email){
                     return true;
                 }
+                return false;
             }
-            return false;
+            catch(\PDOException $e){
+                $message = $e->getMessage();
+                $this->homeController->StudentView($message);
+            }
         }
         
     }
