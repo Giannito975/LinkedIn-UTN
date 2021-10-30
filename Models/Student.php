@@ -1,10 +1,12 @@
 <?php
-namespace Model;
+namespace Models;
+
+use Models\User;
 
     class Student extends User {
 
-        private $firstName; //String
-        private $lastName; //String
+        private $firstName; //String (Not Null)
+        private $lastName; //String (Not Null)
         private $dni; //string
         private $fileNumber; //string
         private $gender; //genero
@@ -12,11 +14,15 @@ namespace Model;
         private $email;
         private $phoneNumber;
         private $isActive; //boolean
-        private $id; //string
+        private $id; //string----------Lejago(Not Null)
         private $role; //integer: 0 = admin, 1 = student, 2 = empresa.
 
         //Averiguar cómo hacemos para pasarle por parámetro el id de User, siendo clase padre de Student, que también tiene su propio id.
-        public function __construct($firstName, $lastName, $dni, $id, $userName, $password, $email){
+        /*public function __construct($firstName, $lastName, $dni, $id, $userName, $password, $email){
+
+        }*/
+
+        public function __construct(){
 
         }
 

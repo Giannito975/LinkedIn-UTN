@@ -2,7 +2,7 @@
     namespace Controllers;
 
     use DAO\StudentDAO as StudentDAO;
-    use Models\Student as Student;
+    use Models\Student;
 
     class StudentController
     {
@@ -28,7 +28,7 @@
         public function Add($recordId, $firstName, $lastName)
         {
             $student = new Student();
-            $student->setRecordId($recordId);
+            $student->setId($recordId);
             $student->setfirstName($firstName);
             $student->setLastName($lastName);
 
