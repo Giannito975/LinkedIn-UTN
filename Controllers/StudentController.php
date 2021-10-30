@@ -13,6 +13,12 @@
             $this->studentDAO = new StudentDAO();
         }
 
+        //Método para recibir todos los estudiantes en un array.
+        public function GetAll(){
+            $studentsArray = $this->studentDAO->retrieveStudentsJson();
+
+            
+        }
         public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");

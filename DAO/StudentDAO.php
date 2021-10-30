@@ -15,19 +15,62 @@
         {
             try
             {
-                $query = "CALL Student_Add(?, ?, ?)";//Se guarda la accion que se hara en la BDD
-
-                $parameters["student_firstname"] =  $student->getFirstName();
-                $parameters["student_lastname"] = $student->getLastName();
-
-                $this->connection = Connection::GetInstance();
-
-                $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion en la BDD
-            }   
-            catch(Exception $ex)
+                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber)";
+    
+                $parameters['idStudent']=$student->getIdStudent(); //se le ingresa el id porque en este caso NO es auto_increment (ojo los demas DAO)
+                $parameters['career']=$student->getIdCareer();
+                $parameters['firstName']=$student->getFirstName();
+                $parameters['lastName']=$student->getLastName();
+                $parameters['dni']=$student->getDni();
+                $parameters['fileNumber']=$student->getFileNumber();
+                $parameters['gender']=$student->getGender();
+                $parameters['birthdate']=$student->getBirthDate();
+                $parameters['phoneNumber']=$student->getPhoneNumber();
+    
+                $this->connection =Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
+            }
+            catch(\PDOException $ex)
             {
                 throw $ex;
             }
+        }
+
+        public function retrieveStudentsJson(){
+
+            $options = array(
+                'http' => array(
+                  'method'=>"GET",
+                  'header'=>"x-api-key: 4f3bceed-50ba-4461-a910-518598664c08")
+            );
+
+            $context = stream_context_create($options);
+
+            $json = file_get_contents('https://utn-students-api.herokuapp.com/api/Student', false, $context);
+
+            $arrayToDecode = ($json) ? json_decode($json, true) : array();
+
+            //var_dump($arrayToDecode);
+    
+            foreach($arrayToDecode as $valuesArray)
+            {
+                var_dump($valuesArray);
+                $student = new Student(
+                    $valuesArray['studentId'], 
+                    $valuesArray['careerId'], 
+                    $valuesArray['firstName'], 
+                    $valuesArray["lastName"],
+                    $valuesArray['dni'], 
+                    $valuesArray['fileNumber'], 
+                    $valuesArray["gender"],
+                    $valuesArray["birthDate"],
+                    $valuesArray["phoneNumber"]);
+                    
+                    var_dump($student);
+
+                $this->Add($student);
+            }
+            
         }
 
         public function GetAll()

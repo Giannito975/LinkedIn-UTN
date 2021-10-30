@@ -5,7 +5,9 @@
     {
         public function Index($message = "")
         {
-            require_once(VIEWS_PATH."student-add.php");
+            $studentController = new StudentController();
+            $studentList = $studentController->GetAll();
+            require_once(VIEWS_PATH."index.php");
         }        
     }
 ?>
