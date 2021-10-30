@@ -7,8 +7,11 @@ define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
 
+define('API_KEY', 'x-api-key: 4f3bceed-50ba-4461-a910-518598664c08');
+define('API_URL','https://utn-students-api.herokuapp.com/api/');
+
 define("DB_HOST", "localhost");
-define("DB_NAME", "University");
+define("DB_NAME", "linkedin_utn");
 define("DB_USER", "root");
 define("DB_PASS", "");
 ?>
