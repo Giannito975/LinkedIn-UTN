@@ -1,15 +1,17 @@
 CREATE DATABASE LinkedIn_UTN;
 USE	LinkedIn_UTN;
     
-#DROP TABLE Career
+#DROP TABLE Careers
 CREATE TABLE IF NOT EXISTS Careers
 (
-	id_career INT AUTO_INCREMENT,
+	careerId INT AUTO_INCREMENT,
     description VARCHAR(150) NOT NULL,
-    active BOOLEAN,
+    active INT,
     
-    CONSTRAINT pk_id_career PRIMARY KEY (id_career)
+    CONSTRAINT pk_careerId PRIMARY KEY (careerId)
 );
+
+SELECT * FROM Careers;
     
 #DROP TABLE Students
 CREATE TABLE IF NOT EXISTS Students
@@ -34,6 +36,18 @@ CREATE TABLE IF NOT EXISTS Students
 );
 
 SELECT * FROM Students;
+    
+#DROP TABLE JobPosition
+CREATE TABLE IF NOT EXISTS JobPosition
+(
+	jobPositionId INT NOT NULL,
+    careerId INT NOT NULL,
+    description VARCHAR(50),
+    
+    CONSTRAINT pk_jobPosition PRIMARY KEY (jobPositionId),
+    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId)
+);
+    
     
 CREATE TABLE IF NOT EXISTS Companies
 (
