@@ -13,8 +13,9 @@ class Student extends User {
     private $idCareer; 
     private $idStudent; //string
     private $active;
+    private $email;
 
-    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active)
+    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active, $email)
     {
             $this->idStudent = $idStudent;
             $this->idCareer = $idCareer;
@@ -26,7 +27,16 @@ class Student extends User {
             $this->birthDate = $birthdate;
             $this->phoneNumber = $phoneNumber;
             $this->active = $active;
+            $this->email = $email;
     }
+
+        public function getEmail() {
+                return $this->email;
+        }
+
+        public function setEmail($email){
+                $this->email = $email;
+        }
 
         public function getActive() {
                 return $this->active;

@@ -16,7 +16,7 @@
         {
             try
             {
-                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active)";
+                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active, email) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active, :email)";
     
                 $parameters['idStudent']=$student->getIdStudent(); //se le ingresa el id porque en este caso NO es auto_increment (ojo los demas DAO)
                 $parameters['career']=$student->getIdCareer();
@@ -28,6 +28,7 @@
                 $parameters['birthdate']=$student->getBirthDate();
                 $parameters['phoneNumber']=$student->getPhoneNumber();
                 $parameters['active']=$student->getActive();
+                $parameters['email']=$student->getEmail();
     
                 $this->connection =Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
@@ -70,7 +71,8 @@
                     $valuesArray["gender"],
                     $valuesArray["birthDate"],
                     $valuesArray["phoneNumber"],
-                    $valuesArray["active"]);
+                    $valuesArray["active"],
+                    $valuesArray["email"]);
                     
                 $this->Add($student);
             }
@@ -97,12 +99,13 @@
                     $row["gender"],
                     $row["birthdate"],
                     $row["phone_number"],
-                    $row["active"]
+                    $row["active"],
+                    $row["email"]
                     );
 
                     array_push($this->studentList, $student);
                 }
-                
+
                 return $this->studentList;
             }
             catch (\PDOException $ex)
