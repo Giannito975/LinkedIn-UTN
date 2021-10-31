@@ -16,7 +16,11 @@
         {
             try
             {
-                if($this->verifyId($student->getIdStudent())){
+                $studentList = $this->retrieveStudentsJson();
+                var_dump($this->studentList);
+                die();
+
+                foreach($this->studentList as $student){
 
                     $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active, email, password) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active, :email, :password)";
     
@@ -32,11 +36,10 @@
                     $parameters['active']=$student->getActive();
                     $parameters['email']=$student->getEmail();
                     $parameters['password']=$student->getPassword();
-        
+            
                     $this->connection =Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
                 }
-                
             }
             catch(\PDOException $ex)
             {
@@ -79,8 +82,9 @@
                     $valuesArray["email"],
                     $valuesArray = null);
                     
-                $this->Add($student);
+                array_push($this->studentList, $student);
             }
+            return $this->studentList;
             
         }
 
@@ -156,14 +160,57 @@
             }
         }
 
-        public function verifyId($id){
-            $studentList = $this->GetAll();
-            foreach($studentList as $student){
-                if($student->getIdStudent() == $id){
-                    return false;
+        public function GetById($id){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_student = '".$id."'";//Se guarda la accion que se hara en la BDD
+
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                    
+                foreach($result as $row){
+                    $student = new Student(
+                        $row['id_student'], 
+                        $row['id_career'], 
+                        $row['first_name'], 
+                        $row["last_name"],
+                        $row['dni'], 
+                        $row['file_number'], 
+                        $row["gender"],
+                        $row["birthdate"],
+                        $row["phone_number"],
+                        $row["active"],
+                        $row["email"],
+                        $row["password"]
+                    );
                 }
+                var_dump($student);
+                return $student;
+            }   
+            catch(Exception $ex)
+            {
+                throw $ex;
             }
-            return true;
         }
+
+        public function updatePassword($email, $password){
+            try
+            {
+                $query= "UPDATE ".$this->tableName." SET  password = :password WHERE (email = :email)";
+                $parameters["email"] =  $email;
+                $parameters["password"] = $password;
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+        catch(\PDOException $ex)
+        {
+            throw $ex;
+        }
+        }
+        
+
     }
 ?>
