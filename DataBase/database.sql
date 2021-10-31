@@ -24,15 +24,17 @@ CREATE TABLE IF NOT EXISTS Students
     file_number VARCHAR(20) NOT NULL,
     gender VARCHAR(20) NOT NULL,
     birthdate DATETIME NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
     active INT,
+    password VARCHAR(25),
     
     CONSTRAINT pk_id_student PRIMARY KEY (id_student),
     CONSTRAINT fk_id_career FOREIGN KEY (id_career) REFERENCES Career(id_career),
     CONSTRAINT unq_dni UNIQUE (dni),
     CONSTRAINT unq_file_number UNIQUE (file_number),
-    CONSTRAINT unq_email UNIQUE (email)
+    CONSTRAINT unq_email UNIQUE (email),
+    CONSTRAINT unq_password UNIQUE (password)
 );
 
 SELECT * FROM Students;
@@ -48,6 +50,7 @@ CREATE TABLE IF NOT EXISTS JobPosition
     CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId)
 );
     
+SELECT * FROM JobPosition;
     
 CREATE TABLE IF NOT EXISTS Companies
 (
@@ -99,15 +102,15 @@ CREATE TABLE IF NOT EXISTS Industries
     CONSTRAINT unq_industry unique (type)
 );
 
+#DROP TABLE Administrators
 CREATE TABLE IF NOT EXISTS Administrators
 (
     id_admin INT AUTO_INCREMENT NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    employee_number VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     
     CONSTRAINT pk_id_admin PRIMARY KEY (id_admin),
-    CONSTRAINT unq_employee_number unique (employee_number)
+    CONSTRAINT unq_email unique (email)
 );
 
 
