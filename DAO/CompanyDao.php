@@ -99,6 +99,36 @@ class CompanyDao{
             }
         }
 
+        public function GetByName($name){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE name = '".$name."'";//Se guarda la accion que se hara en la BDD
+
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                    
+                foreach($result as $row){
+                    $company = new Company(
+                        $row['id_company'], 
+                        $row['name'], 
+                        $row['about_us'], 
+                        $row["company_link"],
+                        $row['email'], 
+                        $row['industry'], 
+                        $row["city"],
+                        $row["country"]
+                        );
+                }
+                var_dump($company);
+                return $company;
+            }   
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function UpdateCompany(Company $company){
             try
             {
