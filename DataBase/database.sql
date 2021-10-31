@@ -113,6 +113,8 @@ CREATE TABLE IF NOT EXISTS Administrators
     CONSTRAINT unq_email unique (email)
 );
 
+SELECT * FROM Administrators;
+
 
     
     

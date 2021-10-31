@@ -109,20 +109,20 @@
             $studentList = $this->GetAll();
             foreach($studentList as $student){
                 if($student->getEmail() == $email){
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         public function verifyPassword($password){
             $studentList = $this->GetAll();
             foreach($studentList as $student){
                 if($student->getPassword() == $password){
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         public function verifyId($id){
@@ -133,6 +133,12 @@
                 }
             }
             return false;
+        }
+
+        public function updatePassword($email, $password){
+            if($this->verifyEmail($email)){
+                $this->studentDAO->updatePassword($email, $password);
+            }
         }
         
     }

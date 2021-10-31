@@ -15,7 +15,7 @@ class CareerController{
 
     public function ShowListView()
     {
-        $careersList = $this->careerDao->retrieveCareersJson();
+        //$careersList = $this->careerDao->retrieveCareersJson();
         require_once(VIEWS_PATH."home.php");
     }
 }

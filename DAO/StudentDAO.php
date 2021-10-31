@@ -12,7 +12,7 @@
         private $studentList = array();
         private $tableName = "students";
 
-        public function Add($student)
+        public function Add(Student $student)
         {
             try
             {
@@ -205,10 +205,10 @@
 
                 $this->connection->ExecuteNonQuery($query, $parameters);
             }
-        catch(\PDOException $ex)
-        {
-            throw $ex;
-        }
+            catch(\PDOException $ex)
+            {
+                throw $ex;
+            }
         }
         
 
