@@ -23,9 +23,11 @@
 
         public function Add(Admin $admin){
 
-            if(!$this->verifyAdmin($admin->getEmail())){
-                $this->adminDao->Add($admin);
-                return true;
+            if(!$this->verifyAdminId($admin->getId_admin())){
+                if(!$this->verifyAdmin($admin->getEmail())){
+                    $this->adminDao->Add($admin);
+                    return true;
+                }
             }
             return false;
         }
@@ -35,6 +37,19 @@
             $adminList = $this->adminDao->GetAll();
             foreach($adminList as $admin){
                 if($admin->getEmail() == $email){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+
+        // Verifica si existe un admin con el mismo id
+        public function verifyAdminId($id){
+            $adminList = $this->adminDao->GetAll();
+            foreach($adminList as $admin){
+                if($admin->getId_admin() == $id){
                     return true;
                 }
                 else{
