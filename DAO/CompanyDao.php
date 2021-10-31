@@ -35,6 +35,38 @@ class CompanyDao{
                 throw $ex;
             }
         }
+
+        public function GetAll()
+        {
+            try {
+                $query= "SELECT * FROM ".$this->tableName;
+    
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());
+    
+                foreach($result as $row){
+                    $company = new Company(
+                    $row['id_company'], 
+                    $row['name'], 
+                    $row['about_us'], 
+                    $row["company_link"],
+                    $row['email'], 
+                    $row['industry'], 
+                    $row["city"],
+                    $row["country"]
+                    );
+
+                    array_push($this->companyList, $company);
+                }
+
+                return $this->companyList;
+            }
+            catch (\PDOException $ex)
+            {
+                throw $ex;
+            }
+        }
         
     }
 
