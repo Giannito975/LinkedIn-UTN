@@ -2,7 +2,6 @@
 
 <?php
     require_once('header.php');
-    require_once('student-nav.php');
 ?>
 <form action="">
     <div class="mb-3">

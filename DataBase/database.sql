@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS Students
     file_number VARCHAR(20) NOT NULL,
     gender VARCHAR(20) NOT NULL,
     birthdate DATETIME NOT NULL,
-    email VARCHAR(30),
+    email VARCHAR(30) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
-    active BOOLEAN,
+    active INT,
     
     CONSTRAINT pk_id_student PRIMARY KEY (id_student),
     CONSTRAINT fk_id_career FOREIGN KEY (id_career) REFERENCES Career(id_career),
