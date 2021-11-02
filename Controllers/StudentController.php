@@ -37,6 +37,10 @@
             require_once(VIEWS_PATH."home.php");
         }
 
+        public function ShowRegisterView(){
+            require_once(VIEWS_PATH."user-register.php");
+        }
+
         public function Add(){
             $studentList = $this->studentDAO->retrieveStudentsJson();
             if($this->verifyGetAll()){
