@@ -6,32 +6,40 @@
     use Models\Student as Student;    
     use DAO\Connection as Connection;
 
-    class StudentDAO implements IDao
+    class StudentDAO
     {
         private $connection;
         private $studentList = array();
         private $tableName = "students";
 
-        public function Add($student)
+        public function Add(Student $student)
         {
             try
             {
-                $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active, email) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active, :email)";
+                $studentList = $this->retrieveStudentsJson();
+                var_dump($this->studentList);
+                die();
+
+                foreach($this->studentList as $student){
+
+                    $query= "INSERT INTO ".$this->tableName."(id_student, id_career, first_name, last_name, dni, file_number, gender, birthdate, phone_number, active, email, password) VALUES (:idStudent, :career, :firstName, :lastName, :dni, :fileNumber, :gender, :birthdate, :phoneNumber, :active, :email, :password)";
     
-                $parameters['idStudent']=$student->getIdStudent(); //se le ingresa el id porque en este caso NO es auto_increment (ojo los demas DAO)
-                $parameters['career']=$student->getIdCareer();
-                $parameters['firstName']=$student->getFirstName();
-                $parameters['lastName']=$student->getLastName();
-                $parameters['dni']=$student->getDni();
-                $parameters['fileNumber']=$student->getFileNumber();
-                $parameters['gender']=$student->getGender();
-                $parameters['birthdate']=$student->getBirthDate();
-                $parameters['phoneNumber']=$student->getPhoneNumber();
-                $parameters['active']=$student->getActive();
-                $parameters['email']=$student->getEmail();
-    
-                $this->connection =Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
+                    $parameters['idStudent']=$student->getIdStudent(); //se le ingresa el id porque en este caso NO es auto_increment (ojo los demas DAO)
+                    $parameters['career']=$student->getIdCareer();
+                    $parameters['firstName']=$student->getFirstName();
+                    $parameters['lastName']=$student->getLastName();
+                    $parameters['dni']=$student->getDni();
+                    $parameters['fileNumber']=$student->getFileNumber();
+                    $parameters['gender']=$student->getGender();
+                    $parameters['birthdate']=$student->getBirthDate();
+                    $parameters['phoneNumber']=$student->getPhoneNumber();
+                    $parameters['active']=$student->getActive();
+                    $parameters['email']=$student->getEmail();
+                    $parameters['password']=$student->getPassword();
+            
+                    $this->connection =Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
+                }
             }
             catch(\PDOException $ex)
             {
@@ -55,7 +63,6 @@
     
             foreach($arrayToDecode as $valuesArray)
             {
-                var_dump($valuesArray);
                 if($valuesArray['active'] == true){
                     $valuesArray['active'] = 1;
                 }else{
@@ -72,10 +79,12 @@
                     $valuesArray["birthDate"],
                     $valuesArray["phoneNumber"],
                     $valuesArray["active"],
-                    $valuesArray["email"]);
+                    $valuesArray["email"],
+                    $valuesArray = null);
                     
-                $this->Add($student);
+                array_push($this->studentList, $student);
             }
+            return $this->studentList;
             
         }
 
@@ -100,7 +109,8 @@
                     $row["birthdate"],
                     $row["phone_number"],
                     $row["active"],
-                    $row["email"]
+                    $row["email"],
+                    $row["password"]
                     );
 
                     array_push($this->studentList, $student);
@@ -114,26 +124,35 @@
             }
         }
 
-        public function GetById($id)
+        public function GetByEmail($email)
         {
             try
             {
 
-                $query = "CALL Student_GetById(?)";//Se guarda la accion que se hara en la BDD
-
-                $parameters["id_student"] =  $id;
+                $query = "SELECT * FROM ".$this->tableName." WHERE email = '".$email."'";//Se guarda la accion que se hara en la BDD
 
                 $this->connection = Connection::GetInstance();
  
-                $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
                 
-                $student = new Student();
-                $student->setId($result[0]["id_student"]);
-                $student->setFirstName($result[0]["student_firstname"]);
-                $student->setLastName($result[0]["student_lastname"]);
-                
+                foreach($result as $row){
+                    $student = new Student(
+                        $row['id_student'], 
+                        $row['id_career'], 
+                        $row['first_name'], 
+                        $row["last_name"],
+                        $row['dni'], 
+                        $row['file_number'], 
+                        $row["gender"],
+                        $row["birthdate"],
+                        $row["phone_number"],
+                        $row["active"],
+                        $row["email"],
+                        $row["password"]
+                    );
+                }
+                var_dump($student);
                 return $student;
-
             }   
             catch(Exception $ex)
             {
@@ -141,19 +160,33 @@
             }
         }
 
-        public function Update($student)
-        {
+        public function GetById($id){
             try
             {
-                $query = "CALL Student_Update(?, ?, ?)";//Se guarda la accion que se hara en la BDD
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_student = '".$id."'";//Se guarda la accion que se hara en la BDD
 
-                $parameters["id_student"] =  $student->getId();
-                $parameters["student_firstname"] =  $student->getFirstName();
-                $parameters["student_lastname"] = $student->getLastName();
-                
                 $this->connection = Connection::GetInstance();
-
-                $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion
+    
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                    
+                foreach($result as $row){
+                    $student = new Student(
+                        $row['id_student'], 
+                        $row['id_career'], 
+                        $row['first_name'], 
+                        $row["last_name"],
+                        $row['dni'], 
+                        $row['file_number'], 
+                        $row["gender"],
+                        $row["birthdate"],
+                        $row["phone_number"],
+                        $row["active"],
+                        $row["email"],
+                        $row["password"]
+                    );
+                }
+                var_dump($student);
+                return $student;
             }   
             catch(Exception $ex)
             {
@@ -161,22 +194,23 @@
             }
         }
 
-        public function Remove($id)
-        {
+        public function updatePassword($email, $password){
             try
             {
-                $query = "CALL Student_Remove(?)";//Se guarda la accion que se hara en la BDD
-
-                $parameters["id_student"] = $id;
+                $query= "UPDATE ".$this->tableName." SET  password = :password WHERE (email = :email)";
+                $parameters["email"] =  $email;
+                $parameters["password"] = $password;
 
                 $this->connection = Connection::GetInstance();
 
-                echo $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion en la BDD
-            }   
-            catch(Exception $ex)
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(\PDOException $ex)
             {
                 throw $ex;
             }
         }
+        
+
     }
 ?>
