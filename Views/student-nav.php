@@ -3,7 +3,7 @@
     <a class="nav-link active" aria-current="page" href="<?php echo FRONT_ROOT."Student/ShowProfileView"?>">Perfil</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Ofertas Laborales</a>
+    <a class="nav-link" href="#">Perfil</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Listado de Empresas</a>
