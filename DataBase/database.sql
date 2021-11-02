@@ -44,36 +44,35 @@ CREATE TABLE IF NOT EXISTS JobPosition
 (
 	jobPositionId INT NOT NULL,
     careerId INT NOT NULL,
+    companiesId INT NOT NULL,
     description VARCHAR(50),
     
     CONSTRAINT pk_jobPosition PRIMARY KEY (jobPositionId),
-    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId)
+    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId),
+    CONSTRAINT fk_companiesId FOREIGN KEY (companiesId) REFERENCES Companies (id_company)
 );
     
 SELECT * FROM JobPosition;
-    
+
+#DROP TABLE Companies
 CREATE TABLE IF NOT EXISTS Companies
 (
     id_company INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(50) NOT NULL,
-    foundation_date date NOT NULL,
-    cuit char(11) NOT NULL,
-    aboutUs text,
+    about_us text,
     company_link VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    active boolean NOT NULL,
-    industry INT NOT NULL,
-    city INT NOT NULL,
-    country INT NOT NULL,
-    creation_admin INT NOT NULL,
+    industry VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
     
     CONSTRAINT pk_id_company PRIMARY KEY (id_company),
-    CONSTRAINT unq_cuit unique (cuit),
     CONSTRAINT fk_industry foreign key (industry) references industries (id),
     CONSTRAINT fk_city foreign key (city) references cities (id),
-    CONSTRAINT fk_country foreign key (country) references countries (id),
-    CONSTRAINT fk_creation_admin foreign key (creation_admin) references administrators (id_admin)
+    CONSTRAINT fk_country foreign key (country) references countries (id)
 );
+
+SELECT * FROM Companies;
     
 CREATE TABLE IF NOT EXISTS Cities
 (

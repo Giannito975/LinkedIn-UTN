@@ -8,8 +8,9 @@ class Admin{
     private $email;
     private $password;
 
-    public function __construct($email, $password)
+    public function __construct($id_admin, $email, $password)
     {
+        $this->id_admin = $id_admin;
         $this->email = $email;
         $this->password = $password;
     }
