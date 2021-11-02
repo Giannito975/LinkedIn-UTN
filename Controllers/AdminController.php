@@ -16,18 +16,14 @@
 
         public function ShowListView($admin)
         {
-            
             $this->Add($admin);
             require_once(VIEWS_PATH."home.php");
         }
 
         public function Add(Admin $admin){
-
-            if(!$this->verifyAdminId($admin->getId_admin())){
-                if(!$this->verifyAdmin($admin->getEmail())){
-                    $this->adminDao->Add($admin);
-                    return true;
-                }
+            if(!$this->verifyAdmin($admin->getEmail())){
+                $this->adminDao->Add($admin);
+                return true;
             }
             return false;
         }
@@ -39,10 +35,8 @@
                 if($admin->getEmail() == $email){
                     return true;
                 }
-                else{
-                    return false;
-                }
             }
+            return false;
         }
 
         // Verifica si existe un admin con el mismo id
