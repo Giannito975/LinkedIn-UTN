@@ -14,6 +14,10 @@ class CompanyController{
         $this->companyDao = new CompanyDao();
     }
 
+    public function ShowCompanyList(){
+        require_once(VIEWS_PATH."company-list.php");
+    }
+
     public function ShowListView($company)
     {
         $this->Add($company);

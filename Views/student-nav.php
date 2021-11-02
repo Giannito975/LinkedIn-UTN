@@ -9,6 +9,6 @@
     <a class="nav-link" href="#">Ofertas laborales</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Listado empresas</a>
+    <a class="nav-link" href="<?php echo FRONT_ROOT."Company/ShowCompanyList"?>">Listado empresas</a>
   </li>
 </ul>
