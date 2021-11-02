@@ -18,6 +18,10 @@
             require_once(VIEWS_PATH."student-profile.php");
         }
 
+        public function ShowJobOfferView(){
+            require_once(VIEWS_PATH."job-offer.php");
+        }
+
         public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");
