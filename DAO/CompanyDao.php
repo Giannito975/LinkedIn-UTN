@@ -15,21 +15,19 @@ class CompanyDao{
         {
             try
             {
-                foreach($this->companyList as $company){
-
-                    $query= "INSERT INTO ".$this->tableName."(name, about_us, company_link, email, industry, city, country) VALUES (:name, :about_us, :company_link, :email, :industry, :city, :country)";
+                $query= "INSERT INTO ".$this->tableName."(name, about_us, company_link, email, industry, city, country) VALUES (:name, :about_us, :company_link, :email, :industry, :city, :country)";
     
-                    $parameters['name'] = $company->getName();
-                    $parameters['about_us'] = $company->getAbout_us();
-                    $parameters['company_link'] = $company->getCompany_link();
-                    $parameters['email'] = $company->getEmail();
-                    $parameters['industry'] = $company->getIndustry();
-                    $parameters['city'] = $company->getCity();
-                    $parameters['country'] = $company->getCountry();
+                $parameters['name'] = $company->getName();
+                $parameters['about_us'] = $company->getAbout_us();
+                $parameters['company_link'] = $company->getCompany_link();
+                $parameters['email'] = $company->getEmail();
+                $parameters['industry'] = $company->getIndustry();
+                $parameters['city'] = $company->getCity();
+                $parameters['country'] = $company->getCountry();
             
-                    $this->connection =Connection::GetInstance();
-                    $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
-                }
+                $this->connection =Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
+               
             }
             catch(\PDOException $ex)
             {
@@ -60,7 +58,6 @@ class CompanyDao{
 
                     array_push($this->companyList, $company);
                 }
-
                 return $this->companyList;
             }
             catch (\PDOException $ex)
@@ -90,7 +87,6 @@ class CompanyDao{
                         $row["country"]
                         );
                 }
-                var_dump($company);
                 return $company;
             }   
             catch(Exception $ex)
@@ -120,7 +116,6 @@ class CompanyDao{
                         $row["country"]
                         );
                 }
-                var_dump($company);
                 return $company;
             }   
             catch(Exception $ex)
