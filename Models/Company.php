@@ -14,6 +14,18 @@ namespace Models;
         private $city;
         private $country;
 
+        public function __construct($id_company, $name, $about_us, $company_link, $email, $industry, $city, $country)
+        {
+                $this->id_company = $id_company;
+                $this->name = $name;
+                $this->about_us = $about_us;
+                $this->company_link = $company_link;
+                $this->email = $email;
+                $this->industry = $industry;
+                $this->city = $city;
+                $this->country = $country;
+        }
+
       
         public function getName() {
                 return $this->name;

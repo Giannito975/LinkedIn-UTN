@@ -29,10 +29,10 @@
 
         public function ShowListView()
         {
-            $this->Add();
+            //$this->Add();
             //$studentList = $this->studentDAO->retrieveStudentsJson();
-            //$studentList = $this->studentDAO->GetAll();
-            //$studentList = $this->studentDAO->GetByEmail("dhasely4@blinklist.com");
+            //var_dump($this->GetAll());
+            //var_dump($this->GetByEmail("dhasely4@blinklist.com"));
 
             require_once(VIEWS_PATH."home.php");
         }
@@ -50,11 +50,9 @@
                     }
                 }
             }
-
         }
 
         public function GetAll(){
-
             try{
                 
                 $studentArray = $this->studentDAO->GetAll();

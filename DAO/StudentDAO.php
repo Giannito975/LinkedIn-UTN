@@ -17,8 +17,6 @@
             try
             {
                 $studentList = $this->retrieveStudentsJson();
-                var_dump($this->studentList);
-                die();
 
                 foreach($this->studentList as $student){
 
