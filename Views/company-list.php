@@ -8,8 +8,31 @@
     </div>
     <!-- foreach con todas las companys -->
     <div class="company-container">
-        <h3>nombre company</h3>
-        <h4>atributos</h4>
-        <h4>mas atributos</h4>
+    <table class="table bg-light-alpha">
+                    <thead>
+                         <th>Name</th>
+                         <th>About Us</th>
+                         <th>Company Link</th>
+                         <th>Email</th>
+                         <th>Industry</th>
+                         <th>City</th>
+                         <th>Country</th>
+                    </thead>
+                    <tbody>
+                         <tr>
+                              <?php foreach($companyList as $company){?>
+                                        <td><?php echo $company->getName(); ?></td>
+                                        <td><?php echo $company->getAbout_us(); ?></td>
+                                        <td><?php echo $company->getCompany_link(); ?></td>
+                                        <td><?php echo $company->getEmail(); ?></td>
+                                        <td><?php echo $company->getIndustry(); ?></td>
+                                        <td><?php echo $company->getCity(); ?></td>
+                                        <td><?php echo $company->getCountry(); ?></td>
+                         </tr>
+                         <tr>
+                              <?php } ?>
+                         </tr>
+                    </tbody>
+               </table>
     </div>
 </div>

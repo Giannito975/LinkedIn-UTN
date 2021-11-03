@@ -37,6 +37,11 @@ class HomeController
         }
 
         public function CompanyListView(){
+
+            $companyController = new CompanyController();
+
+            $companyList = $companyController->GetAll();
+
             require_once(VIEWS_PATH."company-list.php");
         }
     }
