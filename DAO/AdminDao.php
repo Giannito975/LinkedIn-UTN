@@ -39,9 +39,34 @@
 
                 foreach($result as $row){
                     $admin = new Admin(
-                    $row['id_admin'], 
-                    $row['email'], 
-                    $row['password']
+                        $row['id_admin'], 
+                        $row['email'], 
+                        $row['password']
+                    );
+
+                    array_push($this->adminList, $admin);
+                }
+                return $this->adminList;
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+        }
+
+        public function GetByEmail($email){
+            try{
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE email = '".$email."'";
+
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());
+
+                foreach($result as $row){
+                    $admin = new Admin(
+                        $row['id_admin'], 
+                        $row['email'], 
+                        $row['password']
                     );
 
                     array_push($this->adminList, $admin);

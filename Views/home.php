@@ -3,7 +3,7 @@
 <?php
     require_once('header.php');
 ?>
-<form action="<?php echo FRONT_ROOT."Student/verifyStudent"?>" method="post">
+<form action="<?php echo FRONT_ROOT."Home/Login"?>" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">

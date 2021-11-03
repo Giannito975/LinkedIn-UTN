@@ -96,12 +96,9 @@
             try{
                 if($this->verifyEmail($email)){
                     $student = $this->studentDAO->GetByEmail($email);
-                    if($student->getEmail() == $email){
-                        return true;
-                    }
-                    return false;
+                    return $student;
                 }
-                return false;
+                return null;
             }
             catch(\PDOException $e){
                 $message = $e->getMessage();
@@ -134,6 +131,13 @@
                 if($student->getPassword() == $password){
                     return true;
                 }
+            }
+            return false;
+        }
+
+        public function verifyStudent2($email, $password){
+            if($this->verifyEmail($email) && $this->verifyPassword($password)){
+                return true;
             }
             return false;
         }
