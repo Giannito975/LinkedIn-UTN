@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-class Student extends User {
+class Student{
 
     private $firstName; //String
     private $lastName; //String
