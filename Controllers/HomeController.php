@@ -53,5 +53,12 @@ class HomeController
 
             require_once(VIEWS_PATH."student-profile.php");
         }
+
+        public function AdminView(){
+
+            require_once(VIEWS_PATH."admin-nav.php");
+
+            
+        }
     }
 ?>

@@ -8,10 +8,12 @@
     class AdminController{
         
         private $adminDao;
+        private $homeController;
 
         public function __construct()
         {
             $this->adminDao = new AdminDao();
+            $this->homeController = new HomeController();
         }
 
         public function ShowListView($admin)
@@ -49,6 +51,12 @@
                 else{
                     return false;
                 }
+            }
+        }
+
+        public function loginAdmin($email){
+            if($this->verifyAdmin($email)){
+                $this->homeController->AdminView();
             }
         }
     }
