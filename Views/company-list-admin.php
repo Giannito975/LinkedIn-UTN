@@ -17,13 +17,14 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <?php echo $company->getAbout_us(), echo $company->getCompany_link(),
-                         echo $company->getEmail(),  echo $company->getIndustry(,)  echo $company->getCity(),
-                          echo $company->getCountry(); ?>
+                        <?php //echo($company->getAbout_us(), $company->getCompany_link(), $company->getEmail(), $company->getIndustry(), $company->getCity(), $company->getCountry()); ?> 
+                        <?php echo $company->getAbout_us();?>
+                        <?php echo $company->getCompany_link();?>
+                        <?php echo $company->getAbout_us();?>
+                        
                     </div>
                 </div>
             </div>
-            <?php } ?>
         </div>
-        
+        <?php } ?>
     </div>
