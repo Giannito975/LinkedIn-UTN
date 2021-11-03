@@ -11,8 +11,7 @@ class CompanyDao{
         private $companyList = array();
         private $tableName = "companies";
 
-        public function Add(Company $company)
-        {
+        public function Add(Company $company){
             try
             {
                 $query= "INSERT INTO ".$this->tableName."(name, about_us, company_link, email, industry, city, country) VALUES (:name, :about_us, :company_link, :email, :industry, :city, :country)";
@@ -35,8 +34,7 @@ class CompanyDao{
             }
         }
 
-        public function GetAll()
-        {
+        public function GetAll(){
             try {
                 $query= "SELECT * FROM ".$this->tableName;
     
