@@ -22,6 +22,7 @@ class CompanyController{
     {
         $this->Add($company);
         $this->GetAll();
+        //$this->companyDao->DeleteCompany(2);
         require_once(VIEWS_PATH."home.php");
     }
 

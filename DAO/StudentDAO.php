@@ -12,7 +12,7 @@
         private $studentList = array();
         private $tableName = "students";
 
-        public function Add(Student $student)
+        public function Add()
         {
             try
             {
@@ -83,7 +83,6 @@
                 array_push($this->studentList, $student);
             }
             return $this->studentList;
-            
         }
 
         public function GetAll()

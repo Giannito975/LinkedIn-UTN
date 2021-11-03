@@ -7,14 +7,12 @@ class JobPosition
 
 private $jobPositionId;
 private $careerId;
-private $id_company;
 private $description;
 
-    public function __construct($jobPositionId, $careerId, $id_company, $description)
+    public function __construct($jobPositionId, $careerId, $description)
     {
         $this->jobPositionId = $jobPositionId;
         $this->careerId = $careerId;
-        $this->id_company = $id_company;
         $this->description = $description;
     }
 
@@ -40,18 +38,6 @@ private $description;
     {
         $this->careerId = $careerId;
     }
-
-    public function getId_company()
-    {
-        return $this->id_company;
-    }
-
-
-    public function setId_company($id_company)
-    {
-        $this->id_company = $id_company;
-    }
-
 
     public function getDescription()
     {
