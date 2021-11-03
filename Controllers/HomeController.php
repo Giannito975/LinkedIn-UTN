@@ -69,8 +69,17 @@ class HomeController
             $adminController = new AdminController();
 
             if($studentController->verifyStudent2($email, $password)){
+
+                $student = $studentController->GetByEmail($email);
+                $_SESSION['loggedUser'] = $student;
+
                 $this->CompanyListView();
+                
             }elseif($adminController->verifyAdmin($email)){
+
+                $admin = $adminController->GetByEmail($email);
+                $_SESSION['loggedAdmin'] = $admin;
+
                 $this->AdminView();
             }
         }
