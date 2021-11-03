@@ -7,10 +7,12 @@
     class StudentController
     {
         private $studentDAO;
+        private $homeController;
 
         public function __construct()
         {
             $this->studentDAO = new StudentDAO();
+            $this->homeController = new HomeController();
         }
 
         //hablar con dante san sobre si es provisional o no
@@ -65,7 +67,7 @@
             catch(\PDOException $e){
             
                 $message = $e->getMessage();
-                $this->homeController->StudentView($message);
+                //$this->homeController->StudentView($message);
                 return null;
             }            
         }
@@ -85,7 +87,7 @@
             catch(\PDOException $e){
             
                 $message = $e->getMessage();
-                $this->homeController->StudentView($message);
+                //$this->homeController->StudentView($message);
                 return null;
             }             
         }
@@ -103,7 +105,7 @@
             }
             catch(\PDOException $e){
                 $message = $e->getMessage();
-                $this->homeController->StudentView($message);
+                //$this->homeController->StudentView($message);
             }
         }
 
@@ -136,6 +138,12 @@
             return false;
         }
 
+        public function verifyStudent($email, $password){
+            if($this->verifyEmail($email) && $this->verifyPassword($password)){
+                $this->homeController->CompanyListView();
+            }
+        }
+
         public function verifyId($id){
             $studentList = $this->GetAll();
             foreach($studentList as $student){
@@ -150,6 +158,7 @@
             if($this->verifyEmail($email)){
                 $this->studentDAO->updatePassword($email, $password);
             }
+            $this->homeController->HomeView();
         }
         
     }

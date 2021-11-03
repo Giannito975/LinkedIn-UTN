@@ -27,10 +27,17 @@ class HomeController
             require_once(VIEWS_PATH."home.php");
         }      
         
+        public function HomeView(){
+            require_once(VIEWS_PATH."home.php");
+        }
 
         public function JobPositionView($message){
             var_dump($message);
             require_once(VIEWS_PATH."home.php");
+        }
+
+        public function CompanyListView(){
+            require_once(VIEWS_PATH."company-list.php");
         }
     }
 ?>
