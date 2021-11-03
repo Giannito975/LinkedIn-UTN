@@ -44,5 +44,14 @@ class HomeController
 
             require_once(VIEWS_PATH."company-list.php");
         }
+
+        public function StudentListView(){
+
+            $studentController = new StudentController();
+
+            $studentList = $studentController->GetAllActive();
+
+            require_once(VIEWS_PATH."student-profile.php");
+        }
     }
 ?>
