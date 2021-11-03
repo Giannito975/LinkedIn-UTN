@@ -96,12 +96,9 @@
             try{
                 if($this->verifyEmail($email)){
                     $student = $this->studentDAO->GetByEmail($email);
-                    if($student->getEmail() == $email){
-                        return true;
-                    }
-                    return false;
+                    return $student;
                 }
-                return false;
+                return null;
             }
             catch(\PDOException $e){
                 $message = $e->getMessage();
