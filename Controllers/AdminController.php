@@ -22,6 +22,10 @@
             require_once(VIEWS_PATH."home.php");
         }
 
+        public function ShowJobOfferViewAdmin(){
+            require_once(VIEWS_PATH."job-offer-admin.php");
+        }
+
         public function Add(Admin $admin){
             if(!$this->verifyAdmin($admin->getEmail())){
                 $this->adminDao->Add($admin);
