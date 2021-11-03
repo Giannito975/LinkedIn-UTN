@@ -138,6 +138,13 @@
             return false;
         }
 
+        public function verifyStudent2($email, $password){
+            if($this->verifyEmail($email) && $this->verifyPassword($password)){
+                return true;
+            }
+            return false;
+        }
+
         public function verifyStudent($email, $password){
             if($this->verifyEmail($email) && $this->verifyPassword($password)){
                 $this->homeController->CompanyListView();

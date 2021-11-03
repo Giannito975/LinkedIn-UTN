@@ -39,20 +39,18 @@ CREATE TABLE IF NOT EXISTS Students
 
 SELECT * FROM Students;
     
-#DROP TABLE JobPosition
-CREATE TABLE IF NOT EXISTS JobPosition
+#DROP TABLE JobPositions
+CREATE TABLE IF NOT EXISTS JobPositions
 (
 	jobPositionId INT NOT NULL,
     careerId INT NOT NULL,
-    companiesId INT NOT NULL,
     description VARCHAR(50),
     
     CONSTRAINT pk_jobPosition PRIMARY KEY (jobPositionId),
-    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId),
-    CONSTRAINT fk_companiesId FOREIGN KEY (companiesId) REFERENCES Companies (id_company)
+    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId)
 );
     
-SELECT * FROM JobPosition;
+SELECT * FROM JobPositions;
 
 #DROP TABLE Companies
 CREATE TABLE IF NOT EXISTS Companies
@@ -67,9 +65,7 @@ CREATE TABLE IF NOT EXISTS Companies
     country VARCHAR(50) NOT NULL,
     
     CONSTRAINT pk_id_company PRIMARY KEY (id_company),
-    CONSTRAINT fk_industry foreign key (industry) references industries (id),
-    CONSTRAINT fk_city foreign key (city) references cities (id),
-    CONSTRAINT fk_country foreign key (country) references countries (id)
+    CONSTRAINT unq_name UNIQUE (name)
 );
 
 SELECT * FROM Companies;
