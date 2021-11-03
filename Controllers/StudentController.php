@@ -33,7 +33,7 @@
             if($this->verifyGetAll()){
                 foreach($studentList as $student){
                     if(!$this->verifyId($student->getIdStudent())){
-                        $this->studentDAO->Add($student);
+                        $this->studentDAO->Add();
                     }
                 }
             }
