@@ -33,6 +33,14 @@
             }
             return false;
         }
+
+        public function GetByEmail($email){
+            if(!$this->verifyAdmin($email)){
+                $admin = $this->adminDao->GetByEmail($email);
+                return $admin;
+            }
+            return null;
+        }
         
         // Verifica si existe el email
         public function verifyAdmin($email){
