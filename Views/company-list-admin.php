@@ -3,28 +3,34 @@
         require_once('header.php');
         require_once('admin-nav.php');
     ?>
-    <!-- foreach con todas las companys -->
     <div class="company-container">
-        <?php foreach($companyList as $company){?>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <?php echo $company->getName(); ?>
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <?php //echo($company->getAbout_us(), $company->getCompany_link(), $company->getEmail(), $company->getIndustry(), $company->getCity(), $company->getCountry()); ?> 
-                        <?php echo $company->getAbout_us();?>
-                        <?php echo $company->getCompany_link();?>
-                        <?php echo $company->getAbout_us();?>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
+        <table class="table bg-light-alpha">
+            <thead>
+                <th>Name</th>
+                <th>About Us</th>
+                <th>Company Link</th>
+                <th>Email</th>
+                <th>Industry</th>
+                <th>City</th>
+                <th>Country</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <?php foreach($companyList as $company){?>
+                    <td><?php echo $company->getName(); ?></td>
+                    <td><?php echo $company->getAbout_us(); ?></td>
+                    <td><?php echo $company->getCompany_link(); ?></td>
+                    <td><?php echo $company->getEmail(); ?></td>
+                    <td><?php echo $company->getIndustry(); ?></td>
+                    <td><?php echo $company->getCity(); ?></td>
+                    <td><?php echo $company->getCountry(); ?></td>
+                    <td><a href="">Modificar</a></td>
+                    <td><a href="">Eliminar</a></td>
+                </tr>
+                <tr>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
