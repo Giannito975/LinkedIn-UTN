@@ -45,7 +45,7 @@
             catch(\PDOException $e){
             
                 $message = $e->getMessage();
-                $this->homeController->JobPositionView($message);
+                //$this->homeController->JobPositionView($message);
                 return null;
             }            
         }

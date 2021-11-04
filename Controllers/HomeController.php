@@ -51,7 +51,7 @@ class HomeController
 
             $companyController = new CompanyController();
 
-            $company = $companyController->GetByName();
+            //$company = $companyController->GetByName();
 
             require_once(VIEWS_PATH."company-modify.php");
         }

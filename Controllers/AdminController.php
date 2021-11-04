@@ -22,6 +22,10 @@
             require_once(VIEWS_PATH."home.php");
         }
 
+        public function AdminMainView(){
+            require_once(VIEWS_PATH."admin-main-view.php");
+        }
+
         public function ShowJobOfferViewAdmin(){
             require_once(VIEWS_PATH."job-offer-admin.php");
         }
