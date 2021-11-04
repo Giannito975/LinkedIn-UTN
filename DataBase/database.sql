@@ -52,6 +52,23 @@ CREATE TABLE IF NOT EXISTS JobPositions
     
 SELECT * FROM JobPositions;
 
+#DROP TABLE JobOffer
+CREATE TABLE IF NOT EXISTS JobOffers
+(
+	jobOfferId INT AUTO_INCREMENT NOT NULL,
+	jobPositionId INT,
+    id_company INT, 
+    title VARCHAR(50) NOT NULL,
+    requirements text NOT NULL,
+    responsabilities text NOT NULL,
+    profits text,
+    salary INT,
+    
+    CONSTRAINT pk_jobOfferId PRIMARY KEY (jobOfferId),
+    CONSTRAINT fk_jobPositionId FOREIGN KEY (jobPositionId) REFERENCES JobPositions(jobPosition),
+    CONSTRAINT fk_id_company FOREIGN KEY (id_company) REFERENCES Companies(id_company)
+);
+
 #DROP TABLE Companies
 CREATE TABLE IF NOT EXISTS Companies
 (
@@ -69,33 +86,6 @@ CREATE TABLE IF NOT EXISTS Companies
 );
 
 SELECT * FROM Companies;
-    
-CREATE TABLE IF NOT EXISTS Cities
-(
-    id_city INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_city PRIMARY KEY (id_city),
-    CONSTRAINT unq_city unique (name)
-);
-
-CREATE TABLE IF NOT EXISTS Countries
-(
-    id_coountry INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_country PRIMARY KEY (id_country),
-    CONSTRAINT unq_country unique (name)
-);
-
-CREATE TABLE IF NOT EXISTS Industries
-(
-    id_industry INT AUTO_INCREMENT NOT NULL,
-    type VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_industry PRIMARY KEY (id_industry),
-    CONSTRAINT unq_industry unique (type)
-);
 
 #DROP TABLE Administrators
 CREATE TABLE IF NOT EXISTS Administrators
