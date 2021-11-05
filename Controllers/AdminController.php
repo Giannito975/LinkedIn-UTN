@@ -27,6 +27,7 @@
         }
 
         public function ShowJobOfferViewAdmin(){
+            //$jobPositions = $this->GetAll();
             require_once(VIEWS_PATH."job-offer-admin.php");
         }
 
