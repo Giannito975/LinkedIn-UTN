@@ -26,6 +26,19 @@ class CompanyController{
         require_once(VIEWS_PATH."home.php");
     }
 
+    public function ModifyCompany(){
+
+        $companyName = "Globant";
+
+        $companyController = new CompanyController();
+
+        //$company = $companyController->GetByName();
+
+        require_once(VIEWS_PATH."company-modify.php");
+    }
+
+    
+
     public function Add(Company $company){
         $companyList = $this->GetAll();
         if(empty($companyList)){
@@ -54,6 +67,16 @@ class CompanyController{
             return null;
         }
         
+    }
+
+    //agregar los atributos de la company aca
+    public function Middleware($name, $adress, $id){
+            if(empty($id)){
+                $this->Add($name, $adress);
+            } else {
+                $this->Update($id, $name, $adress);
+            }
+
     }
 
     public function verifyGetAll(){
@@ -86,6 +109,22 @@ class CompanyController{
         }
         return false;
     }
+
+    public function Remove($id) //revisar esto con dante san
+        {
+            try{
+
+                //$this->validateRoomShow($id); ver de validar que exista antes la company, x ahi ni lo hacemos XD
+                $this->companyDAO->Remove($id);
+                $this->homeController->CompanyListViewAdmin();
+            }     
+            catch(\PDOException $e){
+          
+                $message = $e->getMessage();
+                $this->homeController->CompanyListViewAdmin($message);
+            }
+        }
+
 
 }
 
