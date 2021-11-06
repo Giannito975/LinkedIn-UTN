@@ -2,8 +2,8 @@
 
     namespace DAO;
 
-use Exception;
-use Models\JobOffer;
+    use Exception;
+    use Models\JobOffer;
     use Models\JobPosition;
     use Models\Company;
 
@@ -14,11 +14,8 @@ use Models\JobOffer;
         private $tableName = "JobOffers";
 
         public function add(JobOffer $jobOffer){
-
-            var_dump($jobOffer);
             try{
-                $query = "INSERT INTO " . $this->tableName . "(jobPositionId, id_company, title, requirements, responsabilities, profits, salary) 
-                                                     VALUES (:jobPositionId , :id_company , :title , :requirements , :responsabilities , :profits , :salary)";
+                $query = "INSERT INTO " . $this->tableName . "(jobPositionId, id_company, title, requirements, responsabilities, profits, salary) VALUES (:jobPositionId , :id_company , :title , :requirements , :responsabilities , :profits , :salary)";
 
                 $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
                 $parameters['id_company'] = $jobOffer->getId_company();
@@ -36,8 +33,7 @@ use Models\JobOffer;
             }
         }
 
-        function getAll()
-        {
+        function getAll(){
             try {
                 $query= "SELECT * FROM ".$this->tableName;
 
@@ -99,8 +95,7 @@ use Models\JobOffer;
             }
         }
 
-        function remove($jobOfferId)
-        {
+        function remove($jobOfferId){
             try {
                 $query = "DELETE FROM " . $this->tableName . " WHERE (jobOfferId = :jobOfferId)";
 
