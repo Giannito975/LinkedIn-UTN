@@ -52,22 +52,43 @@ CREATE TABLE IF NOT EXISTS JobPositions
     
 SELECT * FROM JobPositions;
 
-#DROP TABLE JobOffer
+#DROP TABLE JobOffers
 CREATE TABLE IF NOT EXISTS JobOffers
 (
-	jobOfferId INT AUTO_INCREMENT NOT NULL,
+	jobOfferId INT AUTO_INCREMENT,
 	jobPositionId INT,
     id_company INT, 
     title VARCHAR(50) NOT NULL,
-    requirements text NOT NULL,
-    responsabilities text NOT NULL,
-    profits text,
-    salary INT,
+    requirements VARCHAR(1000) NOT NULL,
+    responsabilities VARCHAR(1000) NOT NULL,
+    profits VARCHAR(1000),
+    salary INT(11),
     
     CONSTRAINT pk_jobOfferId PRIMARY KEY (jobOfferId),
     CONSTRAINT fk_jobPositionId FOREIGN KEY (jobPositionId) REFERENCES JobPositions(jobPosition),
     CONSTRAINT fk_id_company FOREIGN KEY (id_company) REFERENCES Companies(id_company)
 );
+
+INSERT INTO JobOffers(jobPositionId, id_company, title, requirements, responsabilities, profits, salary) 
+		VALUES (3, 1, "Desarrollador Java", "Java 8, Springboot, git", "Debera hacerse cargo de un proyecto entero sin documentacion alguna", "Muchos", 0);
+
+#TRUNCATE jobOffers;
+
+SELECT * FROM joboffers;
+
+#DROP TABLE JobOfferXStudent
+CREATE TABLE IF NOT EXISTS JobOfferXStudent
+(
+	jobOfferXStudentId INT AUTO_INCREMENT,
+    id_student INT,
+    jobOfferId INT,
+    
+    CONSTRAINT pk_jobOfferXStudentId PRIMARY KEY (jobOfferXStudentId),
+    CONSTRAINT fk_id_student FOREIGN KEY (id_student) REFERENCES Students(id_student),
+    CONSTRAINT fk_jobOfferId FOREIGN KEY (jobOfferId) REFERENCES JobOffers(jobOfferId)
+);
+
+SELECT * FROM JobOfferXStudent;
 
 #DROP TABLE Companies
 CREATE TABLE IF NOT EXISTS Companies
