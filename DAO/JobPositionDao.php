@@ -2,7 +2,8 @@
 
     namespace DAO;
 
-    use Models\Career;
+use Exception;
+use Models\Career;
     use Models\JobPosition;
 
     class JobPositionDAO
@@ -63,7 +64,7 @@
         function getAll()
         {
             try {
-                $query= "SELECT * FROM ".$this->tableName." s INNER JOIN ".$this->tableName2." c ON s.careerId= c.careerId";
+                $query= "SELECT * FROM ".$this->tableName;
 
                 $this->connection = Connection::GetInstance();
 
@@ -84,6 +85,30 @@
                 return $this->jobPositionList;
 
             } catch (\PDOException $ex) {
+                throw $ex;
+            }
+        }
+
+        function GetByDescription($description){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE description = '".$description."'";//Se guarda la accion que se hara en la BDD
+
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                    
+                foreach($result as $row){
+                    $jobPosition = new JobPosition(
+                        $row['jobPositionId'], 
+                        $row['careerId'], 
+                        $row['description']
+                        );
+                }
+                return $jobPosition;
+            }   
+            catch(Exception $ex)
+            {
                 throw $ex;
             }
         }
