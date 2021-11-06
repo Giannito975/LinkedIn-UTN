@@ -3,11 +3,10 @@
 namespace DAO;
 
 use \Exception as Exception;
-use DAO\IDao as IDao;
 use DAO\Connection as Connection;
 use Models\Career as Career;
 
-class CareerDao implements IDao{
+class CareerDao{
 
     private $connection;
     private $careerList = array();
@@ -71,20 +70,22 @@ class CareerDao implements IDao{
         {
             $careerList = array();
 
-            $query = "CALL Career_GetAll()";//Se guarda la accion que se hara en la BDD
+            $query = "SELECT * FROM ".$this->tableName;
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query, array(), QueryType::StoredProcedure);//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+            $result = $this->connection->Execute($query, array());
 
-            foreach($result as $row)
-            {
-                $career = new career();
-                $career->setId($row["id_career"]);
-                $career->setName($row["career_name"]);
-                $career->setTitle($row["career_title"]);
+            if(!empty($result)){
 
-                array_push($careerList, $career);
+                foreach($result as $row){
+                    $career = new career(
+                        $row['careerId'], 
+                        $row['description'], 
+                        $row['active']
+                    );
+                    array_push($careerList, $career);
+                }
             }
             return $careerList;
         }   
@@ -94,69 +95,65 @@ class CareerDao implements IDao{
         }
     }
 
-    public function GetById($id)
+    public function GetById($careerId)
     {
         try
-            {
+        {
+            $query = "SELECT * FROM ".$this->tableName." WHERE careerId = '".$careerId."'";
 
-                $query = "CALL Career_GetById(?)";//Se guarda la accion que se hara en la BDD
+            $this->connection = Connection::GetInstance();
 
-                $parameters["id_career"] =  $id;
-
-                $this->connection = Connection::GetInstance();
- 
-                $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+            $result = $this->connection->Execute($query, array());
                 
-                $career = new career();
-                $career->setId($result[0]["id_career"]);
-                $career->setName($result[0]["career_name"]);
-                $career->setTitle($result[0]["career_title"]);
-                
-                return $career;
-
-            }   
-            catch(Exception $ex)
-            {
-                throw $ex;
+            foreach($result as $row){
+                $Career = new Career(
+                    $row['careerId'], 
+                    $row['description'], 
+                    $row['active']
+                    );
             }
+            return $Career;
+        }   
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
     }
 
-    public function Update($career)
+    public function Update(Career $career)
     {
         try
-            {
-                $query = "CALL Career_Update(?, ?, ?)";//Se guarda la accion que se hara en la BDD
+        {
+            $query= "UPDATE ".$this->tableName." SET description = :description, active = :active WHERE (careerId = :careerId)";
+            
+            $parameters['careerId']=$career->getCareerId(); 
+            $parameters['description']=$career->getDescription();
+            $parameters['active']=$career->getActive();
 
-                $parameters["id_career"] =  $career->getId();
-                $parameters["career_name"] =  $career->getName();
-                $parameters["career_title"] = $career->getTitle();
-                
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion
-            }   
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        catch(\PDOException $ex)
+        {
+            throw $ex;
+        }
     }
 
-    public function Remove($id)
+    public function Remove($careerId)
     {
-        try
-            {
-                $query = "CALL Career_Remove(?)";//Se guarda la accion que se hara en la BDD
+        try {
+            $query = "DELETE FROM " . $this->tableName . " WHERE (careerId = :careerId)";
 
-                $parameters["id_career"] = $id;
+            $parameters["careerId"] = $careerId;
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                echo $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);//Realiza la llamada a la funcion en la BDD
-            }   
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+            return $count = $this->connection->ExecuteNonQuery($query, $parameters);
+            
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
     }
 
 
