@@ -26,18 +26,29 @@ class CompanyController{
         require_once(VIEWS_PATH."home.php");
     }
 
-    public function ModifyCompany(){
+    public function ShowModifyCompanyView($id){
 
-        $companyName = "Globant";
-
-        $companyController = new CompanyController();
-
-        //$company = $companyController->GetByName();
-
+        $company = $this->companyDao->GetById($id);
         require_once(VIEWS_PATH."company-modify.php");
     }
 
-    
+     //Vista para user ADMIN
+     public function CompanyListViewAdmin(){
+
+        $companyController = new CompanyController();
+
+        $companyList = $companyController->GetAll();
+
+        require_once(VIEWS_PATH."company-list-admin.php");
+    }
+
+    public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
+        
+        $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+        $this->companyDao->UpdateCompany($company);
+        header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+             
+    }
 
     public function Add(Company $company){
         $companyList = $this->GetAll();

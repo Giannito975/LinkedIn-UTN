@@ -26,6 +26,10 @@
             require_once(VIEWS_PATH."admin-main-view.php");
         }
 
+        public function ShowModifyCompany(){
+            require_once(VIEWS_PATH."company-list-admin.php");
+        }
+
         public function ShowJobOfferViewAdmin(){
             //$jobPositions = $this->GetAll();
             require_once(VIEWS_PATH."job-offer-admin.php");

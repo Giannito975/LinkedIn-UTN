@@ -57,13 +57,14 @@
                                             </button>
                                         </form>
 
-
-                                        <button class="btn btn--edit btn-info ml-4 "
-                                            data-id="<?php echo $company->getId_company(); ?>" data-toggle="modal"
-                                            data-target="#form-cine">
-                                            <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
-                                                alt="Update" />
-                                        </button>
+                                        <form action="<?php echo FRONT_ROOT."Company/ShowModifyCompanyView"?>">
+                                            <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
+                                                data-id="<?php echo $company->getId_company(); ?>" data-toggle="modal"
+                                                data-target="#form-cine" value="<?php echo $company->getId_company();?>">
+                                                <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
+                                                    alt="Update" />
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
 
