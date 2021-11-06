@@ -26,18 +26,26 @@ class CompanyController{
         require_once(VIEWS_PATH."home.php");
     }
 
-    public function ModifyCompany(){
+    public function ShowModifyCompanyView($id){
 
-        $companyName = "Globant";
-
-        $companyController = new CompanyController();
-
-        //$company = $companyController->GetByName();
-
+        $company = $this->companyDao->GetById($id);
         require_once(VIEWS_PATH."company-modify.php");
     }
 
-    
+    public function ModifyCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
+        try{
+            if(!$this->VerifyName($name)){
+                $company = new Company($name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+                $this->CineDAO->ModifyCine($Cine);
+             }else{
+                throw new Exception("Error, Ya se encuentra un cine con ese nombre");
+            }
+        }catch(Exception $ex){
+            $message=$ex->getMessage();
+            $_SESSION['errorMessage']=$message;
+            header("location: ".FRONT_ROOT."Home/indexAdmin");
+        }
+    }
 
     public function Add(Company $company){
         $companyList = $this->GetAll();
