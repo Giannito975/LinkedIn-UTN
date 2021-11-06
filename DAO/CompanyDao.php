@@ -128,6 +128,7 @@ class CompanyDao{
                 $query= "UPDATE ".$this->tableName." SET name = :name, about_us = :about_us, company_link = :company_link, email = :email, industry = :industry, city = :city, country = :country 
                 WHERE (id_company = :id_company)";
 
+                $parameters['id_company'] = $company->getId_company();
                 $parameters['name'] = $company->getName();
                 $parameters['about_us'] = $company->getAbout_us();
                 $parameters['company_link'] = $company->getCompany_link();
