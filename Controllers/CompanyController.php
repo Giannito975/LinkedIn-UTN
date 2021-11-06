@@ -32,19 +32,22 @@ class CompanyController{
         require_once(VIEWS_PATH."company-modify.php");
     }
 
-    public function ModifyCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
-        try{
-            if(!$this->VerifyName($name)){
-                $company = new Company($name, $aboutUs, $companyLink, $email, $industry, $city, $country);
-                $this->CineDAO->ModifyCine($Cine);
-             }else{
-                throw new Exception("Error, Ya se encuentra un cine con ese nombre");
-            }
-        }catch(Exception $ex){
-            $message=$ex->getMessage();
-            $_SESSION['errorMessage']=$message;
-            header("location: ".FRONT_ROOT."Home/indexAdmin");
-        }
+     //Vista para user ADMIN
+     public function CompanyListViewAdmin(){
+
+        $companyController = new CompanyController();
+
+        $companyList = $companyController->GetAll();
+
+        require_once(VIEWS_PATH."company-list-admin.php");
+    }
+
+    public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
+        
+        $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+        $this->companyDao->UpdateCompany($company);
+        header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+             
     }
 
     public function Add(Company $company){
