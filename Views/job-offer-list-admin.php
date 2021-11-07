@@ -66,7 +66,7 @@
                                             </button>
                                         </form>
 
-                                        <form action="<?php echo FRONT_ROOT."Company/ShowModifyCompanyView"?>">
+                                        <form action="<?php echo FRONT_ROOT."JobOffer/ShowCreateJobOfferView"?>">
                                             <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
                                                 data-id="<?php echo $company->getId_company(); ?>" data-toggle="modal"
                                                 data-target="#form-cine"

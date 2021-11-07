@@ -33,8 +33,15 @@
         }
 
         public function ShowCreateJobOfferView(){
+
+            $jobPositionList = $this->jobPositionDao->GetAll();
+            $companyList = $this->companyDao->GetAll();
+
             require_once(VIEWS_PATH."create-job-offer.php");
+
         }
+
+
 
         public function RemoveJobOffer($id){
             if($this->remove($id)){
@@ -48,6 +55,12 @@
                         window.location='Views\job-offer-list-admin.php'
                         </script>";
             }
+        }
+
+        public function CreateJobOffer($title, $requirements, $responsabilities, $profits, $salary, $idJobPosition, $idCompany){
+
+            $this->add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
+            header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
         }
 
         public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){

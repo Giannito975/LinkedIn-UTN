@@ -23,7 +23,7 @@
 
         <div class="mb-3">
             <label for="" class="form-label">Profits</label>
-            <input type="email" class="form-control" name="profits" required placeholder="Type the profits of the job offer">
+            <input type="text" class="form-control" name="profits" required placeholder="Type the profits of the job offer">
         </div>
 
         <div class="mb-3">
@@ -43,8 +43,14 @@
         </div>
 
         <div class="mb-3">
-            <label for="" class="form-label">Country</label>
-            <input type="text" class="form-control" name="country" required placeholder="Type company´s country">
+            <label for="" class="form-label">Company</label>
+            <select name="company">
+                <?php
+                foreach($companyList as $company){
+                    ?><option value="<?php echo $company->getId_company();?>"><?php echo $company->getName();?></option><?php
+                }
+                ?>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
