@@ -20,6 +20,7 @@
             $this->companyDao = new CompanyDao();
         }
 
+<<<<<<< HEAD
         public function JobOfferListViewAdmin(){
 
             $jobOfferController = new JobOfferController();
@@ -49,11 +50,11 @@
         public function add($name, $description){
             $company = $this->companyDao->GetByName($name);
             $idCompany = $company->getId_company();
+=======
+        public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
+>>>>>>> 55adef0c9040ce9d3c5cd3a5574d948ceca30491
 
-            $jobPosition = $this->jobPositionDao->GetByDescription($description);
-            $idJobPosition = $jobPosition->getJobPositionId();
-
-            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, "Desarrollador Java", "Java 8, Springboot, git", "Debera hacerse cargo de un proyecto entero sin documentacion alguna", "Muchos", 0);
+            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
             $this->jobOfferDao->add($jobOffer);
         }
