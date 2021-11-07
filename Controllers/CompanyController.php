@@ -52,7 +52,7 @@ class CompanyController{
 
     public function Add(Company $company){
         $companyList = $this->GetAll();
-        if(empty($companyList)){
+        if(!$this->verifyName($company->getName())){
             $this->companyDao->Add($company);
         }
         elseif(!$this->verifyName($company->getName())){
@@ -130,7 +130,7 @@ class CompanyController{
     //este metodo funciona asi como esta, nos falta hacer la excepcion: se nos rompia todo al joraca
     public function CreateCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
        //try{
-           if(!$this->verifyName($name)){
+           if($this->verifyName($name)){
                 $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
                 $this->companyDao->Add($company);
                 header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");

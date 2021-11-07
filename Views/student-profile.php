@@ -3,7 +3,7 @@
     require_once('header.php');
     require_once('student-nav.php')
     ?>
-    <h3>aca va el perfil del estudiante</h3>
+    <h3>Perfil</h3>
     <div>
     <table class="table bg-light-alpha">
                     <thead>
@@ -18,7 +18,7 @@
                     </thead>
                     <tbody>
                          <tr>
-                              <?php foreach($studentList as $student){?>
+                              <?php $student = $_SESSION['loggedUser']?>
                                         <td><?php echo $student->getFirstName(); ?></td>
                                         <td><?php echo $student->getLastName(); ?></td>
                                         <td><?php echo $student->getDni(); ?></td>
@@ -29,7 +29,6 @@
                                         <td><?php echo $student->getEmail(); ?></td>
                          </tr>
                          <tr>
-                              <?php } ?>
                          </tr>
                     </tbody>
                </table>

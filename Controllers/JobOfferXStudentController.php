@@ -20,7 +20,9 @@ class JobOfferXStudentController{
         $this->jobOffer = new JobOfferDao();
     }
 
-    public function add($id_student, $jobOfferId){
+    public function add($jobOfferId){
+
+        $id_student = $_SESSION['loggedUser'];
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){
 
@@ -57,6 +59,7 @@ class JobOfferXStudentController{
         }
     }
 
+    //Verifica si el estudante ya se postulo a este job offer
     public function verifyStudent($id_student, $jobOfferId){
         if($this->verifyGetAll()){
             $jobOfferXStudentList = $this->getAll();
