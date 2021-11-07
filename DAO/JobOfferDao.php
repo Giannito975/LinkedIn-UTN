@@ -86,7 +86,6 @@
                         $row['salary']
                     );
                 }
-                var_dump($jobOffer);
                 return $jobOffer;
             }   
             catch(Exception $ex)

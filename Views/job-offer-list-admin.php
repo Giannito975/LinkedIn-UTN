@@ -66,11 +66,11 @@
                                             </button>
                                         </form>
 
-                                        <form action="<?php echo FRONT_ROOT."JobOffer/ShowCreateJobOfferView"?>">
+                                        <form action="<?php echo FRONT_ROOT."JobOffer/ShowModifyJobOfferView"?>">
                                             <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
-                                                data-id="<?php echo $company->getId_company(); ?>" data-toggle="modal"
+                                                data-id="<?php echo $jobOffer->getJobOfferId(); ?>" data-toggle="modal"
                                                 data-target="#form-cine"
-                                                value="<?php echo $company->getId_company();?>">
+                                                value="<?php echo $jobOffer->getJobOfferId();?>">
                                                 <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
                                                     alt="Update" />
                                             </button>

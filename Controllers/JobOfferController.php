@@ -41,7 +41,12 @@
 
         }
 
-
+        public function ShowModifyJobOfferView($id){
+            $jobOffer = $this->jobOfferDao->getById($id);
+            $jobPositionList = $this->jobPositionDao->GetAll();
+            $companyList = $this->companyDao->GetAll();
+            require_once(VIEWS_PATH."job-offer-modify.php");
+        }
 
         public function RemoveJobOffer($id){
             if($this->remove($id)){
@@ -67,6 +72,17 @@
             $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
             $this->jobOfferDao->add($jobOffer);
+        }
+
+        public function ModifyJobOffer($title, $requirements, $responsabilities, $profits, $salary, $idJobPosition, $idCompany){
+            
+            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
+            if($this->update($jobOffer)){
+                header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
+            }
+            else{
+                header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
+            }
         }
 
         public function getAll(){
@@ -120,9 +136,10 @@
         public function update($jobOffer){
             if($this->verifyId($jobOffer->getJobOfferId())){
                 $this->jobOfferDao->update($jobOffer);
+                return true;
             }
             else{
-                return null;
+                return false;
             }
         }
     }
