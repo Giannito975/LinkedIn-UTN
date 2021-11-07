@@ -20,7 +20,6 @@
             $this->companyDao = new CompanyDao();
         }
 
-<<<<<<< HEAD
         public function JobOfferListViewAdmin(){
 
             $jobOfferController = new JobOfferController();
@@ -31,6 +30,10 @@
             
     
             require_once(VIEWS_PATH."job-offer-list-admin.php");
+        }
+
+        public function ShowCreateJobOfferView(){
+            require_once(VIEWS_PATH."create-job-offer.php");
         }
 
         public function RemoveJobOffer($id){
@@ -50,9 +53,6 @@
         public function add($name, $description){
             $company = $this->companyDao->GetByName($name);
             $idCompany = $company->getId_company();
-=======
-        public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
->>>>>>> 55adef0c9040ce9d3c5cd3a5574d948ceca30491
 
             $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
