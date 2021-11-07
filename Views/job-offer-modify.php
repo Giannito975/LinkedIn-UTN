@@ -7,8 +7,6 @@
 
         <!-- Se pasa el id al formulario para después poder hacer el UPDATE -->
         <input class="log-input" type="hidden" name="jobOfferId" value="<?php echo $jobOffer->getJobOfferId(); ?>" required readonly>
-        <input class="log-input" type="hidden" name="jobPositionId" value="<?php echo $jobOffer->getJobPositionId(); ?>" required readonly>
-        <input class="log-input" type="hidden" name="id_company" value="<?php echo $jobOffer->getId_company(); ?>" required readonly>
 
         <div class="mb-3">
             <label for="InputName" class="form-label">Title</label>

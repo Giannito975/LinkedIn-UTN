@@ -77,15 +77,15 @@
             }
         }
 
-        public function ModifyJobOffer($title, $requirements, $responsabilities, $profits, $salary, $idJobPosition, $idCompany){
+        public function ModifyJobOffer($jobOfferId, $title, $requirements, $responsabilities, $profits, $salary, $jobPositionId, $idCompany){
             
-            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
+            $jobOffer = new JobOffer($jobOfferId, $jobPositionId, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
             if($this->update($jobOffer)){
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
             }
-            else{
+            /*else{
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
-            }
+            }*/
         }
 
         public function getAll(){
