@@ -64,9 +64,12 @@
         }
 
         public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
-            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
+            
+            if(!$this->verifyJobOffer($title, $idCompany)){
+                $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
-            $this->jobOfferDao->add($jobOffer);
+                $this->jobOfferDao->add($jobOffer);
+            }
         }
 
         public function getAll(){
@@ -94,6 +97,22 @@
             else{
                 return false;
             }
+        }
+
+        //Verifica si ya existe un job offer en una empresa con el mismo nombre
+        public function verifyJobOffer($title, $idCompany){
+
+            $jobOfferList = $this->jobOfferDao->getAll();
+            foreach($jobOfferList as $jobOffer){
+                //Verifica el id
+                if($idCompany == $jobOffer->getId_company()){
+                    //Verifica el titulo
+                    if(strcmp($jobOffer->getTitle(), $title)){
+                        return true;
+                    }   
+                }
+            }
+            return false;
         }
 
         public function verifyId($id){
