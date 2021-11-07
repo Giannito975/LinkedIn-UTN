@@ -15,12 +15,14 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-
                     <div class="form-group mb-4">
-                        <button type="button" class="btn btn-success mr-4" data-toggle="modal" data-target="#form-cine">
-                            <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16" alt="Add" /> Add
-                            Company
-                        </button>
+                        <form action="<?php echo FRONT_ROOT."Company/ShowCreateCompanyView"?>">
+                            <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                data-target="#form-cine">
+                                <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16" alt="Add" /> Add
+                                Company
+                            </button>
+                        </form>
                     </div>
 
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,9 +30,13 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Adress</th>
-
-                                <th>Actions</th>
+                                <th>About Us</th>
+                                <th>Company Link</th>
+                                <th>Email</th>
+                                <th>Industry</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Remove/Edit</th>
                             </tr>
                         </thead>
 
@@ -49,8 +55,8 @@
 
                                 <td>
                                     <div class="form-inline">
-                                        <form action="<?php echo FRONT_ROOT."Company/Remove"?>" method="POST">
-                                            <button type="submit" name="remove" class="btn btn-danger"
+                                        <form action="<?php echo FRONT_ROOT."Company/RemoveCompany"?>" method="POST">
+                                            <button type="submit" name="id" class="btn btn-danger"
                                                 value="<?php echo $company->getId_company(); ?>">
                                                 <img src="<?php echo ICONS_PATH."trash-2.svg"?>" width="16" height="16"
                                                     alt="Remove" />
@@ -60,7 +66,8 @@
                                         <form action="<?php echo FRONT_ROOT."Company/ShowModifyCompanyView"?>">
                                             <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
                                                 data-id="<?php echo $company->getId_company(); ?>" data-toggle="modal"
-                                                data-target="#form-cine" value="<?php echo $company->getId_company();?>">
+                                                data-target="#form-cine"
+                                                value="<?php echo $company->getId_company();?>">
                                                 <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
                                                     alt="Update" />
                                             </button>
@@ -87,40 +94,41 @@
 <div class="modal fade" id="form-cine" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
-        <form class="modal-content" action="<?php echo FRONT_ROOT ?>Company/Middleware" method="POST">
-
+        <form class="modal-content" action="<?php echo FRONT_ROOT ?>Company/ShowCreateCompanyView" method="POST">
             <div class="modal-header">
                 <h5 class="modal-title">Add Company</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
             </div>
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input pattern="[a-zA-Z\s]+" title="Please enter on alphabets only" type="text" class="form-control"
-                        name="name" required />
-                </div>
-
-                <div class="form-group">
-                    <label>Direccion</label>
-                    <input pattern="[a-zA-Z0-9\s]+" title="Please enter on alphabets only" type="text"
-                        class="form-control" name="adress" required />
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-dark">Add</button>
-            </div>
-
-            <input type="hidden" name="id" value="" />
-
         </form>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label>Nombre</label>
+            <input pattern="[a-zA-Z\s]+" title="Please enter on alphabets only" type="text" class="form-control"
+                name="name" required />
+        </div>
+
+        <div class="form-group">
+            <label>Direccion</label>
+            <input pattern="[a-zA-Z0-9\s]+" title="Please enter on alphabets only" type="text" class="form-control"
+                name="adress" required />
+        </div>
 
     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-dark">Add</button>
+    </div>
+
+    <input type="hidden" name="id" value="" />
+
+    </form>
+
+</div>
 </div>
 
 <?php if(isset($message)) { ?>

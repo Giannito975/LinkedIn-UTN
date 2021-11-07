@@ -27,7 +27,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-         <a class="nav-link" href=" echo FRONT_ROOT.Home/CompanyListViewAdmin">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."Company/CompanyListViewAdmin" ?>">
           <i class="fas fa-film "></i>
           <span>Companies</span></a>
       </li>

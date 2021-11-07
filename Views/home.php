@@ -13,7 +13,7 @@
     <button type="submit" class="btn btn-primary">Login</button>
     <br>
     <a href="<?php echo FRONT_ROOT."Student/ShowRegisterView"?>">Not an user an user yet? Register now!</a>
-    <a href="<?php echo FRONT_ROOT."Home/CompanyListViewAdmin"?>">fiummba</a>
+    <a href="<?php echo FRONT_ROOT."Company/CompanyListViewAdmin"?>">fiummba</a>
     <a href="<?php echo FRONT_ROOT."Admin/ModifyCompany"?>">vista modificar company</a>
     <a href="<?php echo FRONT_ROOT."Admin/AdminMainView"?>">vista ppal admin</a>
 </form>
