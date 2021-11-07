@@ -2,7 +2,8 @@
 
     namespace Controllers;
 
-    use DAO\JobOfferDao;
+use DAO\CareerDao;
+use DAO\JobOfferDao;
     use DAO\JobPositionDAO;
     use DAO\CompanyDao;
     use Models\JobOffer;
@@ -12,12 +13,14 @@
         private $jobOfferDao;
         private $jobPositionDao;
         private $companyDao;
+        private $careerDao;
 
         public function __construct()
         {
             $this->jobOfferDao = new JobOfferDao();
             $this->jobPositionDao = new JobPositionDAO();
             $this->companyDao = new CompanyDao();
+            $this->careerDao = new CareerDao();
         }
 
         public function JobOfferListViewAdmin(){
@@ -27,7 +30,10 @@
             $jobOfferList = $jobOfferController->GetAll();
 
             $companyList = $this->companyDao->GetAll();
+
+            $jobPositionList = $this->jobPositionDao->getAll();
             
+            $careerList = $this->careerDao->getAll();
     
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }

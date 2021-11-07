@@ -35,6 +35,8 @@
                                 <th>Profits</th>
                                 <th>Salary</th>
                                 <th>Company</th>
+                                <th>Job Position</th>
+                                <th>Carrera</th>
                                 <th>Remove/Edit</th>
                                 <th>View company details</th>
                             </tr>
@@ -56,6 +58,21 @@
                                     <?php } ?>
                                 <?php } ?>
 
+                                <?php foreach($jobPositionList as $jobPosition){ // feo pero funciona x2 <3
+                                    if($jobPosition->getJobPositionId() == $jobOffer->getJobPositionId()){
+                                        ?><td><?php echo $jobPosition->getDescription();?></td>
+                                    <?php } ?>
+                                <?php } ?>
+
+                                <?php foreach($jobPositionList as $jobPosition){ // feo pero funciona x3 <3
+                                        foreach($careerList as $career){
+                                            if($career->getCareerId() == $jobPosition->getCareerId()){
+                                                if($jobPosition->getJobPositionId() == $jobOffer->getJobPositionId()){
+                                                    ?><td><?php echo $career->getDescription();?></td>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
                                 <td>
                                     <div class="form-inline">
                                         <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">
