@@ -33,7 +33,7 @@ class CompanyController{
     }
 
      //Vista para user ADMIN
-     public function CompanyListViewAdmin(){
+    public function CompanyListViewAdmin(){
 
         $companyController = new CompanyController();
 
@@ -163,6 +163,5 @@ class CompanyController{
 
 
 }
-
 
 ?>

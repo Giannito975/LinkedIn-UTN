@@ -10,17 +10,17 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Company list</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Job Offer list</h6>
             </div>
 
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="form-group mb-4">
-                        <form action="<?php echo FRONT_ROOT."Company/ShowCreateCompanyView"?>">
+                        <form action="<?php echo FRONT_ROOT."JobOffer/ShowCreateJobOfferView"?>">
                             <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
                                 data-target="#form-cine">
                                 <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16" alt="Add" /> Add
-                                Company
+                                Job Offer
                             </button>
                         </form>
                     </div>
@@ -29,35 +29,38 @@
 
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>About Us</th>
-                                <th>Company Link</th>
-                                <th>Email</th>
-                                <th>Industry</th>
-                                <th>City</th>
-                                <th>Country</th>
+                                <th>Title</th>
+                                <th>Requirementes</th>
+                                <th>Responsabilities</th>
+                                <th>Profits</th>
+                                <th>Salary</th>
+                                <th>Company</th>
                                 <th>Remove/Edit</th>
+                                <th>View company details</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php   foreach($companyList as $company){   ?>
+                            <?php   foreach($jobOfferList as $jobOffer){   ?>
 
-                            <tr id="row-<?php echo $company->getId_company(); ?>">
+                            <tr id="row-<?php echo $jobOffer->getJobOfferId(); ?>">
 
-                                <td><?php echo $company->getName(); ?></td>
-                                <td><?php echo $company->getAbout_us(); ?></td>
-                                <td><?php echo $company->getCompany_link(); ?></td>
-                                <td><?php echo $company->getEmail(); ?></td>
-                                <td><?php echo $company->getIndustry(); ?></td>
-                                <td><?php echo $company->getCity(); ?></td>
-                                <td><?php echo $company->getCountry(); ?></td>
+                                <td><?php echo $jobOffer->getTitle(); ?></td>
+                                <td><?php echo $jobOffer->getRequirements(); ?></td>
+                                <td><?php echo $jobOffer->getResponabilities(); ?></td>
+                                <td><?php echo $jobOffer->getProfits(); ?></td>
+                                <td><?php echo $jobOffer->getSalary(); ?></td>
+                                <?php foreach($companyList as $company){ // feo pero funciona <3
+                                    if($company->getId_company() == $jobOffer->getId_company()){
+                                        ?><td><?php echo $company->getName();?></td>
+                                    <?php } ?>
+                                <?php } ?>
 
                                 <td>
                                     <div class="form-inline">
-                                        <form action="<?php echo FRONT_ROOT."Company/RemoveCompany"?>" method="POST">
+                                        <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">
                                             <button type="submit" name="id" class="btn btn-danger"
-                                                value="<?php echo $company->getId_company(); ?>">
+                                                value="<?php echo $jobOffer->getJobOfferId(); ?>">
                                                 <img src="<?php echo ICONS_PATH."trash-2.svg"?>" width="16" height="16"
                                                     alt="Remove" />
                                             </button>
