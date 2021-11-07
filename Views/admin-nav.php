@@ -34,7 +34,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-         <a class="nav-link" href=" echo FRONT_ROOT.Home/JobListViewAdmin">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
           <i class="fas fa-film "></i>
           <span>Job Offers</span></a>
       </li>

@@ -20,6 +20,15 @@
             $this->companyDao = new CompanyDao();
         }
 
+        public function JobOfferListViewAdmin(){
+
+            $jobOfferController = new JobOfferController();
+    
+            $jobOfferList = $jobOfferController->GetAll();
+    
+            require_once(VIEWS_PATH."job-offer-list-admin.php");
+        }
+
         public function add($name, $description){
             $company = $this->companyDao->GetByName($name);
             $idCompany = $company->getId_company();
@@ -33,7 +42,7 @@
         }
 
         public function getAll(){
-            try{
+           try{
                 
                 $jobOfferArray = $this->jobOfferDao->GetAll();
                 $newjobOfferArray = array();
