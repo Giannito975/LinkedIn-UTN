@@ -50,10 +50,7 @@
             }
         }
 
-        public function add($name, $description){
-            $company = $this->companyDao->GetByName($name);
-            $idCompany = $company->getId_company();
-
+        public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
             $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
             $this->jobOfferDao->add($jobOffer);
