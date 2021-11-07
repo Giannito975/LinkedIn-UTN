@@ -112,9 +112,11 @@
         public function update(JobOffer $jobOffer){
             try
             {
-                $query= "UPDATE ".$this->tableName." SET  title = :title, requirements = :requirements, responsabilities = :responsabilities, profits = :profits, salary = :salary WHERE (jobOfferId = :jobOfferId)";
+                $query= "UPDATE ".$this->tableName." SET  jobPositionId = :jobPositionId, id_company = :id_company, title = :title, requirements = :requirements, responsabilities = :responsabilities, profits = :profits, salary = :salary WHERE (jobOfferId = :jobOfferId)";
                 
                 $parameters['jobOfferId'] = $jobOffer->getJobOfferId();
+                $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
+                $parameters['id_company'] = $jobOffer->getId_company();
                 $parameters['title'] = $jobOffer->getTitle();
                 $parameters['requirements'] = $jobOffer->getRequirements();
                 $parameters['responsabilities'] = $jobOffer->getResponabilities();
