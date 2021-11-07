@@ -25,8 +25,25 @@
             $jobOfferController = new JobOfferController();
     
             $jobOfferList = $jobOfferController->GetAll();
+
+            $companyList = $this->companyDao->GetAll();
+            
     
             require_once(VIEWS_PATH."job-offer-list-admin.php");
+        }
+
+        public function RemoveJobOffer($id){
+            if($this->remove($id)){
+                header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
+                echo "<script> alert('JobOffer succesfully removed');
+                        window.location='Views\job-offer-list-admin.php'
+                        </script>";
+            }
+            else{
+                echo "<script> alert('Cannot remove Job Offer');
+                        window.location='Views\job-offer-list-admin.php'
+                        </script>";
+            }
         }
 
         public function add($name, $description){
@@ -82,9 +99,10 @@
         public function remove($jobOfferId){
             if($this->verifyId($jobOfferId)){
                 $this->jobOfferDao->remove($jobOfferId);
+                return true;
             }
             else{
-                return null;
+                return false;
             }
         }
 
