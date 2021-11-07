@@ -80,6 +80,7 @@ class CompanyController{
         
     }
 
+    /*
     //agregar los atributos de la company aca
     public function Middleware($name, $adress, $id){
             if(empty($id)){
@@ -88,7 +89,7 @@ class CompanyController{
                 $this->Update($id, $name, $adress);
             }
 
-    }
+    }*/
 
     public function verifyGetAll(){
         if(!empty($this->GetAll())){
@@ -113,7 +114,8 @@ class CompanyController{
     public function verifyName($name){
         $companyList = $this->GetAll();
         foreach($companyList as $company){
-            if($company->getName() == $name){
+            $num = strcmp($company->getName(), $name);
+            if($num == 0){
                 
                 return true;
             }
