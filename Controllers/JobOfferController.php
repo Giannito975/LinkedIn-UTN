@@ -20,14 +20,9 @@
             $this->companyDao = new CompanyDao();
         }
 
-        public function add($name, $description){
-            $company = $this->companyDao->GetByName($name);
-            $idCompany = $company->getId_company();
+        public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
 
-            $jobPosition = $this->jobPositionDao->GetByDescription($description);
-            $idJobPosition = $jobPosition->getJobPositionId();
-
-            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, "Desarrollador Java", "Java 8, Springboot, git", "Debera hacerse cargo de un proyecto entero sin documentacion alguna", "Muchos", 0);
+            $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
 
             $this->jobOfferDao->add($jobOffer);
         }
