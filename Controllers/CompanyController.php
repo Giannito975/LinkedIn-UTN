@@ -26,6 +26,30 @@ class CompanyController{
         require_once(VIEWS_PATH."home.php");
     }
 
+    public function ShowModifyCompanyView($id){
+
+        $company = $this->companyDao->GetById($id);
+        require_once(VIEWS_PATH."company-modify.php");
+    }
+
+     //Vista para user ADMIN
+     public function CompanyListViewAdmin(){
+
+        $companyController = new CompanyController();
+
+        $companyList = $companyController->GetAll();
+
+        require_once(VIEWS_PATH."company-list-admin.php");
+    }
+
+    public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
+        
+        $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+        $this->companyDao->UpdateCompany($company);
+        header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+             
+    }
+
     public function Add(Company $company){
         $companyList = $this->GetAll();
         if(empty($companyList)){
@@ -54,6 +78,16 @@ class CompanyController{
             return null;
         }
         
+    }
+
+    //agregar los atributos de la company aca
+    public function Middleware($name, $adress, $id){
+            if(empty($id)){
+                $this->Add($name, $adress);
+            } else {
+                $this->Update($id, $name, $adress);
+            }
+
     }
 
     public function verifyGetAll(){
@@ -86,6 +120,45 @@ class CompanyController{
         }
         return false;
     }
+
+    public function ShowCreateCompanyView(){
+        require_once(VIEWS_PATH."create-company.php");
+    }
+
+    //este metodo funciona asi como esta, nos falta hacer la excepcion: se nos rompia todo al joraca
+    public function CreateCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
+       //try{
+           if(!$this->verifyName($name)){
+                $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+                $this->companyDao->Add($company);
+                header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+           }
+           else{
+               //throw new Exception("ERROR: there is already a company with that name.");
+               header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+           }
+       //}
+       /*catch(Exception $ex){
+            echo"estas rompiendo todo bro";
+            //$message=$ex->getMessage();
+            //$_SESSION['errorMessage']=$message;
+            header("location: ".FRONT_ROOT."/CompanyListViewAdmin");
+       }*/
+    }
+
+
+    public function RemoveCompany($id){
+        try{
+            $this->companyDao->Remove($id);
+            header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+        }     
+        catch(\PDOException $e){
+          
+              $message = $e->getMessage();
+              $this->homeController->CompanyListViewAdmin($message);
+        }
+    }
+
 
 }
 

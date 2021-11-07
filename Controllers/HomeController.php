@@ -45,27 +45,6 @@ class HomeController
             require_once(VIEWS_PATH."company-list.php");
         }
 
-        public function ModifyCompany(){
-
-            $companyName = "Globant";
-
-            $companyController = new CompanyController();
-
-            $company = $companyController->GetByName();
-
-            require_once(VIEWS_PATH."company-modify.php");
-        }
-
-        //Vista para user ADMIN
-        public function CompanyListViewAdmin(){
-
-            $companyController = new CompanyController();
-
-            $companyList = $companyController->GetAll();
-
-            require_once(VIEWS_PATH."company-list-admin.php");
-        }
-
         public function StudentListView(){
 
             $studentController = new StudentController();

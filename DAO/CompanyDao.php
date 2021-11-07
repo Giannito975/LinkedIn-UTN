@@ -147,7 +147,7 @@ class CompanyDao{
             }
         }
 
-        public function DeleteCompany($id_company){
+        public function Remove($id_company){
             try
             {
                 $query = "DELETE FROM ".$this->tableName." WHERE (id_company = :id_company)";
