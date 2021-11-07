@@ -14,6 +14,7 @@ class HomeController
             $adminController = new AdminController();
             $companyController = new CompanyController();
             $jobPositionController = new JobPositionController();
+            $jobOfferController = new JobOfferController();
             $studentList = $studentController->ShowListView();
             $careerList = $careerController->ShowListView();
 
@@ -63,7 +64,8 @@ class HomeController
                 $student = $studentController->GetByEmail($email);
                 $_SESSION['loggedUser'] = $student;
 
-                $this->CompanyListView();
+                $jobOfferController = new JobOfferController();
+                $jobOfferController->JobOfferListViewStudent();
                 
             }elseif($adminController->verifyAdmin($email)){
 
