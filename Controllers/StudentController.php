@@ -17,30 +17,68 @@
 
         //hablar con dante san sobre si es provisional o no
         public function ShowProfileView(){
-            require_once(VIEWS_PATH."student-profile.php");
+            if($this->checkSessionStudent()){
+                require_once(VIEWS_PATH."student-profile.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
         public function ShowJobOfferView(){
-            require_once(VIEWS_PATH."job-offer.php");
+            if($this->checkSessionStudent()){
+                require_once(VIEWS_PATH."job-offer.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
-        public function ShowAddView()
-        {
-            require_once(VIEWS_PATH."student-add.php");
+        public function ShowAddView(){
+            if($this->checkSessionStudent()){
+                require_once(VIEWS_PATH."student-add.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
-        public function ShowListView()
-        {
-            //$this->Add();
-            //$studentList = $this->studentDAO->retrieveStudentsJson();
-            //var_dump($this->GetAll());
-            //var_dump($this->GetByEmail("dhasely4@blinklist.com"));
-
-            require_once(VIEWS_PATH."home.php");
+        public function ShowListView() {
+            if($this->checkSessionStudent()){
+                require_once(VIEWS_PATH."home.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
         public function ShowRegisterView(){
-            require_once(VIEWS_PATH."user-register.php");
+            if($this->checkSessionStudent()){
+                require_once(VIEWS_PATH."user-register.php");
+            }
+            else{
+                $this->Logout();
+            }
+        }
+
+        public function checkSessionStudent(){
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+            if(isset($_SESSION['loggedUser'])){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function Logout(){
+            if(session_status() == PHP_SESSION_NONE)
+                session_start();
+                session_destroy();
+            $this->homeController->Index();
         }
 
         public function Add(){

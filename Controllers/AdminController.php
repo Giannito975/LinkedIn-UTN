@@ -18,21 +18,61 @@
 
         public function ShowListView($admin)
         {
-            $this->Add($admin);
-            require_once(VIEWS_PATH."home.php");
+            if($this->checkSessionAdmin()){
+                $this->Add($admin);
+                require_once(VIEWS_PATH."home.php");
+            }
+            else{
+                $this->Logout();
+            }
+
         }
 
         public function AdminMainView(){
-            require_once(VIEWS_PATH."admin-main-view.php");
+            if($this->checkSessionAdmin()){
+                require_once(VIEWS_PATH."admin-main-view.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
         public function ShowModifyCompany(){
-            require_once(VIEWS_PATH."company-list-admin.php");
+            if($this->checkSessionAdmin()){
+                require_once(VIEWS_PATH."company-list-admin.php");
+            }
+            else{
+                $this->Logout();
+            }
         }
 
         public function ShowJobOfferViewAdmin(){
-            //$jobPositions = $this->GetAll();
-            require_once(VIEWS_PATH."job-offer-admin.php");
+            if($this->checkSessionAdmin()){
+                require_once(VIEWS_PATH."job-offer-admin.php");
+            }
+            else{
+                $this->Logout();
+            }
+        }
+
+        public function checkSessionAdmin(){
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+            if(isset($_SESSION['loggedAdmin'])){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function Logout(){
+            if(session_status() == PHP_SESSION_NONE)
+                session_start();
+                session_destroy();
+            $this->homeController->Index();
         }
 
         public function Add(Admin $admin){

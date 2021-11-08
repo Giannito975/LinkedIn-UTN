@@ -43,5 +43,14 @@
     </head>
 
     <body class="bg-gradient-primary" id="page-top">
+        
+            <?php if(!isset($_SESSION['loggedAdmin'])){ ?>
+              <a href="<?php echo FRONT_ROOT."Home/Login"?>"></a>
+              <?php }
+              elseif(!isset($_SESSION['loggedUser'])){ ?>
+                <a href="<?php echo FRONT_ROOT."Home/Login"?>"></a>
+              <?php } ?>
+              <!-- CAMBIAR TODO ESTO DE LOS HREF POR LOS CONTROLADORES QUE CORRESPONDA -->
+          </div>
 
     </html>

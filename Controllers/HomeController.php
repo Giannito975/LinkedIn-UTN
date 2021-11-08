@@ -3,7 +3,7 @@
 
     use Models\Admin;
     use Models\Company;
-use Models\JobPosition;
+    use Models\JobPosition;
 
 class HomeController
     {
@@ -17,13 +17,7 @@ class HomeController
             $studentList = $studentController->ShowListView();
             $careerList = $careerController->ShowListView();
 
-            $admin = new Admin(null, "giannito@utn.com", "1234");
-            $adminList = $adminController->ShowListView($admin);
 
-            $company = new Company(null, "Globant", "Una empresa lider en el lavado de dinero", "globant.com", "globant@gmail.com", "Programacion", "Buenos Aires", "Argentina");
-            $companyController->ShowListView($company);
-
-            $jobPositionController->ShowListView();
             require_once(VIEWS_PATH."home.php");
         }      
         
@@ -38,20 +32,38 @@ class HomeController
 
         public function CompanyListView(){
 
-            $companyController = new CompanyController();
+            $studentController = new StudentController();
 
-            $companyList = $companyController->GetAll();
+            if($studentController->checkSessionStudent()){
 
-            require_once(VIEWS_PATH."company-list.php");
+                $companyController = new CompanyController();
+
+                $companyList = $companyController->GetAll();
+    
+                require_once(VIEWS_PATH."company-list.php");
+            }
+            else{
+                $studentController->Logout();
+            }
+
+
         }
 
         public function StudentListView(){
 
             $studentController = new StudentController();
 
-            $studentList = $studentController->GetAllActive();
+            if($studentController->checkSessionStudent()){
 
-            require_once(VIEWS_PATH."student-profile.php");
+                $studentController = new StudentController();
+
+                $studentList = $studentController->GetAllActive();
+
+                require_once(VIEWS_PATH."student-profile.php");
+            }
+            else{
+                $studentController->Logout();
+            }
         }
 
         public function Login($email, $password){
