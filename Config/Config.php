@@ -1,5 +1,5 @@
 <?php namespace Config;
-
+ini_set('xdebug.max_nesting_level', 5000);
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
 define("FRONT_ROOT", "/LinkedIn-UTN/");

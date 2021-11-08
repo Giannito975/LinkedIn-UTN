@@ -23,10 +23,12 @@
         }
 
         public function AdminMainView(){
+            $this->homeController->adminVerify();
             require_once(VIEWS_PATH."admin-main-view.php");
         }
 
         public function ShowModifyCompany(){
+            
             require_once(VIEWS_PATH."company-list-admin.php");
         }
 

@@ -59,22 +59,107 @@ class HomeController
             $studentController = new StudentController();
             $adminController = new AdminController();
 
-            if($studentController->verifyStudent2($email, $password)){
 
-                $student = $studentController->GetByEmail($email);
-                $_SESSION['loggedUser'] = $student;
+            if($email == '' && $password == ''){
+                $studentEmail = $_COOKIE['loggedStudent'];
+                $studentPassword = $studentController->GetByEmail($studentEmail);
+                $studentPassword = $studentPassword->getPassword();
+            
+                $adminEmail = $_COOKIE['loggedAdmin'];
+                $adminPassword = $adminController->GetByEmail($adminEmail);
+                $adminPassword = $adminPassword->getPassword();
+                if($studentController->verifyStudent2($studentEmail, $studentPassword)){
 
-                $jobOfferController = new JobOfferController();
-                $jobOfferController->JobOfferListViewStudent();
-                
-            }elseif($adminController->verifyAdmin($email)){
+                    $student = $studentController->GetByEmail($studentEmail);
+                    $studentFirstName = $student->getFirstName();
+                    //inserto el nombre del estudiante en la cookie, el "true" corresponde a ocultar datos en la URL.
+                    setcookie("loggedStudent","$studentFirstName", true);
+    
+                    $jobOfferController = new JobOfferController();
+                    $jobOfferController->JobOfferListViewStudent();
+                    
+                }elseif($adminController->verifyAdmin($adminEmail)){
+    
+                    $admin = $adminController->GetByEmail($adminEmail);
+                    setcookie("loggedAdmin","$adminEmail", true);
+                    $adminController->AdminMainView();
+                    $this->AdminView();
+                    
+                }
+            }else{
+                if($studentController->verifyStudent2($email, $password)){
 
-                $admin = $adminController->GetByEmail($email);
-                $_SESSION['loggedAdmin'] = $admin;
+                    $student = $studentController->GetByEmail($email);
+                    $studentFirstName = $student->getFirstName();
+                    //inserto el nombre del estudiante en la cookie, el "true" corresponde a ocultar datos en la URL.
+                    setcookie("loggedStudent","$studentFirstName", true);
+    
+                    $jobOfferController = new JobOfferController();
+                    $jobOfferController->JobOfferListViewStudent();
+                    
+                }elseif($adminController->verifyAdmin($email)){
+                    var_dump($email);
+                    $admin = $adminController->GetByEmail($email);
+                    var_dump($admin);
+                    $adminEmail = $admin->getEmail();
+                    
+                    setcookie("loggedAdmin","$adminEmail", true);
+                    $adminController->AdminMainView();
+                    $this->AdminView();
+                    
+                }
+            }      
+        }
+        
 
-                $this->AdminView();
+        public function logOut(){
+            setcookie("none","none", true);
+            $this->HomeView();
+        }
+
+
+                        // ************************                  METODOS VERIFICACIONES Y SESIONES CON COOKIES                    ***********************
+
+        //si no encuentro admin en la cookie, la elimino sobre escribiéndola así no podrá acceder a las vistas.
+        public function checkValidAdmin(){
+            if( isset($_COOKIE["loggedAdmin"]) ){
+                return true;
+            }else{
+                setcookie("none","none", true);
+                return false;
             }
         }
+
+        //si no encuentro student en la cookie, la elimino sobre escribiéndola así no podrá acceder a las vistas.
+        public function checkValidStudent(){
+            if( isset($_COOKIE["loggedStudent"]) ){
+                return true;
+            }else{
+                setcookie("none","none", true);
+                return false;
+            }
+        }
+
+        //envía al usuario web a la vista de home.
+        public function kickUnloggedUser(){
+            $this->HomeView();
+        }
+
+        //si no encuentra admin, te manda al home
+        public function adminVerify(){
+            if(!$this->checkValidAdmin()){
+                $this->kickUnloggedUser();
+            }
+        }
+
+        //si no encuentra student, te manda al home
+        public function studentVerify(){
+            if(!$this->checkValidStudent()){
+                $this->kickUnloggedUser();
+            }
+        }
+
+        
 
         public function AdminView(){
 
