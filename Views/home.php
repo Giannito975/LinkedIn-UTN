@@ -9,11 +9,17 @@
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
+<<<<<<< Updated upstream
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="password">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+=======
+    <button type="submit" class="btn btn-primary">Login</button>
+    <br>
+    <a href="<?php echo FRONT_ROOT."Student/ShowRegisterView"?>">Not an user an user yet? Register now!</a>
+>>>>>>> Stashed changes
 </form>
 
 </body>
