@@ -61,17 +61,15 @@
                 $this->connection = Connection::GetInstance();
     
                 $result = $this->connection->Execute($query, array());
-
+                
                 foreach($result as $row){
                     $admin = new Admin(
                         $row['id_admin'], 
                         $row['email'], 
                         $row['password']
                     );
-
-                    array_push($this->adminList, $admin);
                 }
-                return $this->adminList;
+                return $admin;
             }
             catch(\PDOException $ex){
                 throw $ex;

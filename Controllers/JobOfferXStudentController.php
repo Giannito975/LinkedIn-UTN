@@ -29,22 +29,37 @@ class JobOfferXStudentController{
 
     //Explicación del metodo: nos traemos todos los estudiantes de un job offer.
     public function ShowApplicantsList($id){ //recibo id del jobOffer
+        
         $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
         $studentsArray = array();
         foreach($jobOfferXStudentList as $jobOfferXStudent){
-            if( ( $jobOfferXStudent->getId_student() == $_SESSION['loggedUser']->getIdStudent() ) 
-            && ( $jobOfferXStudent->getJobOfferId() == $id ) ){
-                $student = $this->student->GetById($_SESSION['loggedUser']->getIdStudent());
+            while($jobOfferXStudent->getJobOfferXStudentId() == $id){
+                $student = $this->student->GetById($jobOfferXStudent->getId_student());
                 array_push($studentsArray, $student);
             }
         }
+        
+        
+        /*
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
+        $student = $this->student->GetByEmail($_COOKIE['loggedStudent']);
+        $id_student = $student->getIdStudent();
+        $studentsArray = array();
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            if( ( $jobOfferXStudent->getId_student() == $id_student ) 
+            && ( $jobOfferXStudent->getJobOfferId() == $id ) ){
+                $student = $this->student->GetById($id_student);
+                array_push($studentsArray, $student);
+            }
+        }*/
         require_once(VIEWS_PATH."applicants-list.php");
 
     }
 
     public function add($jobOfferId){
 
-        $student = $_SESSION['loggedUser'];
+        $studentEmail = $_COOKIE['loggedStudent'];
+        $student = $this->student->GetByEmail($studentEmail);
         $id_student = $student->getIdStudent();
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){

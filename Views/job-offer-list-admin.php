@@ -35,6 +35,8 @@
                                 <th>Profits</th>
                                 <th>Salary</th>
                                 <th>Company</th>
+                                <th>Job Positions</th>
+                                <th>Career</th>
                                 <th>Applicants</th>
                                 <th>Remove/Edit</th>
                             </tr>
@@ -53,6 +55,7 @@
                                 <?php foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
                                         ?><td><?php echo $company->getName();?></td>
+                                    <?php } ?>
                                 <?php } ?>
 
                                 <?php foreach($jobPositionList as $jobPosition){ // feo pero funciona x2 <3
@@ -69,7 +72,6 @@
                                             <?php } ?>
                                         <?php } ?>
                                     <?php } ?>
-                                <?php } ?>
                                 <?php } ?>
                                 <td>
                                

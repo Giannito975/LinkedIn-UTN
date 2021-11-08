@@ -29,12 +29,7 @@
         }
 
         public function AdminMainView(){
-            if($this->checkSessionAdmin()){
                 require_once(VIEWS_PATH."admin-main-view.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
         public function ShowModifyCompany(){
@@ -44,6 +39,8 @@
             else{
                 $this->Logout();
             }
+            $this->homeController->adminVerify();
+            require_once(VIEWS_PATH."admin-main-view.php");
         }
 
         public function ShowJobOfferViewAdmin(){
@@ -84,7 +81,7 @@
         }
 
         public function GetByEmail($email){
-            if(!$this->verifyAdmin($email)){
+            if($this->verifyAdmin($email)){
                 $admin = $this->adminDao->GetByEmail($email);
                 return $admin;
             }
