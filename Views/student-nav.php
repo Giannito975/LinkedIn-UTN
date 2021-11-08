@@ -28,19 +28,20 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo FRONT_ROOT."Student/ShowProfileStudentView" ?>">
-          <i class="fas fa-film "></i>
+         <i class="fas fa-user-circle"></i>
           <span>Profile</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
+         <i class="fas fa-sign-out-alt"></i>
+          <span>Log Out</span></a>
       </li>
 
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
 
     </ul>
     <!-- End of Sidebar -->

@@ -28,15 +28,22 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo FRONT_ROOT."Company/CompanyListViewAdmin" ?>">
-          <i class="fas fa-film "></i>
+         <i class="fas fa-store-alt"></i>
           <span>Companies</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
-          <i class="fas fa-film "></i>
+         <i class="fas fa-newspaper"></i>
           <span>Job Offers</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
+         <i class="fas fa-sign-out-alt"></i>
+          <span>Log Out</span></a>
       </li>
 
       <!-- Divider -->
