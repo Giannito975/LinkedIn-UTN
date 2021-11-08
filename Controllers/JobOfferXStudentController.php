@@ -27,6 +27,21 @@ class JobOfferXStudentController{
         $jobOfferController->JobOfferListViewStudent();
     }
 
+    //Explicación del metodo: nos traemos todos los estudiantes de un job offer.
+    public function ShowApplicantsList($id){ //recibo id del jobOffer
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
+        $studentsArray = array();
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            if( ( $jobOfferXStudent->getId_student() == $_SESSION['loggedUser']->getIdStudent() ) 
+            && ( $jobOfferXStudent->getJobOfferId() == $id ) ){
+                $student = $this->student->GetById($_SESSION['loggedUser']->getIdStudent());
+                array_push($studentsArray, $student);
+            }
+        }
+        require_once(VIEWS_PATH."applicants-list.php");
+
+    }
+
     public function add($jobOfferId){
 
         $student = $_SESSION['loggedUser'];

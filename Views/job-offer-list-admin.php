@@ -35,8 +35,8 @@
                                 <th>Profits</th>
                                 <th>Salary</th>
                                 <th>Company</th>
-                                <th>Remove/Edit</th>
                                 <th>Applicants</th>
+                                <th>Remove/Edit</th>
                             </tr>
                         </thead>
 
@@ -53,9 +53,17 @@
                                 <?php foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
                                         ?><td><?php echo $company->getName();?></td>
-                                    <?php } ?>
                                 <?php } ?>
-
+                                <?php } ?>
+                                <td>
+                               
+                                    <form action="<?php echo FRONT_ROOT."JobOfferXStudent/ShowApplicantsList"?>">
+                                        <input class="log-input" type="hidden" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>" required readonly>
+                                        <button type="submit" class="btn btn-primary">
+                                                View applicants here!
+                                        </button>
+                                    </form>
+                                </td>
                                 <td>
                                     <div class="form-inline">
                                         <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">
@@ -93,46 +101,7 @@
 
 </main>
 
-<!-- add company -->
-<div class="modal fade" id="form-cine" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
-    <div class="modal-dialog" role="document">
 
-        <form class="modal-content" action="<?php echo FRONT_ROOT ?>Company/ShowCreateCompanyView" method="POST">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Company</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <div class="modal-body">
-
-        <div class="form-group">
-            <label>Nombre</label>
-            <input pattern="[a-zA-Z\s]+" title="Please enter on alphabets only" type="text" class="form-control"
-                name="name" required />
-        </div>
-
-        <div class="form-group">
-            <label>Direccion</label>
-            <input pattern="[a-zA-Z0-9\s]+" title="Please enter on alphabets only" type="text" class="form-control"
-                name="adress" required />
-        </div>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-dark">Add</button>
-    </div>
-
-    <input type="hidden" name="id" value="" />
-
-    </form>
-
-</div>
-</div>
 
 <?php if(isset($message)) { ?>
 <div id="message-toast" class="toast showing bg-danger" role="alert" aria-live="assertive" aria-atomic="true"

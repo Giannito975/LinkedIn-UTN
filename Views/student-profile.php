@@ -31,13 +31,7 @@
                     <td><?php echo $student->getPhoneNumber(); ?></td>
                     <td><?php echo $student->getEmail(); ?></td>
                 </tr>
-                <tr>
-                </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-
-
-
