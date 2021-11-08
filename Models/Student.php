@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-class Student extends User {
+class Student{
 
     private $firstName; //String
     private $lastName; //String
@@ -14,8 +14,9 @@ class Student extends User {
     private $idStudent; //string
     private $active;
     private $email;
+    private $password;
 
-    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active, $email)
+    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active, $email, $password)
     {
             $this->idStudent = $idStudent;
             $this->idCareer = $idCareer;
@@ -28,7 +29,18 @@ class Student extends User {
             $this->phoneNumber = $phoneNumber;
             $this->active = $active;
             $this->email = $email;
+            $this->password = $password;
     }
+
+    
+
+        public function getPassword() {
+                return $this->password;
+        }
+
+        public function setPassword($password){
+                $this->password = $password;
+        }
 
         public function getEmail() {
                 return $this->email;

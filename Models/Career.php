@@ -4,52 +4,44 @@ namespace Models;
 
     class Career {
 
-        private $id;
-        private $name;
-        private $title; //título que se entrega una vez completada
-        private $status;
+        private $careerId;
+        private $description; //título que se entrega una vez completada
+        private $active;
 
-        public function __construct()
+        public function __construct($careerId, $description, $active)
         {
-                
+                $this->careerId = $careerId;
+                $this->description = $description;
+                $this->active = $active;
         }
         
         
-        public function getId(){
-                return $this->id;
+        public function getCareerId(){
+                return $this->careerId;
         }
 
-        public function setId($id) {
-                $this->id = $id;
-        }
-
-        
-        public function getName() {
-                return $this->name;
-        }
-
-        public function setName($name){
-                $this->name = $name;
+        public function setCareerId($careerId) {
+                $this->careerId = $careerId;
         }
 
         
-        public function getTitle() {
-                return $this->title;
+        public function getDescription() {
+                return $this->description;
         }
 
       
-        public function setTitle($title)
-        {         $this->title = $title;
+        public function setDescription($description)
+        {         $this->description = $description;
         }
 
         
-        public function getStatus() {
-                return $this->status;
+        public function getActive() {
+                return $this->active;
         }
 
        
-        public function setStatus($status) {
-                $this->status = $status;
+        public function setActive($active) {
+                $this->active = $active;
         }
     }
 

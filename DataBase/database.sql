@@ -1,15 +1,17 @@
 CREATE DATABASE LinkedIn_UTN;
 USE	LinkedIn_UTN;
     
-#DROP TABLE Career
+#DROP TABLE Careers
 CREATE TABLE IF NOT EXISTS Careers
 (
-	id_career INT AUTO_INCREMENT,
+	careerId INT AUTO_INCREMENT,
     description VARCHAR(150) NOT NULL,
-    active BOOLEAN,
+    active INT,
     
-    CONSTRAINT pk_id_career PRIMARY KEY (id_career)
+    CONSTRAINT pk_careerId PRIMARY KEY (careerId)
 );
+
+SELECT * FROM Careers;
     
 #DROP TABLE Students
 CREATE TABLE IF NOT EXISTS Students
@@ -22,79 +24,102 @@ CREATE TABLE IF NOT EXISTS Students
     file_number VARCHAR(20) NOT NULL,
     gender VARCHAR(20) NOT NULL,
     birthdate DATETIME NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
     active INT,
+    password VARCHAR(25),
     
     CONSTRAINT pk_id_student PRIMARY KEY (id_student),
     CONSTRAINT fk_id_career FOREIGN KEY (id_career) REFERENCES Career(id_career),
     CONSTRAINT unq_dni UNIQUE (dni),
     CONSTRAINT unq_file_number UNIQUE (file_number),
-    CONSTRAINT unq_email UNIQUE (email)
+    CONSTRAINT unq_email UNIQUE (email),
+    CONSTRAINT unq_password UNIQUE (password)
 );
 
 SELECT * FROM Students;
     
+#DROP TABLE JobPositions
+CREATE TABLE IF NOT EXISTS JobPositions
+(
+	jobPositionId INT NOT NULL,
+    careerId INT NOT NULL,
+    description VARCHAR(50),
+    
+    CONSTRAINT pk_jobPosition PRIMARY KEY (jobPositionId),
+    CONSTRAINT fk_careerId FOREIGN KEY (careerId) REFERENCES Careers(careerId)
+);
+    
+SELECT * FROM JobPositions;
+
+#DROP TABLE JobOffers
+CREATE TABLE IF NOT EXISTS JobOffers
+(
+	jobOfferId INT AUTO_INCREMENT,
+	jobPositionId INT,
+    id_company INT, 
+    title VARCHAR(50) NOT NULL,
+    requirements VARCHAR(1000) NOT NULL,
+    responsabilities VARCHAR(1000) NOT NULL,
+    profits VARCHAR(1000),
+    salary INT(11),
+    
+    CONSTRAINT pk_jobOfferId PRIMARY KEY (jobOfferId),
+    CONSTRAINT fk_jobPositionId FOREIGN KEY (jobPositionId) REFERENCES JobPositions(jobPosition),
+    CONSTRAINT fk_id_company FOREIGN KEY (id_company) REFERENCES Companies(id_company)
+);
+
+INSERT INTO JobOffers(jobPositionId, id_company, title, requirements, responsabilities, profits, salary) 
+		VALUES (3, 1, "Desarrollador Java", "Java 8, Springboot, git", "Debera hacerse cargo de un proyecto entero sin documentacion alguna", "Muchos", 0);
+
+#TRUNCATE jobOffers;
+
+SELECT * FROM joboffers;
+
+#DROP TABLE JobOfferXStudent
+CREATE TABLE IF NOT EXISTS JobOfferXStudent
+(
+	jobOfferXStudentId INT AUTO_INCREMENT,
+    id_student INT,
+    jobOfferId INT,
+    
+    CONSTRAINT pk_jobOfferXStudentId PRIMARY KEY (jobOfferXStudentId),
+    CONSTRAINT fk_id_student FOREIGN KEY (id_student) REFERENCES Students(id_student),
+    CONSTRAINT fk_jobOfferId FOREIGN KEY (jobOfferId) REFERENCES JobOffers(jobOfferId)
+);
+
+SELECT * FROM JobOfferXStudent;
+
+#DROP TABLE Companies
 CREATE TABLE IF NOT EXISTS Companies
 (
     id_company INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(50) NOT NULL,
-    foundation_date date NOT NULL,
-    cuit char(11) NOT NULL,
-    aboutUs text,
+    about_us text,
     company_link VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    active boolean NOT NULL,
-    industry INT NOT NULL,
-    city INT NOT NULL,
-    country INT NOT NULL,
-    creation_admin INT NOT NULL,
+    industry VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
     
     CONSTRAINT pk_id_company PRIMARY KEY (id_company),
-    CONSTRAINT unq_cuit unique (cuit),
-    CONSTRAINT fk_industry foreign key (industry) references industries (id),
-    CONSTRAINT fk_city foreign key (city) references cities (id),
-    CONSTRAINT fk_country foreign key (country) references countries (id),
-    CONSTRAINT fk_creation_admin foreign key (creation_admin) references administrators (id_admin)
-);
-    
-CREATE TABLE IF NOT EXISTS Cities
-(
-    id_city INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_city PRIMARY KEY (id_city),
-    CONSTRAINT unq_city unique (name)
+    CONSTRAINT unq_name UNIQUE (name)
 );
 
-CREATE TABLE IF NOT EXISTS Countries
-(
-    id_coountry INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_country PRIMARY KEY (id_country),
-    CONSTRAINT unq_country unique (name)
-);
+SELECT * FROM Companies;
 
-CREATE TABLE IF NOT EXISTS Industries
-(
-    id_industry INT AUTO_INCREMENT NOT NULL,
-    type VARCHAR(50) NOT NULL,
-    
-    CONSTRAINT pk_id_industry PRIMARY KEY (id_industry),
-    CONSTRAINT unq_industry unique (type)
-);
-
+#DROP TABLE Administrators
 CREATE TABLE IF NOT EXISTS Administrators
 (
     id_admin INT AUTO_INCREMENT NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    employee_number VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     
     CONSTRAINT pk_id_admin PRIMARY KEY (id_admin),
-    CONSTRAINT unq_employee_number unique (employee_number)
+    CONSTRAINT unq_email unique (email)
 );
+
+SELECT * FROM Administrators;
 
 
     
