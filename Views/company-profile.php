@@ -1,0 +1,36 @@
+<div class="company-list">
+    <?php
+        require_once('header.php');
+        require_once('student-nav.php');
+    ?>
+    <div class="go-back-btn">
+        <a href="<?php FRONT_ROOT."Student/ShowJobOfferView"?>">Go back</a>
+    </div>
+    <!-- foreach con todas las companys -->
+    <div class="company-container">
+        <table class="table bg-light-alpha">
+            <thead>
+                <th>Name</th>
+                <th>About Us</th>
+                <th>Company Link</th>
+                <th>Email</th>
+                <th>Industry</th>
+                <th>City</th>
+                <th>Country</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?php echo $company->getName(); ?></td>
+                    <td><?php echo $company->getAbout_us(); ?></td>
+                    <td><?php echo $company->getCompany_link(); ?></td>
+                    <td><?php echo $company->getEmail(); ?></td>
+                    <td><?php echo $company->getIndustry(); ?></td>
+                    <td><?php echo $company->getCity(); ?></td>
+                    <td><?php echo $company->getCountry(); ?></td>
+                </tr>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

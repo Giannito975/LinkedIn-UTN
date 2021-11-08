@@ -25,7 +25,7 @@
                                 <th>Profits</th>
                                 <th>Salary</th>
                                 <th>Company</th>
-                                <th>View company details</th>
+                                <th>Apply</th>
                             </tr>
                         </thead>
 
@@ -41,9 +41,28 @@
                                 <td><?php echo $jobOffer->getSalary(); ?></td>
                                 <?php foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
-                                        ?><td><?php echo $company->getName();?></td>
+                                        ?><td>
+                                    <form method='POST' action="<?php echo FRONT_ROOT."Company/ShowCompanyProfile" ?>">
+                                        <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                            data-target="#form-cine" name="id"
+                                            value="<?php echo $company->getId_company(); ?>">
+                                            <?php echo $company->getName();?>
+                                        </button>
+                                    </form>
+                                </td>
                                 <?php } ?>
                                 <?php } ?>
+                                <th>
+                                    <div class="form-group mb-4">
+                                        <form action="<?php echo FRONT_ROOT."JobOfferXStudent/ApplyJobOffer"?>">
+                                            <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                                data-target="#form-cine" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>">
+                                                <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16"
+                                                    alt="Add" /> Apply Here!
+                                            </button>
+                                        </form>
+                                    </div>
+                                </th> <!-- aca va lo de para aplicar al joboffer -->
                             </tr>
                             <?php   } ?>
 

@@ -6,6 +6,7 @@ use DAO\JobOfferDao;
 use DAO\JobOfferXStudentDao;
 use DAO\StudentDAO;
 use Models\JobOfferXStudent;
+use Controllers\JobOfferController;
 
 class JobOfferXStudentController{
 
@@ -20,9 +21,16 @@ class JobOfferXStudentController{
         $this->jobOffer = new JobOfferDao();
     }
 
+    public function ApplyJobOffer($id){
+        $this->add($id);
+        $jobOfferController = new JobOfferController();
+        $jobOfferController->JobOfferListViewStudent();
+    }
+
     public function add($jobOfferId){
 
-        $id_student = $_SESSION['loggedUser'];
+        $student = $_SESSION['loggedUser'];
+        $id_student = $student->getIdStudent();
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){
 

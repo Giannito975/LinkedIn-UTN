@@ -36,7 +36,7 @@
                                 <th>Salary</th>
                                 <th>Company</th>
                                 <th>Remove/Edit</th>
-                                <th>View company details</th>
+                                <th>Applicants</th>
                             </tr>
                         </thead>
 
