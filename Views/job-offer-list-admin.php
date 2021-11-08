@@ -12,7 +12,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Job Offer list</h6>
             </div>
-
+ 
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="form-group mb-4">
@@ -24,9 +24,9 @@
                             </button>
                         </form>
                     </div>
-
+ 
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
+ 
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -35,16 +35,18 @@
                                 <th>Profits</th>
                                 <th>Salary</th>
                                 <th>Company</th>
+                                <th>Job Positions</th>
+                                <th>Career</th>
                                 <th>Applicants</th>
                                 <th>Remove/Edit</th>
                             </tr>
                         </thead>
-
+ 
                         <tbody>
                             <?php   foreach($jobOfferList as $jobOffer){   ?>
-
+ 
                             <tr id="row-<?php echo $jobOffer->getJobOfferId(); ?>">
-
+ 
                                 <td><?php echo $jobOffer->getTitle(); ?></td>
                                 <td><?php echo $jobOffer->getRequirements(); ?></td>
                                 <td><?php echo $jobOffer->getResponabilities(); ?></td>
@@ -53,14 +55,15 @@
                                 <?php foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
                                         ?><td><?php echo $company->getName();?></td>
+                                    <?php } ?>
                                 <?php } ?>
-
+ 
                                 <?php foreach($jobPositionList as $jobPosition){ // feo pero funciona x2 <3
                                     if($jobPosition->getJobPositionId() == $jobOffer->getJobPositionId()){
                                         ?><td><?php echo $jobPosition->getDescription();?></td>
                                     <?php } ?>
                                 <?php } ?>
-
+ 
                                 <?php foreach($jobPositionList as $jobPosition){ // feo pero funciona x3 <3
                                         foreach($careerList as $career){
                                             if($career->getCareerId() == $jobPosition->getCareerId()){
@@ -70,9 +73,8 @@
                                         <?php } ?>
                                     <?php } ?>
                                 <?php } ?>
-                                <?php } ?>
                                 <td>
-                               
+ 
                                     <form action="<?php echo FRONT_ROOT."JobOfferXStudent/ShowApplicantsList"?>">
                                         <input class="log-input" type="hidden" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>" required readonly>
                                         <button type="submit" class="btn btn-primary">
@@ -89,7 +91,7 @@
                                                     alt="Remove" />
                                             </button>
                                         </form>
-
+ 
                                         <form action="<?php echo FRONT_ROOT."JobOffer/ShowModifyJobOfferView"?>">
                                             <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
                                                 data-id="<?php echo $jobOffer->getJobOfferId(); ?>" data-toggle="modal"
@@ -101,24 +103,24 @@
                                         </form>
                                     </div>
                                 </td>
-
+ 
                             </tr>
                             <?php   } ?>
-
+ 
                         </tbody>
-
+ 
                     </table>
                 </div>
             </div>
         </div>
-
+ 
     </div>
     <!-- /.container-fluid -->
-
+ 
 </main>
-
-
-
+ 
+ 
+ 
 <?php if(isset($message)) { ?>
 <div id="message-toast" class="toast showing bg-danger" role="alert" aria-live="assertive" aria-atomic="true"
     style="position:fixed;bottom:0;right:0; min-height:100px; z-index:10000">
