@@ -16,7 +16,7 @@
         }
 
         //hablar con dante san sobre si es provisional o no
-        public function ShowProfileView(){
+        public function ShowProfileStudentView(){
             require_once(VIEWS_PATH."student-profile.php");
         }
 

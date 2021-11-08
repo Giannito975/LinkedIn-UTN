@@ -1,7 +1,7 @@
 <?php
         require_once('header.php');
-        require_once('admin-nav.php');
-    ?>
+        require_once('student-nav.php');
+?>
 <main class="p-5">
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -42,7 +42,7 @@
                                 <?php foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
                                         ?><td><?php echo $company->getName();?></td>
-                                    <?php } ?>
+                                <?php } ?>
                                 <?php } ?>
                             </tr>
                             <?php   } ?>
