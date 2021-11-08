@@ -129,6 +129,11 @@ class CompanyController{
         require_once(VIEWS_PATH."create-company.php");
     }
 
+    public function ShowCompanyProfile($id){
+        $company = $this->companyDao->GetById($id);
+        require_once(VIEWS_PATH."company-profile.php");
+    }
+
     //este metodo funciona asi como esta, nos falta hacer la excepcion: se nos rompia todo al joraca
     public function CreateCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
        //try{

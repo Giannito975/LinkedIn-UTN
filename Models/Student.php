@@ -32,6 +32,8 @@ class Student{
             $this->password = $password;
     }
 
+    
+
         public function getPassword() {
                 return $this->password;
         }

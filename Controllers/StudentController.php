@@ -24,6 +24,10 @@
                 $this->Logout();
             }
         }
+        
+        public function ShowProfileStudentView(){
+            require_once(VIEWS_PATH."student-profile.php");
+        }
 
         public function ShowJobOfferView(){
             if($this->checkSessionStudent()){

@@ -4184,6 +4184,8 @@ input[type="button"].btn-block {
 
 .navbar-expand .navbar-nav {
   flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .navbar-expand .navbar-nav .dropdown-menu {
@@ -9921,6 +9923,7 @@ a:focus {
 
 .topbar {
   height: 4.375rem;
+  padding: 0;
 }
 
 .topbar #sidebarToggleTop {

@@ -181,7 +181,6 @@
                         $row["password"]
                     );
                 }
-                var_dump($student);
                 return $student;
             }   
             catch(Exception $ex)

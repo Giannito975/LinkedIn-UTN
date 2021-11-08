@@ -38,6 +38,18 @@ use DAO\JobOfferDao;
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }
 
+        public function JobOfferListViewStudent(){
+
+            $jobOfferController = new JobOfferController();
+    
+            $jobOfferList = $jobOfferController->GetAll();
+
+            $companyList = $this->companyDao->GetAll();
+            
+    
+            require_once(VIEWS_PATH."job-offer-list-student.php");
+        }
+
         public function ShowCreateJobOfferView(){
 
             $jobPositionList = $this->jobPositionDao->GetAll();

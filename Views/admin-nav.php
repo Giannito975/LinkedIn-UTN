@@ -28,25 +28,29 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo FRONT_ROOT."Company/CompanyListViewAdmin" ?>">
-          <i class="fas fa-film "></i>
+         <i class="fas fa-store-alt"></i>
           <span>Companies</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
-          <i class="fas fa-film "></i>
+         <i class="fas fa-newspaper"></i>
           <span>Job Offers</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
+         <i class="fas fa-sign-out-alt"></i>
+          <span>Log Out</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
 
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+      
 
     </ul>
     <!-- End of Sidebar -->
@@ -60,10 +64,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+          
 
 
           <!-- Topbar Navbar -->
