@@ -72,7 +72,7 @@ class HomeController
             $adminController = new AdminController();
 
             if($studentController->verifyStudent2($email, $password)){
-
+               // session_start();
                 $student = $studentController->GetByEmail($email);
                 $_SESSION['loggedUser'] = $student;
 
@@ -80,12 +80,17 @@ class HomeController
                 $jobOfferController->JobOfferListViewStudent();
                 
             }elseif($adminController->verifyAdmin($email)){
-
+               // session_start();
                 $admin = $adminController->GetByEmail($email);
                 $_SESSION['loggedAdmin'] = $admin;
 
                 $this->AdminView();
             }
+        }
+
+        public function LogOut(){
+            session_destroy();  
+            $this->HomeView();
         }
 
         public function AdminView(){

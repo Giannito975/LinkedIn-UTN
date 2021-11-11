@@ -1,3 +1,9 @@
+<?php
+        if(!isset($_SESSION["loggedUser"])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
+
 <div class="company-list">
     <?php
         require_once('header.php');

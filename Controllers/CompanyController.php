@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Controllers;
 
 use Models\Company;

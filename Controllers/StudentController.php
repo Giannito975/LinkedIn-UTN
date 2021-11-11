@@ -12,78 +12,31 @@
         public function __construct()
         {
             $this->studentDAO = new StudentDAO();
-            $this->homeController = new HomeController();
+            //$this->homeController = new HomeController();
         }
 
-        //hablar con dante san sobre si es provisional o no
-        public function ShowProfileView(){
-            if($this->checkSessionStudent()){
-                require_once(VIEWS_PATH."student-profile.php");
-            }
-            else{
-                $this->Logout();
-            }
-        }
-        
         public function ShowProfileStudentView(){
             require_once(VIEWS_PATH."student-profile.php");
         }
 
         public function ShowJobOfferView(){
-            if($this->checkSessionStudent()){
                 require_once(VIEWS_PATH."job-offer.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
-        public function ShowAddView(){
-            if($this->checkSessionStudent()){
-                require_once(VIEWS_PATH."student-add.php");
-            }
-            else{
-                $this->Logout();
-            }
+        public function ShowAddView(){  
+                require_once(VIEWS_PATH."student-add.php");   
         }
 
-        public function ShowListView() {
-            if($this->checkSessionStudent()){
+        public function ShowListView() {   
                 require_once(VIEWS_PATH."home.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
         public function ShowRegisterView(){
-            if($this->checkSessionStudent()){
                 require_once(VIEWS_PATH."user-register.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
-        public function checkSessionStudent(){
 
-            if(session_status() == PHP_SESSION_NONE){
-                session_start();
-            }
-            if(isset($_SESSION['loggedUser'])){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function Logout(){
-            if(session_status() == PHP_SESSION_NONE)
-                session_start();
-                session_destroy();
-            $this->homeController->Index();
-        }
+        
 
         public function Add(){
             $studentList = $this->studentDAO->retrieveStudentsJson();
@@ -204,7 +157,7 @@
             if($this->verifyEmail($email)){
                 $this->studentDAO->updatePassword($email, $password);
             }
-            $this->homeController->HomeView();
+            //$this->homeController->HomeView();
         }
         
     }

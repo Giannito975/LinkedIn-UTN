@@ -1,4 +1,8 @@
 <?php
+        if(!isset($_SESSION["loggedUser"])) require_once("HomeView");
+?>
+
+<?php
         require_once('header.php');
         require_once('student-nav.php');
 ?>
