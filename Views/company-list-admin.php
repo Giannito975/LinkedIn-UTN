@@ -1,5 +1,5 @@
 <?php
-        if(!isset($_SESSION["loggedAdmin"])) {
+        if(!isset($_SESSION['loggedAdmin'])) {
             header("location: ".FRONT_ROOT."Home/HomeView");
         }
 ?>

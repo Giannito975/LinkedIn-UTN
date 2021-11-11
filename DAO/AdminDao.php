@@ -68,10 +68,8 @@
                         $row['email'], 
                         $row['password']
                     );
-
-                    array_push($this->adminList, $admin);
                 }
-                return $this->adminList;
+                return $admin;
             }
             catch(\PDOException $ex){
                 throw $ex;

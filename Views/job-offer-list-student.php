@@ -1,3 +1,4 @@
+<?php var_dump($_SESSION["loggedUser"]); ?>
 <?php
         if(!isset($_SESSION["loggedUser"])) {
             header("location: ".FRONT_ROOT."Home/HomeView");

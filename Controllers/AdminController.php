@@ -66,7 +66,7 @@
         }
 
         public function GetByEmail($email){
-            if(!$this->verifyAdmin($email)){
+            if($this->verifyAdmin($email)){
                 $admin = $this->adminDao->GetByEmail($email);
                 return $admin;
             }

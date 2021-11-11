@@ -94,7 +94,6 @@ class HomeController
         }
 
         public function AdminView(){
-
             require_once(VIEWS_PATH."admin-nav.php");            
         }
     }
