@@ -1,3 +1,8 @@
+<?php
+        if(!isset($_SESSION["loggedUser"] || !isset($_SESSION["loggedAdmin"]) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
 <div class="user-register-form">
     <?php
         require_once('header.php');

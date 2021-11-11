@@ -1,5 +1,7 @@
 <?php
-        if(!isset($_SESSION["loggedUser"])) require_once("HomeView");
+        if(!isset($_SESSION["loggedUser"])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
 ?>
 
 <?php
