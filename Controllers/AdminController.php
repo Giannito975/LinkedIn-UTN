@@ -52,25 +52,7 @@
             }
         }
 
-        public function checkSessionAdmin(){
 
-            if(session_status() == PHP_SESSION_NONE){
-                session_start();
-            }
-            if(isset($_SESSION['loggedAdmin'])){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function Logout(){
-            if(session_status() == PHP_SESSION_NONE)
-                session_start();
-                session_destroy();
-            $this->homeController->Index();
-        }
 
         public function Add(Admin $admin){
             if(!$this->verifyAdmin($admin->getEmail())){

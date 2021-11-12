@@ -145,7 +145,7 @@ class JobOfferController{
                 //Verifica el id
                 if($idCompany == $jobOffer->getId_company()){
                     //Verifica el titulo
-                    if(strcmp($jobOffer->getTitle(), $title)){
+                    if(strcmp($jobOffer->getTitle(), $title) == 0){
                         return true;
                     }   
                 }

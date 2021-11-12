@@ -1,3 +1,10 @@
+<?php var_dump($_SESSION["loggedUser"]); ?>
+<?php
+        if(!isset($_SESSION["loggedUser"])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
+
 <?php
         require_once('header.php');
         require_once('student-nav.php');

@@ -38,6 +38,14 @@ class JobOfferXStudentController{
                 array_push($studentsArray, $student);
             }
         }
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
+        $studentsArray = array();
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            if($jobOfferXStudent->getJobOfferId() == $id){
+                $student = $this->student->GetById($jobOfferXStudent->getId_student());
+                array_push($studentsArray, $student);
+            }
+        }
         
         require_once(VIEWS_PATH."applicants-list.php");
 

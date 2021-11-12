@@ -1,3 +1,9 @@
+<?php
+        if(!isset($_SESSION["loggedAdmin"])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
+
 <div class="modify-company">
     <?php
         require_once('header.php');

@@ -1,4 +1,10 @@
 <?php
+        if(!isset($_SESSION['loggedAdmin'])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
+
+<?php
         require_once('header.php');
         require_once('admin-nav.php');
     ?>
