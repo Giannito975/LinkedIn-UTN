@@ -25,34 +25,19 @@
             else{
                 $this->Logout();
             }
-
         }
 
         public function AdminMainView(){
-            if($this->checkSessionAdmin()){
                 require_once(VIEWS_PATH."admin-main-view.php");
-            }
-            else{
-                $this->Logout();
-            }
+            
         }
 
         public function ShowModifyCompany(){
-            if($this->checkSessionAdmin()){
-                require_once(VIEWS_PATH."company-list-admin.php");
-            }
-            else{
-                $this->Logout();
-            }
+                require_once(VIEWS_PATH."company-list-admin.php");   
         }
 
         public function ShowJobOfferViewAdmin(){
-            if($this->checkSessionAdmin()){
                 require_once(VIEWS_PATH."job-offer-admin.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
 

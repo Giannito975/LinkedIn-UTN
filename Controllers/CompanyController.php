@@ -129,8 +129,10 @@ class CompanyController{
         require_once(VIEWS_PATH."create-company.php");
     }
 
-    public function ShowCompanyProfile($id){
-        $company = $this->companyDao->GetById($id);
+    public function ShowCompanyProfile($id = 0){
+        if($id != 0){
+            $company = $this->companyDao->GetById($id);
+        }
         require_once(VIEWS_PATH."company-profile.php");
     }
 
@@ -140,18 +142,14 @@ class CompanyController{
            if(!$this->verifyName($name)){
                 $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
                 $this->companyDao->Add($company);
-                header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
            }
-           else{
-               //throw new Exception("ERROR: there is already a company with that name.");
-               header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
-           }
+           require_once(VIEWS_PATH."Company/CompanyListViewAdmin");
        //}
        /*catch(Exception $ex){
             echo"estas rompiendo todo bro";
             //$message=$ex->getMessage();
             //$_SESSION['errorMessage']=$message;
-            header("location: ".FRONT_ROOT."/CompanyListViewAdmin");
+            require_once(VIEWS_PATH."/CompanyListViewAdmin");
        }*/
     }
 
@@ -159,7 +157,7 @@ class CompanyController{
     public function RemoveCompany($id){
         try{
             $this->companyDao->Remove($id);
-            header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+            require_once(VIEWS_PATH."Company/CompanyListViewAdmin");
         }     
         catch(\PDOException $e){
           
