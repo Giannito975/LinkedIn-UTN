@@ -104,8 +104,8 @@ class HomeController
                     //inserto el nombre del estudiante en la cookie, el "true" corresponde a ocultar datos en la URL.
                     setcookie("loggedStudent","$studentEmail", true);
 
-                    var_dump($_COOKIE['loggedStudent']);
-                    die();
+                    //var_dump($_COOKIE['loggedStudent']);
+                    //die();
     
                     $jobOfferController = new JobOfferController();
                     $jobOfferController->JobOfferListViewStudent();

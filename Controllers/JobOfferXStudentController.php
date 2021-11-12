@@ -33,41 +33,36 @@ class JobOfferXStudentController{
         $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
         $studentsArray = array();
         foreach($jobOfferXStudentList as $jobOfferXStudent){
-            while($jobOfferXStudent->getJobOfferXStudentId() == $id){
+            if($jobOfferXStudent->getJobOfferId() == $id){
                 $student = $this->student->GetById($jobOfferXStudent->getId_student());
                 array_push($studentsArray, $student);
             }
         }
         
-        
-        /*
-        $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
-        $student = $this->student->GetByEmail($_COOKIE['loggedStudent']);
-        $id_student = $student->getIdStudent();
-        $studentsArray = array();
-        foreach($jobOfferXStudentList as $jobOfferXStudent){
-            if( ( $jobOfferXStudent->getId_student() == $id_student ) 
-            && ( $jobOfferXStudent->getJobOfferId() == $id ) ){
-                $student = $this->student->GetById($id_student);
-                array_push($studentsArray, $student);
-            }
-        }*/
         require_once(VIEWS_PATH."applicants-list.php");
 
     }
 
     public function add($jobOfferId){
 
-        $studentEmail = $_COOKIE['loggedStudent'];
+        $studentEmail = $_SESSION['loggedUser'];
         $student = $this->student->GetByEmail($studentEmail);
         $id_student = $student->getIdStudent();
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){
 
             $jobOfferXStudent = new JobOfferXStudent(null, $id_student, $jobOfferId);
+
+            $this->addAplicationRecord($student,$jobOfferId);
         
             $this->jobOfferXStudentDao->add($jobOfferXStudent);
         }
+    }
+
+    public function addAplicationRecord($student, $jobOfferId){
+        $jobOffer = $this->jobOffer->getByIdArray($jobOfferId);
+        $jobOfferToString = implode("/", $jobOffer);
+        $this->student->updateAplicationRecord($jobOfferToString, $student->getEmail());
     }
 
     public function getAll(){

@@ -94,6 +94,23 @@
             }
         }
 
+        public function getByIdArray($jobOfferId){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE jobOfferId = '".$jobOfferId."'";//Se guarda la accion que se hara en la BDD
+
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
+                
+                return $result;
+            }   
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         function remove($jobOfferId){
             try {
                 $query = "DELETE FROM " . $this->tableName . " WHERE (jobOfferId = :jobOfferId)";

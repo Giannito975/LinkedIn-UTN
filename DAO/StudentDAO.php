@@ -34,6 +34,7 @@
                     $parameters['active']=$student->getActive();
                     $parameters['email']=$student->getEmail();
                     $parameters['password']=$student->getPassword();
+                    $parameters['aplication_record']=$student->getAplicationRecord();
             
                     $this->connection =Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query, $parameters); //el executeNonquery no retorna array, sino la cantidad de datos modificados
@@ -78,7 +79,8 @@
                     $valuesArray["phoneNumber"],
                     $valuesArray["active"],
                     $valuesArray["email"],
-                    $valuesArray = null);
+                    $valuesArray = null,
+                    null);
                     
                 array_push($this->studentList, $student);
             }
@@ -107,7 +109,8 @@
                     $row["phone_number"],
                     $row["active"],
                     $row["email"],
-                    $row["password"]
+                    $row["password"],
+                    $row['aplication_record']
                     );
 
                     array_push($this->studentList, $student);
@@ -145,7 +148,8 @@
                         $row["phone_number"],
                         $row["active"],
                         $row["email"],
-                        $row["password"]
+                        $row["password"],
+                        $row['aplication_record']
                     );
                 }
                 return $student;
@@ -178,7 +182,8 @@
                         $row["phone_number"],
                         $row["active"],
                         $row["email"],
-                        $row["password"]
+                        $row["password"],
+                        $row['aplication_record']
                     );
                 }
                 return $student;
@@ -196,6 +201,22 @@
                 $parameters["email"] =  $email;
                 $parameters["password"] = $password;
 
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(\PDOException $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function updateAplicationRecord($aplicationRecord, $email){
+            try{
+                $query = "UPDATE ".$this->tableName." SET aplication_record = :aplication_record WHERE (email = :email)";
+                $parameters["aplication_record"] = $aplicationRecord;
+                $parameters["email"] =  $email;
+                
                 $this->connection = Connection::GetInstance();
 
                 $this->connection->ExecuteNonQuery($query, $parameters);
