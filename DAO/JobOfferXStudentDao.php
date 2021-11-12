@@ -75,6 +75,8 @@ class JobOfferXStudentDao{
             $this->connection = Connection::GetInstance();
 
             $result = $this->connection->Execute($query, array());
+
+            $jobOfferXStudentList = array();
                 
             foreach($result as $row){
                 $jobOfferXStudent = new JobOfferXStudent(
@@ -82,8 +84,10 @@ class JobOfferXStudentDao{
                     $row['id_student'], 
                     $row['jobOfferId']
                 );
+                
+                array_push($jobOfferXStudentList, $jobOfferXStudent);
             }
-            return $jobOfferXStudent;
+            return $jobOfferXStudentList;
         }   
         catch(Exception $ex)
         {
@@ -106,8 +110,9 @@ class JobOfferXStudentDao{
                     $row['id_student'], 
                     $row['jobOfferId']
                 );
+                array_push($this->jobOfferXStudentList, $jobOfferXStudent);
             }
-            return $jobOfferXStudent;
+            return $this->jobOfferXStudentList;
         }   
         catch(Exception $ex)
         {
