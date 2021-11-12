@@ -37,40 +37,42 @@ class JobOfferXStudentController{
                 $student = $this->student->GetById($jobOfferXStudent->getId_student());
                 array_push($studentsArray, $student);
             }
-        }
-        $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
-        $studentsArray = array();
+        }        
+        require_once(VIEWS_PATH."applicants-list.php");
+    }
+
+    //Obtengo todos los joboffer a los que aplico el estudiante logueado
+    public function ShowStudentsRecord(){
+
+        $student = $_SESSION['loggedUser'];
+        $studentEmail = $this->student->GetByEmail($student->getEmail());
+        $id_student = $studentEmail->getIdStudent();
+
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getByIdStudent($id_student);
+        $jobOfferList = $this->jobOffer->getAll();
+        $jobOfferArray = array();
+
         foreach($jobOfferXStudentList as $jobOfferXStudent){
-            if($jobOfferXStudent->getJobOfferId() == $id){
-                $student = $this->student->GetById($jobOfferXStudent->getId_student());
-                array_push($studentsArray, $student);
+            foreach($jobOfferList as $jobOffer){
+                if($jobOffer->getJobOfferId() == $jobOfferXStudent->getJobOfferId()){
+                    array_push($jobOfferArray, $jobOffer);
+                }
             }
         }
-        
-        require_once(VIEWS_PATH."applicants-list.php");
-
     }
 
     public function add($jobOfferId){
 
-        $studentEmail = $_SESSION['loggedUser'];
-        $student = $this->student->GetByEmail($studentEmail);
-        $id_student = $student->getIdStudent();
+        $student = $_SESSION['loggedUser'];
+        $studentEmail = $this->student->GetByEmail($student->getEmail());
+        $id_student = $studentEmail->getIdStudent();
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){
 
             $jobOfferXStudent = new JobOfferXStudent(null, $id_student, $jobOfferId);
-
-            $this->addAplicationRecord($student,$jobOfferId);
         
             $this->jobOfferXStudentDao->add($jobOfferXStudent);
         }
-    }
-
-    public function addAplicationRecord($student, $jobOfferId){
-        $jobOffer = $this->jobOffer->getByIdArray($jobOfferId);
-        $jobOfferToString = implode("/", $jobOffer);
-        $this->student->updateAplicationRecord($jobOfferToString, $student->getEmail());
     }
 
     public function getAll(){
