@@ -102,7 +102,7 @@
                 $this->connection = Connection::GetInstance();
     
                 $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
-                
+
                 return $result;
             }   
             catch(Exception $ex)
