@@ -1,6 +1,14 @@
 <?php
         if(!isset($_SESSION["loggedUser"])) {
             header("location: ".FRONT_ROOT."Home/HomeView");
+            echo "<script>
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...!',
+              text: 'Por favor, valide sus credenciales',  
+              })
+             window.location= 'home.php'
+    </script>"; 
         }
 ?>
 

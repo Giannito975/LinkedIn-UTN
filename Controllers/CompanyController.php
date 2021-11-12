@@ -28,7 +28,6 @@ class CompanyController{
     }
 
     public function ShowModifyCompanyView($id){
-
         $company = $this->companyDao->GetById($id);
         require_once(VIEWS_PATH."company-modify.php");
     }

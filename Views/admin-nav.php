@@ -1,4 +1,8 @@
-
+<?php
+        if(!isset($_SESSION["loggedAdmin"])) {
+            header("location: ".FRONT_ROOT."Home/HomeView");
+        }
+?>
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -40,7 +44,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-         <a class="nav-link" href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?>">
+         <a class="nav-link" href="<?php echo FRONT_ROOT."Home/LogOut" ?>">
          <i class="fas fa-sign-out-alt"></i>
           <span>Log Out</span></a>
       </li>
