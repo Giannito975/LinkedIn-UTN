@@ -37,9 +37,6 @@ CREATE TABLE IF NOT EXISTS Students
     CONSTRAINT unq_password UNIQUE (password)
 );
 
-ALTER TABLE `linkedin_utn`.`students` 
-ADD COLUMN `aplication_record` LONGTEXT NULL AFTER `password`;
-
 SELECT * FROM Students;
     
 #DROP TABLE JobPositions

@@ -15,9 +15,8 @@ class Student{
     private $active;
     private $email;
     private $password;
-    private $aplicationRecord;
 
-    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active, $email, $password, $aplicationRecord)
+    public function __construct($idStudent, $idCareer, $firstName, $lastName, $dni, $fileNumber, $gender, $birthdate, $phoneNumber, $active, $email, $password)
     {
             $this->idStudent = $idStudent;
             $this->idCareer = $idCareer;
@@ -31,16 +30,7 @@ class Student{
             $this->active = $active;
             $this->email = $email;
             $this->password = $password;
-            $this->aplicationRecord = $aplicationRecord;
     }
-
-        public function getAplicationRecord() {
-                return $this->aplicationRecord;
-        }
-
-        public function setAplicationRecord($aplicationRecord){
-                $this->aplicationRecord = $aplicationRecord;
-        }
 
         public function getPassword() {
                 return $this->password;
