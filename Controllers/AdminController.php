@@ -18,13 +18,8 @@
 
         public function ShowListView($admin)
         {
-            if($this->checkSessionAdmin()){
                 $this->Add($admin);
                 require_once(VIEWS_PATH."home.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
         public function AdminMainView(){

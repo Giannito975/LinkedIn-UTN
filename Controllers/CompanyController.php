@@ -44,12 +44,10 @@ class CompanyController{
 
     public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
         if(!$this->verifyName($name)){
-
             $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->UpdateCompany($company);
-            header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
         } 
-        header("location: ".FRONT_ROOT."Company/CompanyListViewAdmin");
+        $this->CompanyListViewAdmin();
     }
 
     public function Add(Company $company){
