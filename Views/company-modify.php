@@ -9,6 +9,7 @@
         require_once('header.php');
         require_once('admin-nav.php');
     ?>
+   
     <form action="<?php echo FRONT_ROOT."Company/ModifyCompany"?>" method="POST" class="modify-company-form">
 
         <!-- Se pasa el id al formulario para después poder hacer el UPDATE -->
