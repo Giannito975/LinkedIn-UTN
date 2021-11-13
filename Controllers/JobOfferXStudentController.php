@@ -21,10 +21,15 @@ class JobOfferXStudentController{
         $this->jobOffer = new JobOfferDao();
     }
 
-    public function ApplyJobOffer($id){
-        $this->add($id);
+    public function ApplyJobOffer($id = 0){
+        if($id != 0){
+            $this->add($id);
+        }
         $jobOfferController = new JobOfferController();
         $jobOfferController->JobOfferListViewStudent();
+        echo'<script type="text/javascript">
+        alert("Aplicación realizada con éxito");
+        </script>';
     }
 
     //Explicación del metodo: nos traemos todos los estudiantes de un job offer.
