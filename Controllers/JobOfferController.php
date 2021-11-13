@@ -46,10 +46,14 @@ class JobOfferController{
             $jobOfferController = new JobOfferController();
 
             $jobOfferXStudentController = new JobOfferXStudentController();
+
+            $careerList = $this->careerDao->getAll();
     
             $jobOfferList = $jobOfferController->GetAll();
 
             $companyList = $this->companyDao->GetAll();
+
+            $jobPositionList = $this->jobPositionDao->getAll();
 
             require_once(VIEWS_PATH."job-offer-list-student.php");
         }
@@ -108,6 +112,18 @@ class JobOfferController{
             /*else{
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
             }*/
+        }
+
+        public function Filter($company, $jobPosition, $career){
+            if(strcasecmp("Click to select filter parameter", $company) == 0){
+                var_dump("no llego company");
+            }
+            if(strcasecmp("Click to select filter parameter", $jobPosition) == 0){
+                var_dump("no llego jobPosition");
+            }
+            if(strcasecmp("Click to select filter parameter", $career) == 0){
+                var_dump("no llego career");
+            }
         }
 
         public function getAll(){

@@ -19,6 +19,52 @@
                 <h6 class="m-0 font-weight-bold text-primary">Job Offer list</h6>
             </div>
 
+
+            <div class="filters">
+
+                <form action="<?php echo FRONT_ROOT."JobOffer/Filter"?>" method="POST" class="filter-options">
+                    <div class="mb-3"> <!-- filtrar por nombre -->
+                    <label for="" class="form-label">Company</label>
+                    <select name="company">
+                    <option hidden selected>Click to select filter parameter</option>
+                        <?php
+                        foreach($companyList as $company){
+                            ?><option value="<?php echo $company->getId_company();?>" ><?php echo $company->getName();?></option><?php
+                        }
+                        ?>
+                    </select>
+                    </div>
+
+                    <div class="mb-3"> <!-- filtrar por job position -->
+                    <label for="" class="form-label">Job Position</label>
+                    <select name="jobPosition">
+                    <option hidden selected>Click to select filter parameter</option>
+                        <?php
+                        foreach($jobPositionList as $jobPosition){
+                            ?><option value="<?php echo $jobPosition->getJobPositionId();?>"><?php echo $jobPosition->getDescription();?></option><?php
+                        }
+                        ?>
+                    </select>
+                    </div>
+
+                    <div class="mb-3"> <!-- filtrar por carrera -->
+                    <label for="" class="form-label">Select career</label>
+                    <select name="career">
+                    <option hidden selected>Click to select filter parameter</option>
+                        <?php  // 
+                            foreach($careerList as $career){
+                                // if($jobPosition->getJobPositionId() == $jobOffer->getJobPositionId()){
+                                        ?><option value="<?php echo $career->getCareerId();?>"><?php echo $career->getDescription()?></option>       
+                        <?php } ?>
+                    </select>
+                    </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
+
+            </div>
+
+
+            
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
