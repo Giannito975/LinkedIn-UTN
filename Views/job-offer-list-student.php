@@ -57,20 +57,34 @@
                                     </form>
                                 </td>
                                 <?php } ?>
-                                <?php } ?>
-                                <th>
-                                    <div class="form-group mb-4">
-                                        <form action="<?php echo FRONT_ROOT."JobOfferXStudent/ApplyJobOffer"?>">
-                                            <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
-                                                data-target="#form-cine" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>">
-                                                <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16"
-                                                    alt="Add" /> Apply Here!
-                                            </button>
-                                        </form>
-                                    </div>
-                                </th> <!-- aca va lo de para aplicar al joboffer -->
+                                <?php } ?> <!-- El boton para aplicar solo se mostrara si no aplico a ese jo offer -->
+                                           <!-- Intente de todo para no llamar a la controladora pero no hubo forma -->
+                                <?php if(!$jobOfferXStudentController->verifyJobOfferXStudent($jobOffer->getJobOfferId())){ ?>
+                                        <th>
+                                            <div class="form-group mb-4">
+                                                <form action="<?php echo FRONT_ROOT."JobOfferXStudent/ApplyJobOffer"?>">
+                                                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                                        data-target="#form-cine" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>">
+                                                        <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16"
+                                                            alt="Add" /> Apply Here!
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </th><!-- Si ya aplico, se muestra un mensaje de que ya -->
+                                <?php } else { ?>
+                                            <th>
+                                                <div class="form-group mb-4">
+                                                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                                        data-target="#form-cine" name="id" value="<?php echo $jobOffer->getJobOfferId(); ?>">
+                                                        <img src="<?php echo ICONS_PATH."plus.svg"?>" width="16" height="16"
+                                                            alt="Add" /> Ya Aplicaste
+                                                    </button>
+                                                </div>
+                                            </th>
+                                        <?php } ?>
+                                    <?php } ?>
+                                 <!-- aca va lo de para aplicar al joboffer -->
                             </tr>
-                            <?php   } ?>
 
                         </tbody>
 

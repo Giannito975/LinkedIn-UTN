@@ -61,7 +61,7 @@
                 $this->connection = Connection::GetInstance();
     
                 $result = $this->connection->Execute($query, array());
-
+                
                 foreach($result as $row){
                     $admin = new Admin(
                         $row['id_admin'], 

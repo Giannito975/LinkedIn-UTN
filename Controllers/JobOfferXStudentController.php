@@ -34,15 +34,7 @@ class JobOfferXStudentController{
 
     //Explicación del metodo: nos traemos todos los estudiantes de un job offer.
     public function ShowApplicantsList($id){ //recibo id del jobOffer
-        /*$jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
-        $studentsArray = array();
-        foreach($jobOfferXStudentList as $jobOfferXStudent){
-            if( ( $jobOfferXStudent->getId_student() == $_SESSION['loggedUser']->getIdStudent() ) 
-            && ( $jobOfferXStudent->getJobOfferId() == $id ) ){
-                $student = $this->student->GetById($_SESSION['loggedUser']->getIdStudent());
-                array_push($studentsArray, $student);
-            }
-        }*/
+        
         $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
         $studentsArray = array();
         foreach($jobOfferXStudentList as $jobOfferXStudent){
@@ -50,15 +42,35 @@ class JobOfferXStudentController{
                 $student = $this->student->GetById($jobOfferXStudent->getId_student());
                 array_push($studentsArray, $student);
             }
-        }
+        }        
         require_once(VIEWS_PATH."applicants-list.php");
+    }
 
+    //Obtengo todos los joboffer a los que aplico el estudiante logueado
+    public function ShowStudentsRecord(){
+
+        $student = $_SESSION['loggedUser'];
+        $studentEmail = $this->student->GetByEmail($student->getEmail());
+        $id_student = $studentEmail->getIdStudent();
+
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getByIdStudent($id_student);
+        $jobOfferList = $this->jobOffer->getAll();
+        $jobOfferArray = array();
+
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            foreach($jobOfferList as $jobOffer){
+                if($jobOffer->getJobOfferId() == $jobOfferXStudent->getJobOfferId()){
+                    array_push($jobOfferArray, $jobOffer);
+                }
+            }
+        }
     }
 
     public function add($jobOfferId){
 
         $student = $_SESSION['loggedUser'];
-        $id_student = $student->getIdStudent();
+        $studentEmail = $this->student->GetByEmail($student->getEmail());
+        $id_student = $studentEmail->getIdStudent();
 
         if(!$this->verifyStudent($id_student, $jobOfferId)){
 
@@ -93,6 +105,18 @@ class JobOfferXStudentController{
         else{
             return false;
         }
+    }
+
+    public function verifyJobOfferXStudent($jobOfferId){
+
+        $student = $_SESSION['loggedUser'];
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getByIdStudent($student->getIdStudent());
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            if($jobOfferXStudent->getJobOfferId() == $jobOfferId){
+                return true;
+            }
+        }
+        return false;
     }
 
     //Verifica si el estudante ya se postulo a este job offer

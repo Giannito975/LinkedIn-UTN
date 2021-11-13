@@ -2,7 +2,6 @@
     namespace DAO;
 
     use \Exception as Exception;
-    use DAO\IDao as IDao;
     use Models\Student as Student;    
     use DAO\Connection as Connection;
 
@@ -131,7 +130,7 @@
                 $this->connection = Connection::GetInstance();
  
                 $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
-                
+
                 foreach($result as $row){
                     $student = new Student(
                         $row['id_student'], 

@@ -24,7 +24,6 @@
 
         public function AdminMainView(){
                 require_once(VIEWS_PATH."admin-main-view.php");
-            
         }
 
         public function ShowModifyCompany(){
@@ -58,6 +57,16 @@
             $adminList = $this->adminDao->GetAll();
             foreach($adminList as $admin){
                 if($admin->getEmail() == $email){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public function verifyPassword($password){
+            $adminList =  $this->adminDao->GetAll();
+            foreach($adminList as $admin){
+                if($admin->getPassword() == $password){
                     return true;
                 }
             }

@@ -43,7 +43,8 @@ class CompanyController{
     }
 
     public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
-        if(!$this->verifyName($name)){
+        $company = $this->GetById($id);
+        if(!$this->verifyName($company->getName())){
             $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->UpdateCompany($company);
         } 
@@ -51,16 +52,6 @@ class CompanyController{
         echo'<script type="text/javascript">
         alert("Successful company modification");
         </script>';
-    }
-
-    public function Add(Company $company){
-        $companyList = $this->GetAll();
-        if(!$this->verifyName($company->getName())){
-            $this->companyDao->Add($company);
-        }
-        elseif(!$this->verifyName($company->getName())){
-            $this->companyDao->Add($company);
-        }
     }
 
     public function GetAll(){
@@ -80,19 +71,15 @@ class CompanyController{
             $this->homeController->StudentView($message);
             return null;
         }
-        
     }
 
-    /*
-    //agregar los atributos de la company aca
-    public function Middleware($name, $adress, $id){
-            if(empty($id)){
-                $this->Add($name, $adress);
-            } else {
-                $this->Update($id, $name, $adress);
-            }
-
-    }*/
+    public function GetById($companyId){
+        if(!empty($this->companyDao->GetById($companyId))){
+            $company = $this->companyDao->GetById($companyId);
+            return $company;
+        }
+        return null;
+    }
 
     public function verifyGetAll(){
         if(!empty($this->GetAll())){
@@ -117,7 +104,7 @@ class CompanyController{
     public function verifyName($name){
         $companyList = $this->GetAll();
         foreach($companyList as $company){
-            $num = strcmp($company->getName(), $name);
+            $num = strcasecmp($company->getName(), $name);
             if($num == 0){
                 
                 return true;
@@ -139,19 +126,11 @@ class CompanyController{
 
     //este metodo funciona asi como esta, nos falta hacer la excepcion: se nos rompia todo al joraca
     public function CreateCompany($name, $aboutUs, $companyLink, $email, $industry, $city, $country){
-       //try{
-           if(!$this->verifyName($name)){
-                $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
-                $this->companyDao->Add($company);
-           }
-           require_once(VIEWS_PATH."Company/CompanyListViewAdmin");
-       //}
-       /*catch(Exception $ex){
-            echo"estas rompiendo todo bro";
-            //$message=$ex->getMessage();
-            //$_SESSION['errorMessage']=$message;
-            require_once(VIEWS_PATH."/CompanyListViewAdmin");
-       }*/
+        if(!$this->verifyName($name)){
+            $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
+            $this->companyDao->Add($company);
+        }
+        $this->CompanyListViewAdmin();
     }
 
 

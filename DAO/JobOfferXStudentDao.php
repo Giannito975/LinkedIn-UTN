@@ -67,10 +67,38 @@ class JobOfferXStudentDao{
         }
     }
 
-    public function getById($jobOfferXStudentId){
+    public function getByIdStudent($id_student){
         try
         {
-            $query = "SELECT * FROM ".$this->tableName." WHERE jobOfferXStudentId = '".$jobOfferXStudentId."'";
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_student = '".$id_student."'";
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query, array());
+
+            $jobOfferXStudentList = array();
+                
+            foreach($result as $row){
+                $jobOfferXStudent = new JobOfferXStudent(
+                    $row['jobOfferXStudentId'], 
+                    $row['id_student'], 
+                    $row['jobOfferId']
+                );
+                
+                array_push($jobOfferXStudentList, $jobOfferXStudent);
+            }
+            return $jobOfferXStudentList;
+        }   
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function getByIdJobOffer($jobOfferId){
+        try
+        {
+            $query = "SELECT * FROM ".$this->tableName." WHERE jobOfferId = '".$jobOfferId."'";
 
             $this->connection = Connection::GetInstance();
 
@@ -82,8 +110,9 @@ class JobOfferXStudentDao{
                     $row['id_student'], 
                     $row['jobOfferId']
                 );
+                array_push($this->jobOfferXStudentList, $jobOfferXStudent);
             }
-            return $jobOfferXStudent;
+            return $this->jobOfferXStudentList;
         }   
         catch(Exception $ex)
         {

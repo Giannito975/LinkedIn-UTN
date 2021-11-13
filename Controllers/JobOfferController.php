@@ -2,18 +2,20 @@
 
     namespace Controllers;
 
-use DAO\CareerDao;
-use DAO\JobOfferDao;
+    use DAO\CareerDao;
+    use DAO\JobOfferDao;
     use DAO\JobPositionDAO;
+    use DAO\JobOfferXStudentDao;
     use DAO\CompanyDao;
     use Models\JobOffer;
 
-    class JobOfferController{
+class JobOfferController{
 
         private $jobOfferDao;
         private $jobPositionDao;
         private $companyDao;
         private $careerDao;
+        private $jobOfferXStudentDao;
 
         public function __construct()
         {
@@ -21,6 +23,7 @@ use DAO\JobOfferDao;
             $this->jobPositionDao = new JobPositionDAO();
             $this->companyDao = new CompanyDao();
             $this->careerDao = new CareerDao();
+            $this->jobOfferXStudentDao = new JobOfferXStudentDao();
         }
 
         public function JobOfferListViewAdmin(){
@@ -41,12 +44,13 @@ use DAO\JobOfferDao;
         public function JobOfferListViewStudent(){
 
             $jobOfferController = new JobOfferController();
+
+            $jobOfferXStudentController = new JobOfferXStudentController();
     
             $jobOfferList = $jobOfferController->GetAll();
 
             $companyList = $this->companyDao->GetAll();
-            
-    
+
             require_once(VIEWS_PATH."job-offer-list-student.php");
         }
 

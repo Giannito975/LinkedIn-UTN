@@ -15,9 +15,6 @@ class HomeController
             $companyController = new CompanyController();
             $jobPositionController = new JobPositionController();
             $jobOfferController = new JobOfferController();
-            $studentList = $studentController->ShowListView();
-            $careerList = $careerController->ShowListView();
-
 
             require_once(VIEWS_PATH."home.php");
         }      
@@ -77,11 +74,10 @@ class HomeController
                 $jobOfferController = new JobOfferController();
                 $jobOfferController->JobOfferListViewStudent();
                 
-            }elseif($adminController->verifyAdmin($email)){
+            }elseif($adminController->verifyAdmin($email) && $adminController->verifyPassword($password)){
                // session_start();
                 $admin = $adminController->GetByEmail($email);
                 $_SESSION['loggedAdmin'] = $admin;
-
                 $this->AdminView();
             }
         }
