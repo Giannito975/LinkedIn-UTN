@@ -44,13 +44,13 @@ class JobOfferController{
         public function JobOfferListViewStudent(){
 
             $jobOfferController = new JobOfferController();
+
+            $jobOfferXStudentController = new JobOfferXStudentController();
     
             $jobOfferList = $jobOfferController->GetAll();
 
             $companyList = $this->companyDao->GetAll();
 
-            $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();            
-    
             require_once(VIEWS_PATH."job-offer-list-student.php");
         }
 

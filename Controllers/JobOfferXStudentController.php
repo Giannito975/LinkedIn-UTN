@@ -102,6 +102,18 @@ class JobOfferXStudentController{
         }
     }
 
+    public function verifyJobOfferXStudent($jobOfferId){
+
+        $student = $_SESSION['loggedUser'];
+        $jobOfferXStudentList = $this->jobOfferXStudentDao->getByIdStudent($student->getIdStudent());
+        foreach($jobOfferXStudentList as $jobOfferXStudent){
+            if($jobOfferXStudent->getJobOfferId() == $jobOfferId){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Verifica si el estudante ya se postulo a este job offer
     public function verifyStudent($id_student, $jobOfferId){
         if($this->verifyGetAll()){

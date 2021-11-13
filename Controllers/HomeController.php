@@ -28,7 +28,7 @@ class HomeController
             require_once(VIEWS_PATH."home.php");
         }
 
-        public function CompanyListView(){
+        /*public function CompanyListView(){
 
             $studentController = new StudentController();
 
@@ -43,11 +43,9 @@ class HomeController
             else{
                 $studentController->Logout();
             }
+        }*/
 
-
-        }
-
-        public function StudentListView(){
+        /*public function StudentListView(){
 
             $studentController = new StudentController();
 
@@ -62,7 +60,7 @@ class HomeController
             else{
                 $studentController->Logout();
             }
-        }
+        }*/
 
         public function Login($email, $password){
             $studentController = new StudentController();
@@ -76,11 +74,11 @@ class HomeController
                 $jobOfferController = new JobOfferController();
                 $jobOfferController->JobOfferListViewStudent();
                 
-            }elseif($adminController->verifyAdmin($email)){
+            }elseif($adminController->verifyAdmin($email) && $adminController->verifyPassword($password)){
                // session_start();
                 $admin = $adminController->GetByEmail($email);
                 $_SESSION['loggedAdmin'] = $admin;
-
+                $this->AdminView();
             }
         }
 

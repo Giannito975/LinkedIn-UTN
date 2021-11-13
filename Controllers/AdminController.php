@@ -18,14 +18,8 @@
 
         public function ShowListView($admin)
         {
-            if($this->checkSessionAdmin()){
                 $this->Add($admin);
                 require_once(VIEWS_PATH."home.php");
-            }
-            else{
-                $this->Logout();
-            }
-
         }
 
         public function AdminMainView(){
@@ -33,23 +27,11 @@
         }
 
         public function ShowModifyCompany(){
-            if($this->checkSessionAdmin()){
-                require_once(VIEWS_PATH."company-list-admin.php");
-            }
-            else{
-                $this->Logout();
-            }
-            $this->homeController->adminVerify();
-            require_once(VIEWS_PATH."admin-main-view.php");
+                require_once(VIEWS_PATH."company-list-admin.php");   
         }
 
         public function ShowJobOfferViewAdmin(){
-            if($this->checkSessionAdmin()){
                 require_once(VIEWS_PATH."job-offer-admin.php");
-            }
-            else{
-                $this->Logout();
-            }
         }
 
 
@@ -75,6 +57,16 @@
             $adminList = $this->adminDao->GetAll();
             foreach($adminList as $admin){
                 if($admin->getEmail() == $email){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public function verifyPassword($password){
+            $adminList =  $this->adminDao->GetAll();
+            foreach($adminList as $admin){
+                if($admin->getPassword() == $password){
                     return true;
                 }
             }
