@@ -9,6 +9,7 @@
         require_once('admin-nav.php');
     ?>
 <main class="p-5">
+<a href=" <?php echo FRONT_ROOT."JobOffer/JobOfferListViewAdmin" ?> ">Go Back</a>
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading 
