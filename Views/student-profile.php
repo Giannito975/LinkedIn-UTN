@@ -11,7 +11,9 @@
         require_once('student-nav.php');
     ?>
     <div class="go-back-btn">
-        <a href="<?php FRONT_ROOT."Student/ShowJobOfferView"?>">Go back</a>
+    <a href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewStudent" ?>">
+        Go Back
+    </a>
     </div>
     <!-- foreach con todas las companys -->
     <div class="company-container">
