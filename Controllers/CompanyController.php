@@ -48,6 +48,9 @@ class CompanyController{
             $this->companyDao->UpdateCompany($company);
         } 
         $this->CompanyListViewAdmin();
+        echo'<script type="text/javascript">
+        alert("Successful company modification");
+        </script>';
     }
 
     public function Add(Company $company){
@@ -152,10 +155,15 @@ class CompanyController{
     }
 
 
-    public function RemoveCompany($id){
+    public function RemoveCompany($id = 0){
         try{
-            $this->companyDao->Remove($id);
-            require_once(VIEWS_PATH."Company/CompanyListViewAdmin");
+            if($id != 0){
+                $this->companyDao->Remove($id);
+                $this->CompanyListViewAdmin();
+                echo'<script type="text/javascript">
+        alert("Success: company has been removed");
+        </script>';
+            }
         }     
         catch(\PDOException $e){
           
