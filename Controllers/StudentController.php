@@ -157,7 +157,7 @@
             if($this->verifyEmail($email)){
                 $this->studentDAO->updatePassword($email, $password);
             }
-            //$this->homeController->HomeView();
+            $this->homeController->HomeView();
         }
         
     }

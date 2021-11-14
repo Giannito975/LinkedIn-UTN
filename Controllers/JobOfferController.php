@@ -37,6 +37,8 @@ class JobOfferController{
             $jobPositionList = $this->jobPositionDao->getAll();
             
             $careerList = $this->careerDao->getAll();
+
+            $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
     
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }
@@ -73,14 +75,14 @@ class JobOfferController{
         public function RemoveJobOffer($id){
             if($this->remove($id)){
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
-                echo "<script> alert('JobOffer succesfully removed');
-                        window.location='Views\job-offer-list-admin.php'
-                        </script>";
+                echo '<script type="text/javascript"> alert("JobOffer succesfully removed");
+                        window.location="Views\job-offer-list-admin.php"
+                        </script>';
             }
             else{
-                echo "<script> alert('Cannot remove Job Offer');
-                        window.location='Views\job-offer-list-admin.php'
-                        </script>";
+                echo '<script type="text/javascript"> alert("Cannot remove Job Offer");
+                        window.location="Views\job-offer-list-admin.php"
+                        </script>';
             }
         }
 
