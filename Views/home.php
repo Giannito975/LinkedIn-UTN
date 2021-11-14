@@ -12,6 +12,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
     <br>
+    <h3><?php if(isset($message)){echo $message;} ?></h3>
+    <br>
     <a href="<?php echo FRONT_ROOT."Student/ShowRegisterView"?>">Not an user an user yet? Register now!</a>
 
 </form>

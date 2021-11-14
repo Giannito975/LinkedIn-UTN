@@ -19,11 +19,11 @@ class HomeController
             require_once(VIEWS_PATH."home.php");
         }      
         
-        public function HomeView(){
+        public function HomeView($message = ""){
             require_once(VIEWS_PATH."home.php");
         }
 
-        public function JobPositionView($message){
+        public function JobPositionView($message = ""){
             var_dump($message);
             require_once(VIEWS_PATH."home.php");
         }
