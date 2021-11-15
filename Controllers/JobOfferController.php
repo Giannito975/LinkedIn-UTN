@@ -122,16 +122,13 @@ class JobOfferController{
             if( !empty($this->careerDao->GetByDescription($filter)) ){
                 $career = $this->careerDao->GetByDescription($filter);
                 $jobOfferList = $this->getAll();
-                $jobPositionList = $this->jobPositionDao->getAll();
+                $jobPositionAux = $this->jobPositionDao->GetByCareerId($career->getCareerId());
                 foreach($jobOfferList as $jobOffer){
-                    foreach($jobPositionList as $jobPosition){
-                        if($jobPosition->getCareerId() == $career->getCareerId()){
-                            array_push($jobOfferArray, $jobOffer);
+                    if( $jobPositionAux->getJobPositionId() == $jobOffer->getJobPositionId() ){
+                        array_push($jobOfferArray, $jobOffer);
                     }
                 }
-                var_dump($jobOfferArray);
-                return $jobOfferArray;
-               
+                return $jobOfferArray;              
             }
 
             if( !empty($this->jobPositionDao->GetByDescription($filter)) ){
@@ -144,7 +141,6 @@ class JobOfferController{
                 }
                 var_dump($jobOfferArray);
                 return $jobOfferArray;
-                
             }
         }
 
