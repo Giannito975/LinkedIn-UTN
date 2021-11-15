@@ -43,19 +43,23 @@ class JobOfferController{
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }
 
-        public function JobOfferListViewStudent(){
+        public function JobOfferListViewStudent($jobOfferArray = null){
 
             $jobOfferController = new JobOfferController();
 
             $jobOfferXStudentController = new JobOfferXStudentController();
 
             $careerList = $this->careerDao->getAll();
-    
-            $jobOfferList = $jobOfferController->GetAll();
+
+            if($jobOfferArray == null){
+                $jobOfferArray = $this->getAll();
+            }
 
             $companyList = $this->companyDao->GetAll();
 
             $jobPositionList = $this->jobPositionDao->getAll();
+
+            //var_dump($jobOfferArray);
 
             require_once(VIEWS_PATH."job-offer-list-student.php");
         }
@@ -138,7 +142,10 @@ class JobOfferController{
                         array_push($jobOfferArray, $jobOffer);
                     }
                 }
-                return $jobOfferArray;              
+                //sobre escribo $jobOfferList para probar que se muestren bien una vez filtrados
+                var_dump($jobOfferArray);
+                $this->JobOfferListViewStudent($jobOfferArray);
+            
             }
 
             if( !empty($this->jobPositionDao->GetByDescription($filter)) ){
@@ -150,8 +157,11 @@ class JobOfferController{
                     }
                 }
                 var_dump($jobOfferArray);
-                return $jobOfferArray;
+                $this->JobOfferListViewStudent($jobOfferArray);
+               
             }
+
+            
         }
 
         public function getAll(){

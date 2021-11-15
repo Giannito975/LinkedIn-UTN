@@ -81,7 +81,7 @@
                         </thead>
 
                         <tbody>
-                            <?php   foreach($jobOfferList as $jobOffer){   ?>
+                            <?php   foreach($jobOfferArray as $jobOffer){   ?>
 
                             <tr id="row-<?php echo $jobOffer->getJobOfferId(); ?>">
 
