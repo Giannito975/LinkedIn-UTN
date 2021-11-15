@@ -19,6 +19,9 @@ class CompanyController{
     }
 
     public function ShowCompanyList(){
+        $companyController = new CompanyController();
+
+        $companyList = $companyController->GetAll();
         require_once(VIEWS_PATH."company-list.php");
     }
 
@@ -132,10 +135,10 @@ class CompanyController{
             $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->Add($company);
 
-            $message = "It was creted successfully ";
+            $message = "Company created successfully ";
             $this->CompanyListViewAdmin($message);
         }else{
-            $message = "It cannot be created because that name is already owned by another company";
+            $message = "Company cannot be created because that name is already owned by another company";
             $this->CompanyListViewAdmin($message);
         }
         $this->CompanyListViewAdmin();
