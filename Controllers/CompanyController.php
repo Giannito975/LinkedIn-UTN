@@ -22,14 +22,6 @@ class CompanyController{
         require_once(VIEWS_PATH."company-list.php");
     }
 
-    public function ShowListView($company)
-    {
-        $this->Add($company);
-        $this->GetAll();
-        //$this->companyDao->DeleteCompany(2);
-        require_once(VIEWS_PATH."home.php");
-    }
-
     public function ShowModifyCompanyView($id){
         $company = $this->companyDao->GetById($id);
         require_once(VIEWS_PATH."company-modify.php");
@@ -47,9 +39,16 @@ class CompanyController{
 
     public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
         $company = $this->GetById($id);
-        if($this->verifyName($name) && (strcasecmp($company->getName(), $name) == 0)){
+        if(!$this->verifyName($name) || (strcasecmp($company->getName(), $name) == 0)){
+            
             $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->UpdateCompany($company);
+            
+            $message = "It was modify successfully ";
+            $this->CompanyListViewAdmin($message);
+        }else{
+            $message = "It cannot be modified because that name is already owned by another company";
+            $this->CompanyListViewAdmin($message);
         } 
         $this->CompanyListViewAdmin();
     }
@@ -129,6 +128,12 @@ class CompanyController{
         if(!$this->verifyName($name)){
             $company = new Company(null, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->Add($company);
+
+            $message = "It was creted successfully ";
+            $this->CompanyListViewAdmin($message);
+        }else{
+            $message = "It cannot be created because that name is already owned by another company";
+            $this->CompanyListViewAdmin($message);
         }
         $this->CompanyListViewAdmin();
     }

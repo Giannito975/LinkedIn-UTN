@@ -26,7 +26,7 @@ class JobOfferController{
             $this->jobOfferXStudentDao = new JobOfferXStudentDao();
         }
 
-        public function JobOfferListViewAdmin(){
+        public function JobOfferListViewAdmin($message = ""){
 
             $jobOfferController = new JobOfferController();
     
@@ -89,27 +89,37 @@ class JobOfferController{
         public function CreateJobOffer($title, $requirements, $responsabilities, $profits, $salary, $idJobPosition, $idCompany){
 
             $this->add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
-            header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
+
         }
 
         public function add($idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary){
             
             if(!$this->verifyJobOffer($title, $idCompany)){
+                
                 $jobOffer = new JobOffer(null, $idJobPosition, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
-
                 $this->jobOfferDao->add($jobOffer);
+
+                $message = "Create with success";
+                $this->JobOfferListViewAdmin($message);
+            }
+            else{
+                $message = "Cannot create because that name it already exists";
+                $this->JobOfferListViewAdmin($message);
             }
         }
 
         public function ModifyJobOffer($jobOfferId, $title, $requirements, $responsabilities, $profits, $salary, $jobPositionId, $idCompany){
             
             $jobOffer = new JobOffer($jobOfferId, $jobPositionId, $idCompany, $title, $requirements, $responsabilities, $profits, $salary);
-            if($this->update($jobOffer)){
-                header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
+                if($this->update($jobOffer)){
+                    $message = "Modify with success";
+                    $this->JobOfferListViewAdmin($message);
+                }
+            
+            else{
+                $message = "Cannot modify because that name it already exists";
+                $this->JobOfferListViewAdmin($message);
             }
-            /*else{
-                header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
-            }*/
         }
 
         public function getAll(){
@@ -147,12 +157,26 @@ class JobOfferController{
                 //Verifica el id
                 if($idCompany == $jobOffer->getId_company()){
                     //Verifica el titulo
-                    if(strcmp($jobOffer->getTitle(), $title) == 0){
+                    if(strcasecmp($jobOffer->getTitle(), $title) == 0){
                         return true;
                     }   
                 }
             }
             return false;
+        }
+
+        public function verifyJobOfferModify($title, $idCompany, $jobOfferId){
+
+            $jobOffer = $this->jobOfferDao->getById($jobOfferId);
+            $jobOfferTitleList = $this->jobOfferDao->getByTitle($title);
+            foreach($jobOfferTitleList as $jobOfferTitle){
+                if($jobOfferTitle->getId_company() == $idCompany){
+                    if(strcasecmp($jobOffer->getTitle(), $title) == 0){
+                        return true; //Modifica sin cambiar de empresa
+                    }
+                }
+            }
+        return false;
         }
 
         public function verifyId($id){
@@ -177,13 +201,13 @@ class JobOfferController{
         }
 
         public function update($jobOffer){
-            if($this->verifyId($jobOffer->getJobOfferId())){
-                $this->jobOfferDao->update($jobOffer);
-                return true;
-            }
-            else{
+                if($this->verifyJobOfferModify
+                    ($jobOffer->getTitle(), $jobOffer->getId_company(), $jobOffer->getJobOfferId())){
+
+                    $this->jobOfferDao->update($jobOffer);
+                    return true;
+                }
                 return false;
-            }
         }
     }
 
