@@ -145,7 +145,7 @@ class CareerDao{
         }
     }
 
-    public function GetByDescription($description)
+    /*public function GetByDescription($description)
     {
         try
         {
@@ -168,7 +168,7 @@ class CareerDao{
         {
             throw $ex;
         }
-    }
+    }*/
 
     public function Update(Career $career)
     {

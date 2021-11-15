@@ -89,7 +89,7 @@ use Models\Career;
             }
         }
 
-        function GetByCareerId($careerId){
+        /*function GetByCareerId($careerId){
             try
             {
                 $query = "SELECT * FROM ".$this->tableName." WHERE careerId = '".$careerId."'";//Se guarda la accion que se hara en la BDD
@@ -111,7 +111,7 @@ use Models\Career;
             {
                 throw $ex;
             }
-        }
+        }*/
 
         function GetByDescription($description){
             try
