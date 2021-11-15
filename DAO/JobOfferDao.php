@@ -94,6 +94,38 @@
             }
         }
 
+        function getByTitle($title){
+            try {
+                $query = "SELECT * FROM ".$this->tableName." WHERE title = '".$title."'";//Se guarda la accion que se hara en la BDD
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($query, array());
+
+                if (!empty($result)) {
+
+                    foreach($result as $row){
+                        $jobOffer = new JobOffer(
+                            $row['jobOfferId'], 
+                            $row['jobPositionId'], 
+                            $row['id_company'],
+                            $row['title'],
+                            $row['requirements'],
+                            $row['responsabilities'],
+                            $row['profits'],
+                            $row['salary']
+                        );
+
+                        array_push($this->jobOfferList, $jobOffer);
+                    }
+                }
+                return $this->jobOfferList;
+
+            } catch (\PDOException $ex) {
+                throw $ex;
+            }
+        }
+
         public function getByIdArray($jobOfferId){
             try
             {

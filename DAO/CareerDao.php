@@ -145,6 +145,31 @@ class CareerDao{
         }
     }
 
+    public function GetByDescription($description)
+    {
+        try
+        {
+            $query = "SELECT * FROM ".$this->tableName." WHERE description = '".$description."'";
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query, array());
+                
+            foreach($result as $row){
+                $Career = new Career(
+                    $row['careerId'], 
+                    $row['description'], 
+                    $row['active']
+                    );
+            }
+            return $Career;
+        }   
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
     public function Update(Career $career)
     {
         try
