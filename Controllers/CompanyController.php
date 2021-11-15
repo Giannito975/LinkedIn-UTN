@@ -5,14 +5,17 @@ namespace Controllers;
 
 use Models\Company;
 use DAO\CompanyDao;
+use DAO\JobOfferDao;
 
 class CompanyController{
 
     private $companyDao;
+    private $jobOfferDao;
 
     public function __construct()
     {
         $this->companyDao = new CompanyDao();
+        $this->jobOfferDao = new JobOfferDao();
     }
 
     public function ShowCompanyList(){
@@ -33,7 +36,7 @@ class CompanyController{
     }
 
      //Vista para user ADMIN
-    public function CompanyListViewAdmin(){
+    public function CompanyListViewAdmin($message = ""){
 
         $companyController = new CompanyController();
 
@@ -44,7 +47,7 @@ class CompanyController{
 
     public function ModifyCompany($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country){
         $company = $this->GetById($id);
-        if(!$this->verifyName($company->getName())){
+        if($this->verifyName($name) && (strcasecmp($company->getName(), $name) == 0)){
             $company = new Company($id, $name, $aboutUs, $companyLink, $email, $industry, $city, $country);
             $this->companyDao->UpdateCompany($company);
         } 
@@ -133,22 +136,28 @@ class CompanyController{
         $this->CompanyListViewAdmin();
     }
 
-
-    public function RemoveCompany($id = 0){
-        try{
-            if($id != 0){
-                $this->companyDao->Remove($id);
-                $this->CompanyListViewAdmin();
-                echo'<script type="text/javascript">
-        alert("Success: company has been removed");
-        </script>';
+    // Verifica si una company tiene job offers
+    public function verifyJobOfferCompany($id){
+        $jobOfferList = $this->jobOfferDao->getAll();
+        foreach($jobOfferList as $jobOffer){
+            if($jobOffer->getId_company() == $id){
+                return true;
             }
-        }     
-        catch(\PDOException $e){
-          
-              $message = $e->getMessage();
-              $this->homeController->CompanyListViewAdmin($message);
         }
+        return false;
+    }
+
+
+    public function RemoveCompany($id){
+        if(!$this->verifyJobOfferCompany($id)){
+            $this->companyDao->Remove($id);
+            $message = "It was successfully eliminated";
+            $this->CompanyListViewAdmin($message);
+        }else{
+            $message = "Cannot be removed because you have job offers";
+            $this->CompanyListViewAdmin($message);
+        }
+        
     }
 
 

@@ -14,6 +14,19 @@
     </div>
     <!-- foreach con todas las companys -->
     <div class="company-container">
+
+    <div class="mb-3"> <!-- filtrar por nombre -->
+                    <label for="" class="form-label">Company</label>
+                    <select name="company">
+                    <option hidden selected>Click to select filter parameter</option>
+                        <?php
+                        foreach($companyList as $company){
+                            ?><option value="<?php echo $company->getId_company();?>" ><?php echo $company->getName();?></option><?php
+                        }
+                        ?>
+                    </select>
+                    </div>
+
     <table class="table bg-light-alpha">
                     <thead>
                          <th>Name</th>

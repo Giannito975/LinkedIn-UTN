@@ -30,7 +30,7 @@
                             </button>
                         </form>
                     </div>
-
+                    <h4><?php if(isset($message)){echo $message;} ?></h4>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
                         <thead>

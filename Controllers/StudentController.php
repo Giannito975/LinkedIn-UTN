@@ -12,7 +12,7 @@
         public function __construct()
         {
             $this->studentDAO = new StudentDAO();
-            //$this->homeController = new HomeController();
+            $this->homeController = new HomeController();
         }
 
         public function ShowProfileStudentView(){
@@ -50,41 +50,28 @@
         }
 
         public function GetAll(){
-            try{
+            if($this->verifyGetAll()){
                 
                 $studentArray = $this->studentDAO->GetAll();
                 $newStudentArray = array();
                 foreach($studentArray as $student){
                     array_push($newStudentArray, $student);
                 }
-                return $newStudentArray;
-            }
-            catch(\PDOException $e){
-            
-                $message = $e->getMessage();
-                //$this->homeController->StudentView($message);
-                return null;
-            }            
+                return $newStudentArray;    
+            }  
+            return null;
         }
 
         public function GetAllActive(){
 
-            try{
-                $studentArray = $this->GetAll();
-                $newStudentArray = array();
-                foreach($studentArray as $student){
-                    if($student->getActive() == 1){
-                        array_push($newStudentArray, $student);
-                    }
+            $studentArray = $this->GetAll();
+            $newStudentArray = array();
+            foreach($studentArray as $student){
+                if($student->getActive() == 1){
+                    array_push($newStudentArray, $student);
                 }
-                return $newStudentArray;
             }
-            catch(\PDOException $e){
-            
-                $message = $e->getMessage();
-                //$this->homeController->StudentView($message);
-                return null;
-            }             
+            return $newStudentArray;          
         }
 
         public function GetByEmail($email){
@@ -102,7 +89,7 @@
         }
 
         public function verifyGetAll(){
-            if(!empty($this->GetAll())){
+            if(!empty($this->studentDAO->GetAll())){
                 return true;
             }
             else{
@@ -111,7 +98,7 @@
         }
 
         public function verifyEmail($email){
-            $studentList = $this->GetAll();
+            $studentList = $this->GetAllActive();
             foreach($studentList as $student){
                 if($student->getEmail() == $email){
                     return true;
@@ -121,7 +108,7 @@
         }
 
         public function verifyPassword($password){
-            $studentList = $this->GetAll();
+            $studentList = $this->GetAllActive();
             foreach($studentList as $student){
                 if($student->getPassword() == $password){
                     return true;
@@ -131,16 +118,13 @@
         }
 
         public function verifyStudent2($email, $password){
-            if($this->verifyEmail($email) && $this->verifyPassword($password)){
-                return true;
+            if($this->verifyEmail($email)){
+                $student = $this->GetByEmail($email);
+                if($student->getPassword() == $password){
+                    return true;
+                }
             }
             return false;
-        }
-
-        public function verifyStudent($email, $password){
-            if($this->verifyEmail($email) && $this->verifyPassword($password)){
-                $this->homeController->CompanyListView();
-            }
         }
 
         public function verifyId($id){
@@ -155,9 +139,14 @@
 
         public function updatePassword($email, $password){
             if($this->verifyEmail($email)){
+
                 $this->studentDAO->updatePassword($email, $password);
+                $message = "User created with exito";
+                $this->homeController->HomeView($message);
+            }else{
+                $message = "El email no es correcto";
+                $this->homeController->HomeView($message);
             }
-            //$this->homeController->HomeView();
         }
         
     }

@@ -22,43 +22,42 @@
 
             <div class="filters">
 
-                <form action="<?php echo FRONT_ROOT."JobOffer/Filter"?>" method="POST" class="filter-options">
-                    <div class="mb-3"> <!-- filtrar por nombre -->
-                    <label for="" class="form-label">Company</label>
-                    <select name="company">
-                    <option hidden selected>Click to select filter parameter</option>
-                        <?php
-                        foreach($companyList as $company){
-                            ?><option value="<?php echo $company->getId_company();?>" ><?php echo $company->getName();?></option><?php
-                        }
-                        ?>
-                    </select>
-                    </div>
-
-                    <div class="mb-3"> <!-- filtrar por job position -->
-                    <label for="" class="form-label">Job Position</label>
+                <form action="<?php echo FRONT_ROOT."JobOffer/FilterBy"?>" method="POST" class="filter-options">
+                    <div class="mb-3"> <!-- filters -->
+                    <label for="" class="form-label">Filter by Job Position</label>
                     <select name="jobPosition">
                     <option hidden selected>Click to select filter parameter</option>
                         <?php
                         foreach($jobPositionList as $jobPosition){
-                            ?><option value="<?php echo $jobPosition->getJobPositionId();?>"><?php echo $jobPosition->getDescription();?></option><?php
+                            ?><option value="<?php echo $jobPosition->getDescription();?>"><?php echo $jobPosition->getDescription();?></option><?php
                         }
                         ?>
                     </select>
+                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                                        data-target="#form-cine" >
+                                                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16"
+                                                            alt="Add" /> Filter
+                    </button>
                     </div>
+                </form>
 
+                <form action="<?php echo FRONT_ROOT."JobOffer/FilterBy"?>" method="POST" class="filter-options">
                     <div class="mb-3"> <!-- filtrar por carrera -->
-                    <label for="" class="form-label">Select career</label>
+                    <label for="" class="form-label">Filter by Career</label>
                     <select name="career">
                     <option hidden selected>Click to select filter parameter</option>
                         <?php  // 
                             foreach($careerList as $career){
                                 // if($jobPosition->getJobPositionId() == $jobOffer->getJobPositionId()){
-                                        ?><option value="<?php echo $career->getCareerId();?>"><?php echo $career->getDescription()?></option>       
+                                        ?><option value="<?php echo $career->getDescription();?>"><?php echo $career->getDescription()?></option>       
                         <?php } ?>
                     </select>
+                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
+                                                        data-target="#form-cine">
+                                                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16"
+                                                            alt="Add" /> Filter
+                    </button>
                     </div>
-                <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
 
             </div>

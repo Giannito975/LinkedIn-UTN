@@ -37,6 +37,8 @@ class JobOfferController{
             $jobPositionList = $this->jobPositionDao->getAll();
             
             $careerList = $this->careerDao->getAll();
+
+            $jobOfferXStudentList = $this->jobOfferXStudentDao->getAll();
     
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }
@@ -77,14 +79,14 @@ class JobOfferController{
         public function RemoveJobOffer($id){
             if($this->remove($id)){
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
-                echo "<script> alert('JobOffer succesfully removed');
-                        window.location='Views\job-offer-list-admin.php'
-                        </script>";
+                echo '<script type="text/javascript"> alert("JobOffer succesfully removed");
+                        window.location="Views\job-offer-list-admin.php"
+                        </script>';
             }
             else{
-                echo "<script> alert('Cannot remove Job Offer');
-                        window.location='Views\job-offer-list-admin.php'
-                        </script>";
+                echo '<script type="text/javascript"> alert("Cannot remove Job Offer");
+                        window.location="Views\job-offer-list-admin.php"
+                        </script>';
             }
         }
 
@@ -114,15 +116,35 @@ class JobOfferController{
             }*/
         }
 
-        public function Filter($company, $jobPosition, $career){
-            if(strcasecmp("Click to select filter parameter", $company) == 0){
-                var_dump("no llego company");
+        public function FilterBy($filter){
+
+            $jobOfferArray = array();
+            if( !empty($this->careerDao->GetByDescription($filter)) ){
+                $career = $this->careerDao->GetByDescription($filter);
+                $jobOfferList = $this->getAll();
+                $jobPositionList = $this->jobPositionDao->getAll();
+                foreach($jobOfferList as $jobOffer){
+                    foreach($jobPositionList as $jobPosition){
+                        if($jobPosition->getCareerId() == $career->getCareerId()){
+                            array_push($jobOfferArray, $jobOffer);
+                    }
+                }
+                var_dump($jobOfferArray);
+                return $jobOfferArray;
+               
             }
-            if(strcasecmp("Click to select filter parameter", $jobPosition) == 0){
-                var_dump("no llego jobPosition");
-            }
-            if(strcasecmp("Click to select filter parameter", $career) == 0){
-                var_dump("no llego career");
+
+            if( !empty($this->jobPositionDao->GetByDescription($filter)) ){
+                $jobPosition = $this->jobPositionDao->GetByDescription($filter);
+                $jobOfferList = $this->getAll();
+                foreach($jobOfferList as $jobOffer){
+                    if($jobOffer->getJobPositionId() == $jobPosition->getJobPositionId()){
+                        array_push($jobOfferArray, $jobOffer);
+                    }
+                }
+                var_dump($jobOfferArray);
+                return $jobOfferArray;
+                
             }
         }
 

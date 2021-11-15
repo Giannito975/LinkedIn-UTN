@@ -88,26 +88,36 @@
                                         </button>
                                     </form>
                                 </td>
+                                
                                 <td>
-                                    <div class="form-inline">
-                                        <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">
-                                            <button type="submit" name="id" class="btn btn-danger"
-                                                value="<?php echo $jobOffer->getJobOfferId(); ?>">
-                                                <img src="<?php echo ICONS_PATH."trash-2.svg"?>" width="16" height="16"
-                                                    alt="Remove" />
-                                            </button>
-                                        </form>
- 
-                                        <form action="<?php echo FRONT_ROOT."JobOffer/ShowModifyJobOfferView"?>">
-                                            <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
-                                                data-id="<?php echo $jobOffer->getJobOfferId(); ?>" data-toggle="modal"
-                                                data-target="#form-cine"
-                                                value="<?php echo $jobOffer->getJobOfferId();?>">
-                                                <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
-                                                    alt="Update" />
-                                            </button>
-                                        </form>
-                                    </div>
+                                <?php $cont = 0; 
+                                    foreach($jobOfferXStudentList as $jobOfferXStudent){
+                                        if($jobOfferXStudent->getJobOfferId() == $jobOffer->getJobOfferId()){
+                                            $cont++;
+                                        }
+                                    } 
+                                    if($cont == 0){ ?>
+                                        <div class="form-inline">
+                                            <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">
+                                                <button type="submit" name="id" class="btn btn-danger"
+                                                    value="<?php echo $jobOffer->getJobOfferId(); ?>">
+                                                    <img src="<?php echo ICONS_PATH."trash-2.svg"?>" width="16" height="16"
+                                                        alt="Remove" />
+                                                </button>
+                                            </form>
+    
+                                            <form action="<?php echo FRONT_ROOT."JobOffer/ShowModifyJobOfferView"?>">
+                                                <button class="btn btn--edit btn-info ml-4 " type="submit" name="id"
+                                                    data-id="<?php echo $jobOffer->getJobOfferId(); ?>" data-toggle="modal"
+                                                    data-target="#form-cine"
+                                                    value="<?php echo $jobOffer->getJobOfferId();?>">
+                                                    <img src="<?php echo ICONS_PATH."edit.svg"?>" width="16" height="16"
+                                                        alt="Update" />
+                                                </button>
+                                            </form>
+                                        </div>
+                                    <?php }?>
+                                    
                                 </td>
  
                             </tr>
