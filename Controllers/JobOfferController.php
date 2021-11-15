@@ -156,7 +156,7 @@ class JobOfferController{
                         array_push($jobOfferArray, $jobOffer);
                     }
                 }
-                var_dump($jobOfferArray);
+               // var_dump($jobOfferArray);
                 $this->JobOfferListViewStudent($jobOfferArray);
                
             }
