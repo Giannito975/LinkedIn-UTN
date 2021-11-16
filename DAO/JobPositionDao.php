@@ -89,10 +89,10 @@ use Models\Career;
             }
         }
 
-        /*function GetByCareerId($careerId){
+        function GetById($jobPositionId){
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE careerId = '".$careerId."'";//Se guarda la accion que se hara en la BDD
+                $query = "SELECT * FROM ".$this->tableName." WHERE jobPositionId = '".$jobPositionId."'";//Se guarda la accion que se hara en la BDD
 
                 $this->connection = Connection::GetInstance();
 
@@ -111,7 +111,7 @@ use Models\Career;
             {
                 throw $ex;
             }
-        }*/
+        }
 
         function GetByDescription($description){
             try
@@ -145,15 +145,18 @@ use Models\Career;
                 $this->connection = Connection::GetInstance();
     
                 $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
-                    
-                foreach($result as $row){
-                    $jobPosition = new JobPosition(
-                        $row['jobPositionId'], 
-                        $row['careerId'], 
-                        $row['description']
-                        );
+                
+                if(!empty($resutl)){
+                    foreach($result as $row){
+                        $jobPosition = new JobPosition(
+                            $row['jobPositionId'], 
+                            $row['careerId'], 
+                            $row['description']
+                            );
+                        array_push($this->jobPositionList, $jobPosition);
+                    }
                 }
-                return $jobPosition;
+                return $this->jobPositionList;
             }   
             catch(Exception $ex)
             {

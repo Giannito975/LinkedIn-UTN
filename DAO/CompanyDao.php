@@ -96,6 +96,7 @@ class CompanyDao{
         public function GetByName($name){
             try
             {
+
                 $query = "SELECT * FROM ".$this->tableName." WHERE name = '".$name."'";//Se guarda la accion que se hara en la BDD
 
                 $this->connection = Connection::GetInstance();

@@ -17,16 +17,21 @@
 
         <div class="mb-3">
             <!-- filtrar por nombre -->
-            <label for="" class="form-label">Company</label>
-            <select name="company">
-                <option hidden selected>Click to select filter parameter</option>
-                <?php
-                        foreach($companyList as $company){
-                            ?><option value="<?php echo $company->getId_company();?>"><?php echo $company->getName();?>
-                </option><?php
-                        }
-                        ?>
-            </select>
+            <form action="<?php echo FRONT_ROOT."Company/ShowCompanyList"?>" method="POST" class="filter-options">
+                <label for="" class="form-label">Company</label>
+                
+                <select name="company">
+                    <option hidden selected>Click to select filter parameter</option>
+                    <?php
+                        foreach($companyList as $company){?>
+                            <option value="<?php echo $company->getId_company();?>"><?php echo $company->getName();?></option>
+                        <?php } ?>
+                </select>
+                
+                <button type="submit" class="btn btn-success mr-4" data-toggle="modal" data-target="#form-cine" >
+                    <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16"alt="Add" /> Filter
+                </button>
+            </form>
         </div>
 
         <table class="table bg-light-alpha">
@@ -41,7 +46,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <?php foreach($companyList as $company){?>
+                    <?php  foreach($companyList as $company){?>
                     <td>
                         <form action="<?php echo FRONT_ROOT."Company/ShowCompanyProfile"?>">
                             <button type="submit" class="btn btn-success mr-4" data-toggle="modal"

@@ -22,7 +22,7 @@
 
             <div class="filters">
 
-                <form action="<?php echo FRONT_ROOT."JobOffer/FilterBy"?>" method="POST" class="filter-options">
+                <form action="<?php echo FRONT_ROOT."JobOffer/FilterByJob"?>" method="POST" class="filter-options">
                     <div class="mb-3"> <!-- filters -->
                     <label for="" class="form-label">Filter by Job Position</label>
                     <select name="jobPosition">
@@ -33,15 +33,13 @@
                         }
                         ?>
                     </select>
-                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
-                                                        data-target="#form-cine" >
-                                                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16"
-                                                            alt="Add" /> Filter
+                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal" data-target="#form-cine" >
+                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16" alt="Add" /> Filter
                     </button>
                     </div>
                 </form>
 
-                <form action="<?php echo FRONT_ROOT."JobOffer/FilterBy"?>" method="POST" class="filter-options">
+                <form action="<?php echo FRONT_ROOT."JobOffer/FilterByCareer"?>" method="POST" class="filter-options">
                     <div class="mb-3"> <!-- filtrar por carrera -->
                     <label for="" class="form-label">Filter by Career</label>
                     <select name="career">
@@ -52,10 +50,8 @@
                                         ?><option value="<?php echo $career->getDescription();?>"><?php echo $career->getDescription()?></option>       
                         <?php } ?>
                     </select>
-                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal"
-                                                        data-target="#form-cine">
-                                                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16"
-                                                            alt="Add" /> Filter
+                    <button type="submit" class="btn btn-success mr-4" data-toggle="modal" data-target="#form-cine">
+                        <img src="<?php echo ICONS_PATH."book.svg"?>" width="16" height="16" alt="Add" /> Filter
                     </button>
                     </div>
                 </form>

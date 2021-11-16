@@ -8,6 +8,7 @@
         require_once('header.php');
         require_once('student-nav.php');
 ?>
+
 <main class="p-5">
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -18,7 +19,11 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Applied Job Offers List</h6>
             </div>
-            
+            <div class="go-back-btn">
+                <a href="<?php echo FRONT_ROOT."Student/ShowProfileStudentView" ?>">
+                    Go Back
+                </a>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -35,7 +40,7 @@
                         </thead>
 
                         <tbody>
-                            <?php   foreach($jobOfferList as $jobOffer){   ?>
+                            <?php   foreach($jobOfferArray as $jobOffer){   ?>
 
                             <tr id="row-<?php echo $jobOffer->getJobOfferId(); ?>">
 
@@ -58,7 +63,7 @@
                                 <?php } ?>
                                 <?php } ?> 
                             </tr>
-
+                            <?php } ?> 
                         </tbody>
 
                     </table>
@@ -70,20 +75,3 @@
     <!-- /.container-fluid -->
 
 </main>
-
-
-
-<?php if(isset($message)) { ?>
-<div id="message-toast" class="toast showing bg-danger" role="alert" aria-live="assertive" aria-atomic="true"
-    style="position:fixed;bottom:0;right:0; min-height:100px; z-index:10000">
-    <div class="toast-header bg-danger text-white border-bottom-0">
-        <strong class="mr-auto">LinkedIn UTN</strong>
-        <button type="button" class="ml-2 mb-1 close text-white" id="btn-close-toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body bg-danger text-white">
-        <?php echo $message; ?>
-    </div>
-</div>
-<?php } ?>

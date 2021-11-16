@@ -17,7 +17,7 @@
     </div>
     <!-- foreach con todas las companys -->
     <br>
-    <a href="<?php echo FRONT_ROOT."JobOffer/JobOfferListViewStudent" ?>">
+    <a href="<?php echo FRONT_ROOT."JobOfferXStudent/ShowStudentsRecord" ?>">
         <button type="submit" class="btn btn-success mr-4" data-toggle="modal" 
            >
             <img src="<?php echo ICONS_PATH."user-check.svg"?>" width="16" height="16" alt="Add" /> Job Offer apply record
