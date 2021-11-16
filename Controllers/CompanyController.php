@@ -18,10 +18,18 @@ class CompanyController{
         $this->jobOfferDao = new JobOfferDao();
     }
 
-    public function ShowCompanyList(){
+    public function ShowCompanyList($filter = null){
         $companyController = new CompanyController();
-
-        $companyList = $companyController->GetAll();
+        
+        //Si recibe una company a filtrar, entra
+        if($filter != "Click to select filter parameter"){
+            $company = $this->companyDao->GetById($filter);
+            $companyList = array();
+            array_push($companyList, $company);
+        }else{
+            $companyList = $companyController->GetAll();
+        }
+        
         require_once(VIEWS_PATH."company-list.php");
     }
 
@@ -155,7 +163,6 @@ class CompanyController{
         return false;
     }
 
-
     public function RemoveCompany($id){
         if(!$this->verifyJobOfferCompany($id)){
             $this->companyDao->Remove($id);
@@ -165,10 +172,7 @@ class CompanyController{
             $message = "Cannot be removed because you have job offers";
             $this->CompanyListViewAdmin($message);
         }
-        
     }
-
-
 }
 
 ?>

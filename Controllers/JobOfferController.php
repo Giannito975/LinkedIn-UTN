@@ -52,7 +52,7 @@ class JobOfferController{
             $careerList = $this->careerDao->getAll();
 
             if($jobOfferArray == null){
-                $jobOfferArray = $this->getAll();
+                $jobOfferArray = $this->jobOfferDao->getAll();
             }
 
             $companyList = $this->companyDao->GetAll();
@@ -130,25 +130,38 @@ class JobOfferController{
             }
         }
 
-        public function FilterBy($filter){
+        public function FilterByCareer($filter){
 
             $jobOfferArray = array();
-            if( !empty($this->careerDao->GetByDescription($filter)) ){
+            if($filter != "Click to select filter parameter"){
+
                 $career = $this->careerDao->GetByDescription($filter);
                 $jobOfferList = $this->getAll();
-                $jobPositionAux = $this->jobPositionDao->GetByCareerId($career->getCareerId());
+                $jobPositionList = $this->jobPositionDao->GetByCareerId($career->getCareerId());
                 foreach($jobOfferList as $jobOffer){
-                    if( $jobPositionAux->getJobPositionId() == $jobOffer->getJobPositionId() ){
-                        array_push($jobOfferArray, $jobOffer);
+                    foreach($jobPositionList as $jobPosition){
+                        if($jobOffer->getJobPositionId() == $jobPosition->getJobPositionId()){
+                            if( $jobPosition->getCareerId() == $career->getCareerId()){
+                                array_push($jobOfferArray, $jobOffer);
+                            }
+                        }
                     }
                 }
                 //sobre escribo $jobOfferList para probar que se muestren bien una vez filtrados
-                var_dump($jobOfferArray);
+                var_dump($jobPositionList);
+                die();
                 $this->JobOfferListViewStudent($jobOfferArray);
-            
+            }else{
+                $this->JobOfferListViewStudent();
             }
+            
+        }
 
-            if( !empty($this->jobPositionDao->GetByDescription($filter)) ){
+        public function FilterByJob($filter){
+
+            $jobOfferArray = array();
+            if($filter != "Click to select filter parameter"){
+
                 $jobPosition = $this->jobPositionDao->GetByDescription($filter);
                 $jobOfferList = $this->getAll();
                 foreach($jobOfferList as $jobOffer){
@@ -156,12 +169,10 @@ class JobOfferController{
                         array_push($jobOfferArray, $jobOffer);
                     }
                 }
-               // var_dump($jobOfferArray);
                 $this->JobOfferListViewStudent($jobOfferArray);
-               
+            }else{
+                $this->JobOfferListViewStudent();
             }
-
-            
         }
 
         public function getAll(){
