@@ -7,18 +7,22 @@ use DAO\JobOfferXStudentDao;
 use DAO\StudentDAO;
 use Models\JobOfferXStudent;
 use Controllers\JobOfferController;
+use DAO\CompanyDao;
+use Models\JobOffer;
 
 class JobOfferXStudentController{
 
     private $jobOfferXStudentDao;
     private $student;
     private $jobOffer;
+    private $company;
 
     public function __construct()
     {
         $this->jobOfferXStudentDao = new JobOfferXStudentDao();
         $this->student = new StudentDAO();
         $this->jobOffer = new JobOfferDao();
+        $this->company = new CompanyDao();
     }
 
     public function ApplyJobOffer($id = 0){
@@ -46,6 +50,10 @@ class JobOfferXStudentController{
         require_once(VIEWS_PATH."applicants-list.php");
     }
 
+    public function ShowRecordStudent(){
+
+    }
+
     //Obtengo todos los joboffer a los que aplico el estudiante logueado
     public function ShowStudentsRecord(){
 
@@ -57,6 +65,8 @@ class JobOfferXStudentController{
         $jobOfferList = $this->jobOffer->getAll();
         $jobOfferArray = array();
 
+        $companyList = $this->company->getAll();
+
         foreach($jobOfferXStudentList as $jobOfferXStudent){
             foreach($jobOfferList as $jobOffer){
                 if($jobOffer->getJobOfferId() == $jobOfferXStudent->getJobOfferId()){
@@ -64,6 +74,7 @@ class JobOfferXStudentController{
                 }
             }
         }
+        require_once(VIEWS_PATH."applicant-record-view.php");
     }
 
     public function add($jobOfferId){
@@ -105,6 +116,17 @@ class JobOfferXStudentController{
         else{
             return false;
         }
+    }
+
+    public function applicatRecord(){
+        $jobOfferArray = array();
+        $jobOfferList = $this->jobOffer->getAll();
+        foreach($jobOfferList as $jobOffer){
+            if($this->verifyJobOfferXStudent($jobOffer->getJobOfferId())){
+                array_push($jobOfferArray, $jobOffer);
+            }
+        }
+        return $jobOfferArray;
     }
 
     public function verifyJobOfferXStudent($jobOfferId){
