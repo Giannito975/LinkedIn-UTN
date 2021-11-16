@@ -22,7 +22,7 @@ class CompanyController{
         $companyController = new CompanyController();
         
         //Si recibe una company a filtrar, entra
-        if($filter != "Click to select filter parameter"){
+        if($filter != "Click to select filter parameter" && $filter != null){
             $company = $this->companyDao->GetById($filter);
             $companyList = array();
             array_push($companyList, $company);

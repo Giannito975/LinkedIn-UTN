@@ -146,7 +146,7 @@ use Models\Career;
     
                 $result = $this->connection->Execute($query, array());//Realiza la llamada a la funcion y se guarda lo que devuelve la funcion de la BDD
                 
-                if(!empty($resutl)){
+                if(!empty($result)){
                     foreach($result as $row){
                         $jobPosition = new JobPosition(
                             $row['jobPositionId'], 
@@ -156,6 +156,7 @@ use Models\Career;
                         array_push($this->jobPositionList, $jobPosition);
                     }
                 }
+
                 return $this->jobPositionList;
             }   
             catch(Exception $ex)

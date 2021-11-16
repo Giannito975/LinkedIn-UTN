@@ -43,23 +43,26 @@ class JobOfferController{
             require_once(VIEWS_PATH."job-offer-list-admin.php");
         }
 
-        public function JobOfferListViewStudent($jobOfferArray = null){
+        public function JobOfferListViewStudent($jobOfferArray = ""){
 
+            
+            
             $jobOfferController = new JobOfferController();
 
             $jobOfferXStudentController = new JobOfferXStudentController();
 
             $careerList = $this->careerDao->getAll();
 
-            if($jobOfferArray == null){
+            if($jobOfferArray == ""){
                 $jobOfferArray = $this->jobOfferDao->getAll();
+            }
+            if(empty($jobOfferArray)){
+                $jobOfferArray = array();
             }
 
             $companyList = $this->companyDao->GetAll();
 
             $jobPositionList = $this->jobPositionDao->getAll();
-
-            //var_dump($jobOfferArray);
 
             require_once(VIEWS_PATH."job-offer-list-student.php");
         }
@@ -138,8 +141,8 @@ class JobOfferController{
                 $career = $this->careerDao->GetByDescription($filter);
                 $jobOfferList = $this->getAll();
                 $jobPositionList = $this->jobPositionDao->GetByCareerId($career->getCareerId());
-                foreach($jobOfferList as $jobOffer){
-                    foreach($jobPositionList as $jobPosition){
+                foreach($jobPositionList as $jobPosition){
+                    foreach($jobOfferList as $jobOffer){
                         if($jobOffer->getJobPositionId() == $jobPosition->getJobPositionId()){
                             if( $jobPosition->getCareerId() == $career->getCareerId()){
                                 array_push($jobOfferArray, $jobOffer);
@@ -148,8 +151,6 @@ class JobOfferController{
                     }
                 }
                 //sobre escribo $jobOfferList para probar que se muestren bien una vez filtrados
-                var_dump($jobPositionList);
-                die();
                 $this->JobOfferListViewStudent($jobOfferArray);
             }else{
                 $this->JobOfferListViewStudent();
