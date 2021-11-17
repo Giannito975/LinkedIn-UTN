@@ -19,6 +19,8 @@ class JobOfferController{
 
         public function __construct()
         {
+            //JobOferController Solo se comunica con JobOfferDAO.
+            //No deberia comunicarse con otros DAO. PAra eso está la controladora.
             $this->jobOfferDao = new JobOfferDao();
             $this->jobPositionDao = new JobPositionDAO();
             $this->companyDao = new CompanyDao();
@@ -28,10 +30,13 @@ class JobOfferController{
 
         public function JobOfferListViewAdmin($message = ""){
 
+            // ? Por que instancian la propia controladora dentro de la misma.
             $jobOfferController = new JobOfferController();
     
             $jobOfferList = $jobOfferController->GetAll();
 
+            //Todos estos GETALL deben ser llamados por la controladora de cada tipo 
+            //CompanyController->getAll()
             $companyList = $this->companyDao->GetAll();
 
             $jobPositionList = $this->jobPositionDao->getAll();
@@ -46,13 +51,15 @@ class JobOfferController{
         public function JobOfferListViewStudent($jobOfferArray = ""){
 
             
-            
+            // ? Por que instancian la propia controladora dentro de la misma.
+
             $jobOfferController = new JobOfferController();
 
             $jobOfferXStudentController = new JobOfferXStudentController();
 
             $careerList = $this->careerDao->getAll();
 
+            //Son 2 validaciones iguales con distinto resultado.
             if($jobOfferArray == ""){
                 $jobOfferArray = $this->jobOfferDao->getAll();
             }
@@ -84,6 +91,8 @@ class JobOfferController{
         }
 
         public function RemoveJobOffer($id){
+
+            //ALERT JAVASCRIPT
             if($this->remove($id)){
                 header("location: ".FRONT_ROOT."JobOffer/JobOfferListViewAdmin");
                 echo '<script type="text/javascript"> alert("JobOffer succesfully removed");
@@ -161,8 +170,9 @@ class JobOfferController{
         public function FilterByJob($filter){
 
             $jobOfferArray = array();
+            //Mal hecha la validacion para reiniciar el filtro.
             if($filter != "Click to select filter parameter"){
-
+                //No tendria por que la JobOffer llamar a JobPositionDAO.
                 $jobPosition = $this->jobPositionDao->GetByDescription($filter);
                 $jobOfferList = $this->getAll();
                 foreach($jobOfferList as $jobOffer){

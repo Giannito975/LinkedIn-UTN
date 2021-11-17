@@ -1,7 +1,9 @@
 <?php
-        if(!isset($_SESSION["loggedAdmin"])) {
-            header("location: ".FRONT_ROOT."Home/HomeView");
-        }
+
+    //La sesion no es responsabilidad de la vista. Al redireccionar no hay mensaje que informe al usuario.
+    if(!isset($_SESSION["loggedAdmin"])) {
+        header("location: ".FRONT_ROOT."Home/HomeView");
+    }
 ?>
   <!-- Page Wrapper -->
   <div id="wrapper">

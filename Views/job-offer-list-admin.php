@@ -96,6 +96,7 @@
                                             $cont++;
                                         }
                                     } 
+                                    // Utilizar variables descriptivas. ¿Que hace $cont?
                                     if($cont == 0){ ?>
                                         <div class="form-inline">
                                             <form action="<?php echo FRONT_ROOT."JobOffer/RemoveJobOffer"?>" method="POST">

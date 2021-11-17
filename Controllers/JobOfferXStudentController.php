@@ -31,6 +31,7 @@ class JobOfferXStudentController{
         }
         $jobOfferController = new JobOfferController();
         $jobOfferController->JobOfferListViewStudent();
+        //Echo y alet en controladora.
         echo'<script type="text/javascript">
         alert("Aplicación realizada con éxito");
         </script>';

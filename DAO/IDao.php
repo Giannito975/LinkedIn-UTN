@@ -2,6 +2,7 @@
 
 namespace DAO;
 
+//Nunca usaron la interfaz
 interface IDao{
 
     function Add($value);

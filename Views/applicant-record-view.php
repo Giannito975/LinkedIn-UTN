@@ -49,7 +49,9 @@
                                 <td><?php echo $jobOffer->getResponabilities(); ?></td>
                                 <td><?php echo $jobOffer->getProfits(); ?></td>
                                 <td><?php echo $jobOffer->getSalary(); ?></td>
-                                <?php foreach($companyList as $company){ // feo pero funciona <3
+                                
+                                <?php //No hay que hacer foreach, hay que hacer un search o un where en el DAO por ese idcompany.
+                                foreach($companyList as $company){ // feo pero funciona <3
                                     if($company->getId_company() == $jobOffer->getId_company()){
                                         ?><td>
                                     <form method='POST' action="<?php echo FRONT_ROOT."Company/ShowCompanyProfile" ?>">

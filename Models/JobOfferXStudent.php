@@ -4,6 +4,8 @@ namespace Models;
 
 class JobOfferXStudent{
 
+    // Este objeto no existe. Estan representando la base de datos en un modelo.
+    // Deberia haber un array de Students en el modelo JobOffer.
     private $jobOfferXStudentId;
     private $id_student;
     private $jobOfferId;
