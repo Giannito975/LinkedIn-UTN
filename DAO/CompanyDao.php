@@ -10,7 +10,7 @@ class CompanyDao{
         private $connection;
         private $companyList = array();
         private $tableName = "companies";
-
+ // hola
         public function Add(Company $company){
             try
             {
