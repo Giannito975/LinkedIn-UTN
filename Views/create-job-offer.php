@@ -54,5 +54,5 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-</div>
+    </form><!--probando el merge-->
+</div> 
